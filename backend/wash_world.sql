@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mariadb
--- Generation Time: May 20, 2026 at 09:43 AM
+-- Generation Time: May 20, 2026 at 04:58 PM
 -- Server version: 10.6.20-MariaDB-ubu2004
 -- PHP Version: 8.3.26
 
@@ -40,6 +40,51 @@ CREATE TABLE `cars` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `cases`
+--
+
+CREATE TABLE `cases` (
+  `case_pk` char(32) NOT NULL,
+  `car_fk` char(32) NOT NULL,
+  `case_status_fk` char(32) NOT NULL,
+  `case_number` char(32) NOT NULL,
+  `case_description` varchar(1000) NOT NULL,
+  `case_document` varchar(255) NOT NULL,
+  `case_created_at` bigint(20) UNSIGNED NOT NULL,
+  `case_updated_at` bigint(20) UNSIGNED NOT NULL,
+  `case_deleted_at` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `case_status`
+--
+
+CREATE TABLE `case_status` (
+  `case_status_pk` char(32) NOT NULL,
+  `case_status_title` varchar(50) NOT NULL,
+  `case_status_created_at` char(32) NOT NULL,
+  `case_status_updated_at` char(32) NOT NULL,
+  `case_status_deleted_at` char(32) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `facilities`
+--
+
+CREATE TABLE `facilities` (
+  `facilities_pk` char(32) NOT NULL,
+  `facilities_selfwash` int(11) NOT NULL,
+  `facilities_carwash` int(11) NOT NULL,
+  `facilities_insideclean` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `locations`
 --
 
@@ -50,13 +95,25 @@ CREATE TABLE `locations` (
   `location_longtituge` decimal(9,6) NOT NULL,
   `location_city` varchar(255) NOT NULL,
   `location_address` varchar(255) NOT NULL,
-  `location_carwash` int(11) NOT NULL,
-  `location_selfwash` int(11) NOT NULL,
-  `location_insideclean` int(11) NOT NULL,
   `location_status_fk` char(32) NOT NULL,
   `location_created_at` bigint(20) UNSIGNED NOT NULL,
   `location_updated_at` bigint(20) UNSIGNED NOT NULL,
   `location_deleted_at` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `location_facilities`
+--
+
+CREATE TABLE `location_facilities` (
+  `location_facilities_pk` char(32) NOT NULL,
+  `facilities_fk` char(32) NOT NULL,
+  `location_fk` char(32) NOT NULL,
+  `location_facilities_created_at` char(32) NOT NULL,
+  `location_facilities_updated_at` char(32) NOT NULL,
+  `location_facilities_deleted_at` char(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -67,36 +124,10 @@ CREATE TABLE `locations` (
 
 CREATE TABLE `location_status` (
   `location_status_pk` char(32) NOT NULL,
-  `location_status` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `membershippack_services`
---
-
-CREATE TABLE `membershippack_services` (
-  `pack_service_pk` char(32) NOT NULL,
-  `membership_pack_fk` char(32) NOT NULL,
-  `service_fk` char(32) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `membership_packs`
---
-
-CREATE TABLE `membership_packs` (
-  `membership_pack_pk` char(32) NOT NULL,
-  `payment_frequency_fk` char(32) NOT NULL,
-  `service_pack_tier_title` varchar(50) NOT NULL,
-  `membership_pack_price` decimal(5,2) NOT NULL,
-  `product_status_fk` char(32) NOT NULL,
-  `product_created_at` bigint(20) UNSIGNED NOT NULL,
-  `product_updated_at` bigint(20) UNSIGNED NOT NULL,
-  `product_deleted_at` bigint(20) UNSIGNED NOT NULL
+  `location_status_title` varchar(50) NOT NULL,
+  `location_status_created_at` char(32) NOT NULL,
+  `location_status_updated_at` char(32) NOT NULL,
+  `location_status_deleted_at` char(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -107,18 +138,41 @@ CREATE TABLE `membership_packs` (
 
 CREATE TABLE `payment_frequency` (
   `payment_frequency_pk` char(32) NOT NULL,
-  `payment_frequency_title` varchar(50) NOT NULL
+  `payment_frequency_title` varchar(50) NOT NULL,
+  `payment_frequency_created_at` char(32) NOT NULL,
+  `payment_frequency_updated_at` char(32) NOT NULL,
+  `payment_frequency_deleted_at` char(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product_status`
+-- Table structure for table `plans`
 --
 
-CREATE TABLE `product_status` (
-  `product_status_pk` char(32) NOT NULL,
-  `product_status` varchar(20) NOT NULL
+CREATE TABLE `plans` (
+  `plan_pk` char(32) NOT NULL,
+  `payment_frequency_fk` char(32) NOT NULL,
+  `plan_price` decimal(5,2) NOT NULL,
+  `plans_status_fk` char(32) NOT NULL,
+  `plan_title` varchar(50) NOT NULL,
+  `plan_created_at` char(32) NOT NULL,
+  `plan_updated_at` char(32) NOT NULL,
+  `plan_deleted_at` char(32) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `plans_status`
+--
+
+CREATE TABLE `plans_status` (
+  `plans_status_pk` char(32) NOT NULL,
+  `plans_status_title` varchar(50) NOT NULL,
+  `plans_status_created_at` char(32) NOT NULL,
+  `plans_status_updated_at` char(32) NOT NULL,
+  `plans_status_deleted_at` char(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -130,7 +184,7 @@ CREATE TABLE `product_status` (
 CREATE TABLE `receipts` (
   `receipt_pk` char(32) NOT NULL,
   `car_fk` char(32) NOT NULL,
-  `membership_fk` char(32) NOT NULL,
+  `plans_fk` char(32) NOT NULL,
   `receipt_number` char(32) NOT NULL,
   `receipt_amount` decimal(5,2) NOT NULL,
   `receipt_status_fk` char(32) NOT NULL,
@@ -150,47 +204,10 @@ CREATE TABLE `receipts` (
 
 CREATE TABLE `receipt_status` (
   `receipt_status_pk` char(32) NOT NULL,
-  `receipt_status` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `services`
---
-
-CREATE TABLE `services` (
-  `service_pk` char(32) NOT NULL,
-  `service_title` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tickets`
---
-
-CREATE TABLE `tickets` (
-  `ticket_pk` char(32) NOT NULL,
-  `car_fk` char(32) NOT NULL,
-  `ticket_number` char(32) NOT NULL,
-  `ticket_status_fk` char(32) NOT NULL,
-  `ticket_description` varchar(1000) NOT NULL,
-  `ticket_document` varchar(255) NOT NULL,
-  `ticket_created_at` bigint(20) UNSIGNED NOT NULL,
-  `ticket_updated_at` bigint(20) UNSIGNED NOT NULL,
-  `ticket_deleted_at` bigint(20) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `ticket_status`
---
-
-CREATE TABLE `ticket_status` (
-  `ticket_status_pk` char(32) NOT NULL,
-  `ticket_status` varchar(20) NOT NULL
+  `receipt_status_title` varchar(50) NOT NULL,
+  `receipt_status_created_at` char(32) NOT NULL,
+  `receipt_status_updated_at` char(32) NOT NULL,
+  `receipt_status_deleted_at` char(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -201,7 +218,7 @@ CREATE TABLE `ticket_status` (
 
 CREATE TABLE `users` (
   `user_pk` char(32) NOT NULL,
-  `user_full_name` varchar(255) NOT NULL,
+  `user_fullname` varchar(255) NOT NULL,
   `user_phonenumber` varchar(16) NOT NULL,
   `user_email` varchar(100) NOT NULL,
   `user_password` varchar(255) NOT NULL,
@@ -220,7 +237,24 @@ CREATE TABLE `users` (
 CREATE TABLE `user_car` (
   `user_car_pk` char(32) NOT NULL,
   `user_fk` char(32) NOT NULL,
-  `car_fk` char(32) NOT NULL
+  `car_fk` char(32) NOT NULL,
+  `user_car_created_at` char(32) NOT NULL,
+  `user_car_updated_at` char(32) NOT NULL,
+  `user_car_deleted_at` char(32) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `wash_services`
+--
+
+CREATE TABLE `wash_services` (
+  `wash_services_pk` char(32) NOT NULL,
+  `wash_services_title` varchar(50) NOT NULL,
+  `wash_services_created_at` char(32) NOT NULL,
+  `wash_services_updated_at` char(32) NOT NULL,
+  `wash_services_deleted_at` char(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -231,7 +265,29 @@ CREATE TABLE `user_car` (
 -- Indexes for table `cars`
 --
 ALTER TABLE `cars`
-  ADD PRIMARY KEY (`car_pk`);
+  ADD PRIMARY KEY (`car_pk`),
+  ADD UNIQUE KEY `car_licenseplate` (`car_licenseplate`);
+
+--
+-- Indexes for table `cases`
+--
+ALTER TABLE `cases`
+  ADD PRIMARY KEY (`case_pk`),
+  ADD UNIQUE KEY `case_number` (`case_number`),
+  ADD KEY `case_status_fk` (`case_status_fk`),
+  ADD KEY `car_fk_to_cases` (`car_fk`);
+
+--
+-- Indexes for table `case_status`
+--
+ALTER TABLE `case_status`
+  ADD PRIMARY KEY (`case_status_pk`);
+
+--
+-- Indexes for table `facilities`
+--
+ALTER TABLE `facilities`
+  ADD PRIMARY KEY (`facilities_pk`);
 
 --
 -- Indexes for table `locations`
@@ -241,26 +297,18 @@ ALTER TABLE `locations`
   ADD KEY `location_status_fk` (`location_status_fk`);
 
 --
+-- Indexes for table `location_facilities`
+--
+ALTER TABLE `location_facilities`
+  ADD PRIMARY KEY (`location_facilities_pk`),
+  ADD KEY `facilities_fk_to_locationfacilities` (`facilities_fk`) USING BTREE,
+  ADD KEY `location_fk_to_locationfacilities` (`location_fk`);
+
+--
 -- Indexes for table `location_status`
 --
 ALTER TABLE `location_status`
   ADD PRIMARY KEY (`location_status_pk`);
-
---
--- Indexes for table `membershippack_services`
---
-ALTER TABLE `membershippack_services`
-  ADD PRIMARY KEY (`pack_service_pk`),
-  ADD KEY `membership_pack_fk` (`membership_pack_fk`),
-  ADD KEY `service_fk` (`service_fk`);
-
---
--- Indexes for table `membership_packs`
---
-ALTER TABLE `membership_packs`
-  ADD PRIMARY KEY (`membership_pack_pk`),
-  ADD KEY `payment_frequency_fk` (`payment_frequency_fk`),
-  ADD KEY `product_status_fk` (`product_status_fk`);
 
 --
 -- Indexes for table `payment_frequency`
@@ -269,10 +317,18 @@ ALTER TABLE `payment_frequency`
   ADD PRIMARY KEY (`payment_frequency_pk`);
 
 --
--- Indexes for table `product_status`
+-- Indexes for table `plans`
 --
-ALTER TABLE `product_status`
-  ADD PRIMARY KEY (`product_status_pk`);
+ALTER TABLE `plans`
+  ADD PRIMARY KEY (`plan_pk`),
+  ADD KEY `payment_frequency_fk` (`payment_frequency_fk`),
+  ADD KEY `plans_status_fk` (`plans_status_fk`);
+
+--
+-- Indexes for table `plans_status`
+--
+ALTER TABLE `plans_status`
+  ADD PRIMARY KEY (`plans_status_pk`);
 
 --
 -- Indexes for table `receipts`
@@ -280,7 +336,7 @@ ALTER TABLE `product_status`
 ALTER TABLE `receipts`
   ADD PRIMARY KEY (`receipt_pk`),
   ADD UNIQUE KEY `receipt_number` (`receipt_number`),
-  ADD KEY `membership_fk` (`membership_fk`),
+  ADD KEY `membership_fk` (`plans_fk`),
   ADD KEY `receipt_status_fk` (`receipt_status_fk`),
   ADD KEY `location_fk` (`location_fk`),
   ADD KEY `receipt_car_fk` (`car_fk`);
@@ -290,27 +346,6 @@ ALTER TABLE `receipts`
 --
 ALTER TABLE `receipt_status`
   ADD PRIMARY KEY (`receipt_status_pk`);
-
---
--- Indexes for table `services`
---
-ALTER TABLE `services`
-  ADD PRIMARY KEY (`service_pk`);
-
---
--- Indexes for table `tickets`
---
-ALTER TABLE `tickets`
-  ADD PRIMARY KEY (`ticket_pk`),
-  ADD UNIQUE KEY `ticket_number` (`ticket_number`),
-  ADD KEY `ticket_status_fk` (`ticket_status_fk`),
-  ADD KEY `tickets_car_fk` (`car_fk`);
-
---
--- Indexes for table `ticket_status`
---
-ALTER TABLE `ticket_status`
-  ADD PRIMARY KEY (`ticket_status_pk`);
 
 --
 -- Indexes for table `users`
@@ -328,8 +363,21 @@ ALTER TABLE `user_car`
   ADD KEY `car_fk` (`car_fk`);
 
 --
+-- Indexes for table `wash_services`
+--
+ALTER TABLE `wash_services`
+  ADD PRIMARY KEY (`wash_services_pk`);
+
+--
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `cases`
+--
+ALTER TABLE `cases`
+  ADD CONSTRAINT `car_fk_to_cases` FOREIGN KEY (`car_fk`) REFERENCES `cars` (`car_pk`),
+  ADD CONSTRAINT `case_status_fk` FOREIGN KEY (`case_status_fk`) REFERENCES `case_status` (`case_status_pk`);
 
 --
 -- Constraints for table `locations`
@@ -338,34 +386,27 @@ ALTER TABLE `locations`
   ADD CONSTRAINT `location_status_fk` FOREIGN KEY (`location_status_fk`) REFERENCES `location_status` (`location_status_pk`);
 
 --
--- Constraints for table `membershippack_services`
+-- Constraints for table `location_facilities`
 --
-ALTER TABLE `membershippack_services`
-  ADD CONSTRAINT `membership_pack_fk` FOREIGN KEY (`membership_pack_fk`) REFERENCES `membership_packs` (`membership_pack_pk`),
-  ADD CONSTRAINT `service_fk` FOREIGN KEY (`service_fk`) REFERENCES `services` (`service_pk`);
+ALTER TABLE `location_facilities`
+  ADD CONSTRAINT `facilities_fk` FOREIGN KEY (`facilities_fk`) REFERENCES `facilities` (`facilities_pk`),
+  ADD CONSTRAINT `location_fk_to_locationfacilities` FOREIGN KEY (`location_fk`) REFERENCES `locations` (`location_pk`);
 
 --
--- Constraints for table `membership_packs`
+-- Constraints for table `plans`
 --
-ALTER TABLE `membership_packs`
+ALTER TABLE `plans`
   ADD CONSTRAINT `payment_frequency_fk` FOREIGN KEY (`payment_frequency_fk`) REFERENCES `payment_frequency` (`payment_frequency_pk`),
-  ADD CONSTRAINT `product_status_fk` FOREIGN KEY (`product_status_fk`) REFERENCES `product_status` (`product_status_pk`);
+  ADD CONSTRAINT `plans_status_fk` FOREIGN KEY (`plans_status_fk`) REFERENCES `plans_status` (`plans_status_pk`);
 
 --
 -- Constraints for table `receipts`
 --
 ALTER TABLE `receipts`
   ADD CONSTRAINT `location_fk` FOREIGN KEY (`location_fk`) REFERENCES `locations` (`location_pk`),
-  ADD CONSTRAINT `membership_fk` FOREIGN KEY (`membership_fk`) REFERENCES `membership_packs` (`membership_pack_pk`),
+  ADD CONSTRAINT `membership_fk` FOREIGN KEY (`plans_fk`) REFERENCES `membership_packs` (`membership_pack_pk`),
   ADD CONSTRAINT `receipt_car_fk` FOREIGN KEY (`car_fk`) REFERENCES `cars` (`car_pk`),
   ADD CONSTRAINT `receipt_status_fk` FOREIGN KEY (`receipt_status_fk`) REFERENCES `receipt_status` (`receipt_status_pk`);
-
---
--- Constraints for table `tickets`
---
-ALTER TABLE `tickets`
-  ADD CONSTRAINT `ticket_status_fk` FOREIGN KEY (`ticket_status_fk`) REFERENCES `ticket_status` (`ticket_status_pk`),
-  ADD CONSTRAINT `tickets_car_fk` FOREIGN KEY (`car_fk`) REFERENCES `cars` (`car_pk`);
 
 --
 -- Constraints for table `user_car`

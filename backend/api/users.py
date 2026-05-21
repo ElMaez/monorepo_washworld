@@ -2,19 +2,15 @@ from ..utils import x
 from ..utils import no_cache
 from ..utils import validation_REGEX
 
-from flask import Flask, render_template, request, jsonify, session, redirect
+from flask import Flask, request, jsonify, session, redirect
 from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
 from icecream import ic
 from flask_cors import CORS 
 from flask_session import Session
-import config
+
 import uuid
 import time
-
-import smtplib
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
 
 
 

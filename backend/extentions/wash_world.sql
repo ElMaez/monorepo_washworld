@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mariadb
--- Generation Time: May 20, 2026 at 04:58 PM
+-- Generation Time: May 21, 2026 at 12:37 PM
 -- Server version: 10.6.20-MariaDB-ubu2004
 -- PHP Version: 8.3.26
 
@@ -52,7 +52,8 @@ CREATE TABLE `cases` (
   `case_document` varchar(255) NOT NULL,
   `case_created_at` bigint(20) UNSIGNED NOT NULL,
   `case_updated_at` bigint(20) UNSIGNED NOT NULL,
-  `case_deleted_at` bigint(20) UNSIGNED NOT NULL
+  `case_deleted_at` bigint(20) UNSIGNED NOT NULL,
+  `case_image` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -80,6 +81,21 @@ CREATE TABLE `facilities` (
   `facilities_selfwash` int(11) NOT NULL,
   `facilities_carwash` int(11) NOT NULL,
   `facilities_insideclean` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `feedback`
+--
+
+CREATE TABLE `feedback` (
+  `feedback_pk` char(32) NOT NULL,
+  `feedback_rating` int(11) NOT NULL,
+  `feedback_description` varchar(1000) NOT NULL,
+  `feedback_created_at` bigint(20) UNSIGNED NOT NULL,
+  `feedback_updated_at` bigint(20) UNSIGNED NOT NULL,
+  `feedback_deleted_at` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -128,6 +144,20 @@ CREATE TABLE `location_status` (
   `location_status_created_at` char(32) NOT NULL,
   `location_status_updated_at` char(32) NOT NULL,
   `location_status_deleted_at` char(32) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `paymentmethods`
+--
+
+CREATE TABLE `paymentmethods` (
+  `paymentmethods_pk` char(32) NOT NULL,
+  `paymentmethods_title` varchar(100) NOT NULL,
+  `paymentmethods_created_at` bigint(20) UNSIGNED NOT NULL,
+  `paymentmethods_updated_at` bigint(20) UNSIGNED NOT NULL,
+  `paymentmethods_deleted_at` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -246,6 +276,36 @@ CREATE TABLE `user_car` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `user_feedback`
+--
+
+CREATE TABLE `user_feedback` (
+  `user_feedback_pk` char(32) NOT NULL,
+  `user_feedback_created_at` bigint(20) UNSIGNED NOT NULL,
+  `user_feedback_updated_at` bigint(20) UNSIGNED NOT NULL,
+  `user_feedback_deleted_at` bigint(20) UNSIGNED NOT NULL,
+  `user_fk` char(32) NOT NULL,
+  `feedback_fk` char(32) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_paymentmethods`
+--
+
+CREATE TABLE `user_paymentmethods` (
+  `user_paymentmethods_pk` char(32) NOT NULL,
+  `user_fk` char(32) NOT NULL,
+  `paymentmethods_fk` varchar(255) NOT NULL,
+  `user_paymentmethods_created_at` bigint(20) NOT NULL,
+  `user_paymentmethods_updated_at` bigint(20) NOT NULL,
+  `user_paymentmethods_deleted_at` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `wash_services`
 --
 
@@ -290,6 +350,12 @@ ALTER TABLE `facilities`
   ADD PRIMARY KEY (`facilities_pk`);
 
 --
+-- Indexes for table `feedback`
+--
+ALTER TABLE `feedback`
+  ADD PRIMARY KEY (`feedback_pk`);
+
+--
 -- Indexes for table `locations`
 --
 ALTER TABLE `locations`
@@ -309,6 +375,13 @@ ALTER TABLE `location_facilities`
 --
 ALTER TABLE `location_status`
   ADD PRIMARY KEY (`location_status_pk`);
+
+--
+-- Indexes for table `paymentmethods`
+--
+ALTER TABLE `paymentmethods`
+  ADD PRIMARY KEY (`paymentmethods_pk`),
+  ADD UNIQUE KEY `paymentmethods_title` (`paymentmethods_title`);
 
 --
 -- Indexes for table `payment_frequency`
@@ -363,6 +436,22 @@ ALTER TABLE `user_car`
   ADD KEY `car_fk` (`car_fk`);
 
 --
+-- Indexes for table `user_feedback`
+--
+ALTER TABLE `user_feedback`
+  ADD PRIMARY KEY (`user_feedback_pk`),
+  ADD KEY `user_feedback_user_fk` (`user_fk`),
+  ADD KEY `user_feedback_feedback_fk` (`feedback_fk`);
+
+--
+-- Indexes for table `user_paymentmethods`
+--
+ALTER TABLE `user_paymentmethods`
+  ADD PRIMARY KEY (`user_paymentmethods_pk`),
+  ADD KEY `user_paymentmethods_user_fk` (`user_fk`),
+  ADD KEY `user_paymentmethods_paymentmethods_fk` (`paymentmethods_fk`);
+
+--
 -- Indexes for table `wash_services`
 --
 ALTER TABLE `wash_services`
@@ -414,6 +503,20 @@ ALTER TABLE `receipts`
 ALTER TABLE `user_car`
   ADD CONSTRAINT `car_fk` FOREIGN KEY (`car_fk`) REFERENCES `cars` (`car_pk`),
   ADD CONSTRAINT `user_fk` FOREIGN KEY (`user_fk`) REFERENCES `users` (`user_pk`);
+
+--
+-- Constraints for table `user_feedback`
+--
+ALTER TABLE `user_feedback`
+  ADD CONSTRAINT `user_feedback_feedback_fk` FOREIGN KEY (`feedback_fk`) REFERENCES `feedback` (`feedback_pk`),
+  ADD CONSTRAINT `user_feedback_user_fk` FOREIGN KEY (`user_fk`) REFERENCES `users` (`user_pk`);
+
+--
+-- Constraints for table `user_paymentmethods`
+--
+ALTER TABLE `user_paymentmethods`
+  ADD CONSTRAINT `user_paymentmethods_paymentmethods_fk` FOREIGN KEY (`paymentmethods_fk`) REFERENCES `paymentmethods` (`paymentmethods_pk`),
+  ADD CONSTRAINT `user_paymentmethods_user_fk` FOREIGN KEY (`user_fk`) REFERENCES `users` (`user_pk`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

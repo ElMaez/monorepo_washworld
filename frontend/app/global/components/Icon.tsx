@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Imagesdf from "../../../public/assets/icons/circleplus.svg";
 
 
 
@@ -10,11 +11,8 @@ interface IconProps {
 const Icon = ({ IconName }: IconProps) => {
   return (
     <>
-    {IconName === "circleplus" && (
-        <button className="bg-success text-surface p-4">
-            <Image alt="" width={"500"} height={"500"} src={`../../public/icons/${IconName}`}></Image>
-          This only shows for ${IconName}!
-        </button>
+    {IconName !== "" && (
+        <Image alt="" width={"500"} height={"500"} src={`/assets/icons/${IconName}.svg`}></Image>
       )}
     </>
   );

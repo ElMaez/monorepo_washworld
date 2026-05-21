@@ -122,6 +122,7 @@
   --color-success-10-opacity:var(--color-success-10-opacity);
 
   /* spacing */
+  --space-: initial;
   --space-0: var(--space-0);
   --space-2: var(--space-2);
   --space-4: var(--space-4);
@@ -139,6 +140,7 @@
   --space-80: var(--space-80);
 
   /* typography */
+  --text-: initial;
   --font-sans: var(--font-gilroy); /*Look into font folder*/
   --text-xs: var(--text-xs);
   --text-sm: var(--text-sm);

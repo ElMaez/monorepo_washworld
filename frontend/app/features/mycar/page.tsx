@@ -1,6 +1,6 @@
-import PrimaryButton from "@/public/app/global/components/PrimaryButton";
-import SecondaryButton from "@/public/app/global/components/SecondaryButton";
-import TertiaryButton from "@/public/app/global/components/TertiaryButton";
+import PrimaryButton from "@/app/global/components/PrimaryButton";
+import SecondaryButton from "@/app/global/components/SecondaryButton";
+import TertiaryButton from "@/app/global/components/TertiaryButton";
 
 
 

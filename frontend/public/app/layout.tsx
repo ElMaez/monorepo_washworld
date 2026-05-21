@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { gilroy } from "./fonts/fonts";
 
-import Menu from "../app/global/components/Menu";
+import Menu from "./global/components/Menu";
 
 import "./global/styles/global.css";
 

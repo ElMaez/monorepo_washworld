@@ -47,21 +47,21 @@
   --color-success-10-opacity:oklch(0.682 0.211 144 / 0.1);
 
   /* ---------- spacing ---------- */
-  --space-0: 0rem;
-  --space-2: 0.125rem;  /* 2px */
-  --space-4: 0.25rem;   /* 4px */
-  --space-6: 0.375rem;  /* 6px */
-  --space-8: 0.5rem;    /* 8px */
-  --space-12: 0.75rem;  /* 12px */
-  --space-16: 1rem;     /* 16px */
-  --space-20: 1.25rem;  /* 20px */
-  --space-24: 1.5rem;   /* 24px */
-  --space-32: 2rem;     /* 32px */
-  --space-40: 2.5rem;   /* 40px */
-  --space-48: 3rem;     /* 48px */
-  --space-64: 4rem;     /* 64px */
-  --space-72: 4.5rem;   /* 72px */
-  --space-80: 5rem;     /* 80px */
+  --spacing-0: 0rem;
+  --spacing-2: 0.125rem;  /* 2px */
+  --spacing-4: 0.25rem;   /* 4px */
+  --spacing-6: 0.375rem;  /* 6px */
+  --spacing-8: 0.5rem;    /* 8px */
+  --spacing-12: 0.75rem;  /* 12px */
+  --spacing-16: 1rem;     /* 16px */
+  --spacing-20: 1.25rem;  /* 20px */
+  --spacing-24: 1.5rem;   /* 24px */
+  --spacing-32: 2rem;     /* 32px */
+  --spacing-40: 2.5rem;   /* 40px */
+  --spacing-48: 3rem;     /* 48px */
+  --spacing-64: 4rem;     /* 64px */
+  --spacing-72: 4.5rem;   /* 72px */
+  --spacing-80: 5rem;     /* 80px */
   /* ---------- typography  ---------- */
   --base: 1.125rem;
   --text-xs: clamp(calc(var(--base) * 0.64), 0.6vw + 0.8rem, calc(var(--base) * 0.75));
@@ -74,9 +74,13 @@
   --text-3xl: clamp(calc(var(--base) * 3.05), 3vw + 1rem, calc(var(--base) * 3.6));
 }
 
-@theme inline {
+@theme {
+  --color-*: initial;
+  --spacing-*: initial;
+  --text-*: initial;
+  --font-*: initial;
+
   /*colorpalette*/
-  --color-: initial;
   --color-primary-50:  var(--color-primary-50);
   --color-primary-100: var(--color-primary-100);
   --color-primary-200: var(--color-primary-200);
@@ -122,25 +126,23 @@
   --color-success-10-opacity:var(--color-success-10-opacity);
 
   /* spacing */
-  --space-: initial;
-  --space-0: var(--space-0);
-  --space-2: var(--space-2);
-  --space-4: var(--space-4);
-  --space-6: var(--space-6);
-  --space-8: var(--space-8);
-  --space-12: var(--space-12);
-  --space-16: var(--space-16);
-  --space-20: var(--space-20);
-  --space-24: var(--space-24);
-  --space-32: var(--space-32);
-  --space-40: var(--space-40);
-  --space-48: var(--space-48);
-  --space-64: var(--space-64);
-  --space-72: var(--space-72);
-  --space-80: var(--space-80);
+  --spacing-0: var(--spacing-0);
+  --spacing-2: var(--spacing-2);
+  --spacing-4: var(--spacing-4);
+  --spacing-6: var(--spacing-6);
+  --spacing-8: var(--spacing-8);
+  --spacing-12: var(--spacing-12);
+  --spacing-16: var(--spacing-16);
+  --spacing-20: var(--spacing-20);
+  --spacing-24: var(--spacing-24);
+  --spacing-32: var(--spacing-32);
+  --spacing-40: var(--spacing-40);
+  --spacing-48: var(--spacing-48);
+  --spacing-64: var(--spacing-64);
+  --spacing-72: var(--spacing-72);
+  --spacing-80: var(--spacing-80);
 
   /* typography */
-  --text-: initial;
   --font-sans: var(--font-gilroy); /*Look into font folder*/
   --text-xs: var(--text-xs);
   --text-sm: var(--text-sm);

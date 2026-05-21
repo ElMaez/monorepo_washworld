@@ -16,9 +16,9 @@ export default function RootLayout({
   return (
     <html lang="da" className={gilroy.variable}>
       <body>
-      <header>I am header! :D</header>
+      <header className="fullbleed"><p>I am header! :D</p></header>
       {children}
-      <footer>I am footer! :D</footer>
+      <footer className="fullbleed">´<p>I am footer! :D</p></footer>
       </body>
     </html>
   );

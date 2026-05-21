@@ -18,7 +18,7 @@ export default function RootLayout({
       <body>
       <header className="fullbleed"><p>I am header! :D</p></header>
       {children}
-      <footer className="fullbleed">´<p>I am footer! :D</p></footer>
+      <footer className="fullbleed"><p>I am footer! :D</p></footer>
       </body>
     </html>
   );

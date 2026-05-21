@@ -1,15 +1,150 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* ---------- color / primary ---------- */
+  --color-primary-50:  oklch(0.974 0.024 158);
+  --color-primary-100: oklch(0.903 0.064 158);
+  --color-primary-200: oklch(0.829 0.107 159);
+  --color-primary-400: oklch(0.710 0.175 154);
+  --color-primary-600: oklch(0.549 0.135 154);
+  --color-primary-800: oklch(0.385 0.088 155);
+  --color-primary-900: oklch(0.273 0.062 155);
+ 
+  /* ---------- color / secondary-orange ---------- */
+  --color-secondary-50:  oklch(0.965 0.016 65);
+  --color-secondary-100: oklch(0.872 0.076 66);
+  --color-secondary-200: oklch(0.768 0.143 57);
+  --color-secondary-400: oklch(0.685 0.211 42);
+  --color-secondary-600: oklch(0.493 0.155 39);
+  --color-secondary-800: oklch(0.336 0.111 39);
+  --color-secondary-900: oklch(0.207 0.067 40);
+ 
+  /* ---------- color / secondary-grey ---------- */
+  --color-grey-50:oklch(0.971 0 0);
+  --color-grey-100:oklch(0.922 0 0);
+  --color-grey-200:oklch(0.477 0 0);
+  --color-grey-400:oklch(0.269 0 0);
+ 
+  /* ---------- color / base ---------- */
+  --color-bg:oklch(0.972 0.003 106);
+  --color-bg-dark:oklch(0.182 0.002 106);
+  --color-text:var(--color-bg-dark);
+  --color-surface:oklch(0.984 0.002 106);
+  --color-surface-2:oklch(0.981 0 0);
+ 
+  /* ---------- color / interaction ---------- */
+  --color-danger:oklch(0.591 0.213 27);
+  --color-danger-10-opacity: oklch(0.591 0.213 27 / 0.1);
+ 
+  --color-warning:oklch(0.476 0.105 71);
+  --color-warning-10-opacity:oklch(0.798 0.157 87 / 0.1);
+ 
+  --color-info:oklch(0.382 0.179 281);
+  --color-info-10-opacity: oklch(0.382 0.179 281 / 0.1);
+ 
+  --color-success:oklch(0.682 0.211 144);
+  --color-success-100:oklch(0.953 0.029 142);
+  --color-success-10-opacity:oklch(0.682 0.211 144 / 0.1);
+
+  /* ---------- spacing ---------- */
+  --space-0: 0rem;
+  --space-2: 0.125rem;  /* 2px */
+  --space-4: 0.25rem;   /* 4px */
+  --space-6: 0.375rem;  /* 6px */
+  --space-8: 0.5rem;    /* 8px */
+  --space-12: 0.75rem;  /* 12px */
+  --space-16: 1rem;     /* 16px */
+  --space-20: 1.25rem;  /* 20px */
+  --space-24: 1.5rem;   /* 24px */
+  --space-32: 2rem;     /* 32px */
+  --space-40: 2.5rem;   /* 40px */
+  --space-48: 3rem;     /* 48px */
+  --space-64: 4rem;     /* 64px */
+  --space-72: 4.5rem;   /* 72px */
+  --space-80: 5rem;     /* 80px */
+  /* ---------- typography  ---------- */
+  --base: 1.125rem;
+  --text-xs: clamp(calc(var(--base) * 0.64), 0.6vw + 0.8rem, calc(var(--base) * 0.75));
+  --text-sm: clamp(calc(var(--base) * 0.80), 0.7vw + 0.9rem, calc(var(--base) * 0.95));
+  --text-base: clamp(var(--base), 1vw + 1rem, calc(var(--base) * 1.1));
+  --text-md: clamp(calc(var(--base) * 1.25), 1.2vw + 1rem, calc(var(--base) * 1.45));
+  --text-lg: clamp(calc(var(--base) * 1.56), 1.5vw + 1rem, calc(var(--base) * 1.8));
+  --text-xl: clamp(calc(var(--base) * 1.95), 2vw + 1rem, calc(var(--base) * 2.3));
+  --text-2xl: clamp(calc(var(--base) * 2.44), 2.5vw + 1rem, calc(var(--base) * 2.9));
+  --text-3xl: clamp(calc(var(--base) * 3.05), 3vw + 1rem, calc(var(--base) * 3.6));
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /*colorpalette*/
+  --color-: initial;
+  --color-primary-50:  var(--color-primary-50);
+  --color-primary-100: var(--color-primary-100);
+  --color-primary-200: var(--color-primary-200);
+  --color-primary-400: var(--color-primary-400);
+  --color-primary-600: var(--color-primary-600);
+  --color-primary-800: var(--color-primary-800);
+  --color-primary-900: var(--color-primary-900);
+ 
+  /* secondary (orange) */
+  --color-secondary-50:  var(--color-secondary-50);
+  --color-secondary-100: var(--color-secondary-100);
+  --color-secondary-200: var(--color-secondary-200);
+  --color-secondary-400: var(--color-secondary-400);
+  --color-secondary-600: var(--color-secondary-600);
+  --color-secondary-800: var(--color-secondary-800);
+  --color-secondary-900: var(--color-secondary-900);
+ 
+  /* secondary (grey) */
+  --color-grey-50:  var(--color-grey-50);
+  --color-grey-100: var(--color-grey-100);
+  --color-grey-200: var(--color-grey-200);
+  --color-grey-400: var(--color-grey-400);
+ 
+  /* base */
+  --color-bg: var(--color-bg);
+  --color-bg-dark:var(--color-bg-dark);
+  --color-text:var(--color-text);
+  --color-surface:var(--color-surface);
+  --color-surface-2:var(--color-surface-2);
+ 
+  /* interaction */
+  --color-danger:var(--color-danger);
+  --color-danger-10-opacity:var(--color-danger-10-opacity);
+ 
+  --color-warning:var(--color-warning);
+  --color-warning-10-opacity:var(--color-warning-10-opacity);
+ 
+  --color-info:var(--color-info);
+  --color-info-10-opacity:var(--color-info-10-opacity);
+ 
+  --color-success:var(--color-success);
+  --color-success-100:var(--color-success-100);
+  --color-success-10-opacity:var(--color-success-10-opacity);
+
+  /* spacing */
+  --space-0: var(--space-0);
+  --space-2: var(--space-2);
+  --space-4: var(--space-4);
+  --space-6: var(--space-6);
+  --space-8: var(--space-8);
+  --space-12: var(--space-12);
+  --space-16: var(--space-16);
+  --space-20: var(--space-20);
+  --space-24: var(--space-24);
+  --space-32: var(--space-32);
+  --space-40: var(--space-40);
+  --space-48: var(--space-48);
+  --space-64: var(--space-64);
+  --space-72: var(--space-72);
+  --space-80: var(--space-80);
+
+  /* typography */
+  --font-sans: var(--font-gilroy); /*Look into font folder*/
+  --text-xs: var(--text-xs);
+  --text-sm: var(--text-sm);
+  --text-base: var(--text-base);
+  --text-lg: var(--text-lg);
+  --text-xl: var(--text-xl);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -23,7 +158,4 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
-}
-main p{
-  color:rgb(105, 5, 114)
 }

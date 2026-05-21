@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { gilroy } from "./fonts/fonts";
 
 import "./global/styles/global.css";
 
@@ -13,7 +14,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="da">
+    <html lang="da" className={gilroy.variable}>
       <body>
       <header>I am header! :D</header>
       {children}

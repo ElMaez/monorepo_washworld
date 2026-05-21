@@ -10,14 +10,8 @@
     "lint:fix": "eslint --fix"
   },
   "dependencies": {
-<<<<<<< HEAD
-    "@tanstack/react-query": "^5.100.11",
-    "axios": "^1.16.1",
-    "next": "^16.2.1",
-=======
     "axios": "^1.9.0",
     "next": "^16.2.6",
->>>>>>> setting-up-the-basics-for-backend
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },

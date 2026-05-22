@@ -79,6 +79,7 @@
   --spacing-*: initial;
   --text-*: initial;
   --font-*: initial;
+  --radius-*: initial;
 
   /*colorpalette*/
   --color-primary-50:  var(--color-primary-50);
@@ -142,6 +143,23 @@
   --spacing-72: var(--spacing-72);
   --spacing-80: var(--spacing-80);
 
+   /* rounded */
+  --radius-0: var(--spacing-0);
+  --radius-2: var(--spacing-2);
+  --radius-4: var(--spacing-4);
+  --radius-6: var(--spacing-6);
+  --radius-8: var(--spacing-8);
+  --radius-12: var(--spacing-12);
+  --radius-16: var(--spacing-16);
+  --radius-20: var(--spacing-20);
+  --radius-24: var(--spacing-24);
+  --radius-32: var(--spacing-32);
+  --radius-40: var(--spacing-40);
+  --radius-48: var(--spacing-48);
+  --radius-64: var(--spacing-64);
+  --radius-72: var(--spacing-72);
+  --radius-80: var(--spacing-80);
+
   /* typography */
   --font-sans: var(--font-gilroy); /*Look into font folder*/
   --text-xs: var(--text-xs);
@@ -161,7 +179,7 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-gilroy), Helvetica, sans-serif;
 
   display: grid;
   grid-template-columns: minmax(2rem, 2fr) minmax(0, 390px) minmax(2rem, 2fr);

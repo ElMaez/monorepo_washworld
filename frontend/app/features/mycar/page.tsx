@@ -9,7 +9,9 @@ export default function Mycar() {
     return(
         <>
             <p>I am my Car!</p>
-            <Button buttonName="test" size="" isSecondary={false} isTertiary={false} iconName="img" iconFlexPos="order-last" isPage="1" maxPage="3" iconStyle="text-primary-800"/>
+            <Button buttonName="test" size="lg" iconName="img" type="tertiary" status="success" iconFlexPos="order-last" isPage="" maxPage="" iconStyle=""/>
+            <Button buttonName="test" size="lg" iconName="img" type="tertiary" status="danger" iconFlexPos="order-last" isPage="" maxPage="" iconStyle=""/>
+            <Button buttonName="test" size="lg" iconName="img" type="tertiary" status="normal" iconFlexPos="order-last" isPage="" maxPage="" iconStyle=""/>
         </>
     );
 }

@@ -12,7 +12,7 @@ type CreatePostResponse = CreatePostBody & { id: number };
  
 const createPost = async (data: CreatePostBody): Promise<CreatePostBody> => {
     const response = await axios.post<CreatePostBody>(
-        "http://flask-app:80/api/users", data
+        "http://localhost:5000/api/api_create_user", data
     );
     return response.data
 }

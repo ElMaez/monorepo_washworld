@@ -3,14 +3,13 @@ import mysql.connector
 import re # Regular expressions also called Regex
 from functools import wraps
 
-##############################
 def db():
     try:
         db = mysql.connector.connect(
             host = "mariadb",
             user = "root",  
             password = "password",
-            database = "monorepo"
+            database = "wash_world"
         )
         cursor = db.cursor(dictionary=True)
         return db, cursor

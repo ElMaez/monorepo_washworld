@@ -21,8 +21,8 @@ export default function Form() {
                 </legend>
                 <Input 
                 type ="text"
-                name= "username"
-                label="username"
+                name= "user_fullname"
+                label="user_fullname"
                 inputLabel="Full Name"
                 value={fullname}
                 onChange={setFullname}/>

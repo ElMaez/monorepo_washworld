@@ -48,7 +48,7 @@ type inputType = inputTextField | inputNumber | inputCheckbox | inputRadio;
 // Adding conditional rendering for changing each input fields props & actions
 export default function Input(props: inputType) {
   return (
-    <div className="display-flex m-4">
+    <div className="flex m-4">
       <label id={props.name} htmlFor={props.label}>{props.inputLabel}</label>
       {props.type === "text" && (
         <input

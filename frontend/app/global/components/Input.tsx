@@ -6,6 +6,7 @@
 type inputTextField = {
   type: "text";
   name: string;
+  value: string;
   label: string;
   inputLabel: string;
   onChange: (value: string) => void;
@@ -15,6 +16,7 @@ type inputTextField = {
 type inputNumber = {
   type: "number";
   name: string;
+  value: number,
   label: string;
   inputLabel: string;
   max?: number;
@@ -41,19 +43,21 @@ type inputRadio = {
   onChange: (value: string) => void;
 };
 
-// Using 'or' operator for changing type of inputfield 
+// Using 'or' operator for changing type of inputfield
 type inputType = inputTextField | inputNumber | inputCheckbox | inputRadio;
-
 
 // Adding conditional rendering for changing each input fields props & actions
 export default function Input(props: inputType) {
   return (
     <div className="flex m-4">
-      <label id={props.name} htmlFor={props.label}>{props.inputLabel}</label>
+      <label id={props.name} htmlFor={props.label}>
+        {props.inputLabel}
+      </label>
       {props.type === "text" && (
         <input
-        id={props.name}
+          id={props.name}
           type="text"
+          value={props.value}
           name={props.name}
           onChange={(e) => props.onChange(e.target.value)}
           className="bg-surface border-primary-100 border-2"
@@ -61,8 +65,9 @@ export default function Input(props: inputType) {
       )}
       {props.type === "number" && (
         <input
-        id={props.name}
+          id={props.name}
           type="number"
+          value={props.value}
           name={props.name}
           min={props.min}
           max={props.max}
@@ -72,7 +77,7 @@ export default function Input(props: inputType) {
       )}
       {props.type === "checkbox" && (
         <input
-        id={props.name}
+          id={props.name}
           type="checkbox"
           name={props.name}
           onChange={(e) => props.onChange(e.target.checked)}
@@ -81,7 +86,7 @@ export default function Input(props: inputType) {
       )}
       {props.type === "radio" && (
         <input
-        id={props.name}
+          id={props.name}
           type="radio"
           name={props.name}
           onChange={(e) => props.onChange(e.target.value)}

@@ -1,20 +1,20 @@
-import Image from "next/image";
 
-
+import { IconMap, IconNameType } from "./IconMap";
 
 interface IconProps {
   iconName: string;
-  style: string;
+  style?: string;         
 }
 
+const Icon = ({ iconName, style = "" }: IconProps) => {
+  // Look up the corresponding functional component from your warehouse map
+  const SelectedSvg = IconMap[iconName as keyof typeof IconMap] as React.ElementType
 
-const Icon = ({ iconName, style }: IconProps) => {
   return (
-    <>
-    {iconName !== "" && (
-        <Image alt="" width={"24"} height={"24"} src={`/assets/icons/${iconName}.svg`} className={`${style}`}></Image>
-      )}
-    </>
+    <SelectedSvg 
+      className={`w-[24px] h-[24px] shrink-0 ${style}`} 
+    />
   );
 };
+
 export default Icon;

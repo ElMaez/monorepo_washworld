@@ -4,15 +4,16 @@ import Imagesdf from "../../../public/assets/icons/circleplus.svg";
 
 
 interface IconProps {
-  IconName: string;
+  iconName: string;
+  style: string;
 }
 
 
-const Icon = ({ IconName }: IconProps) => {
+const Icon = ({ iconName, style }: IconProps) => {
   return (
     <>
-    {IconName !== "" && (
-        <Image alt="" width={"500"} height={"500"} src={`/assets/icons/${IconName}.svg`}></Image>
+    {iconName !== "" && (
+        <Image alt="" width={"24"} height={"24"} src={`/assets/icons/${iconName}.svg`} className={`${style}`}></Image>
       )}
     </>
   );

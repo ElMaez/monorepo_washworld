@@ -1,6 +1,4 @@
-import PrimaryButton from "@/app/global/components/PrimaryButton";
-import SecondaryButton from "@/app/global/components/SecondaryButton";
-import TertiaryButton from "@/app/global/components/TertiaryButton";
+import Button from "@/app/global/components/Button";
 
 
 
@@ -11,9 +9,7 @@ export default function Mycar() {
     return(
         <>
             <p>I am my Car!</p>
-            <PrimaryButton buttonName="test" size="lg"/>
-            <SecondaryButton buttonName="test" size="lg"/>
-            <TertiaryButton buttonName="test" size="lg"/>
+            <Button buttonName="test" size="lg" isSecondary={false} isTertiary={true} iconName="circleplus" iconFlexPos="order-last"/>
         </>
     );
 }

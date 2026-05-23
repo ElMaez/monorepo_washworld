@@ -94,6 +94,8 @@ export default function Form() {
             <Button 
             buttonName={signupMutation.isPending ? "Sender data..." : "Opret Bruger"}
             size="lg"
+            type="primary"
+            status="normal"
             />
         </form>
     )

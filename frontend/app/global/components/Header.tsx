@@ -1,5 +1,6 @@
 import Button from "./Button";
 import { ButtonProps } from "./Button";
+import Snackbar from "./snackbar";
 
 interface HeaderProps {
  title: string;
@@ -19,6 +20,7 @@ const Header = ({title, backButton, rightButton}:HeaderProps) => {
             <h1 className="justify-self-center col-start-2">{title}</h1>
             {rightButton && (<div className="justify-self-end col-start-3"><Button {...rightButton}/></div>)}
             </div>
+            <Snackbar/>
         </header>
     )
 }

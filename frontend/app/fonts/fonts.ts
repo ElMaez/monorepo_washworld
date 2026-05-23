@@ -29,5 +29,6 @@ export const gilroy = localFont({
         },
     ],
     variable: "--font-gilroy",
-    display: "swap"
+    display: "swap",
+    preload: false,
 })

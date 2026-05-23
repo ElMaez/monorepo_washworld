@@ -33,7 +33,7 @@ def api_create_user():
         # fortæller at adgangskoden skal være skjult i db
         user_hashed_password = generate_password_hash(user_password)
         # epoch / timestamp
-        user_created_at = int(time.time())+3600
+        user_created_at = int(time.time())+7200
         
         # define db & cursor
         db, cursor = config.db()

@@ -8,7 +8,7 @@ export default function Mycar() {
         <> 
             <Header
     title="my car"
-    leftButton={{
+    backButton={{
     elementType: "link",
     goBack: true,
     size: "",

@@ -5,7 +5,9 @@ import Input from "./global/components/Input";
 export default function Home() {
   return (
     <>
-    <Header title="Min Bil"></Header>
+    <Header
+    title="Hjem"
+/>
     <main>
       <Form />
       <h1>Hi! I am main!</h1>

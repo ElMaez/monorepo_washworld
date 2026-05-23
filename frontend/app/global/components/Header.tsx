@@ -1,6 +1,6 @@
 import Button from "./Button";
 import { ButtonProps } from "./Button";
-import Snackbar from "./snackbar";
+import Snackbar from "./Snackbar";
 
 interface HeaderProps {
  title: string;

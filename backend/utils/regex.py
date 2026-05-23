@@ -49,10 +49,10 @@ def validate_user_phonenumber():
 
 ################################################################################################################################################################################
 
-REGEX_USER_EMAIL = "^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$"
+REGEX_EMAIL = "^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$"
 def validate_user_email():
     user_email = request.form.get("user_email", "").strip()
-    if not re.match(REGEX_USER_EMAIL, user_email):
+    if not re.match(REGEX_EMAIL, user_email):
         raise Exception("company_exception user_email")
     return user_email
 

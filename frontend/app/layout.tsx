@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { gilroy } from "./fonts/fonts";
-
+import Providers from "./global/utils/Providers";
 import Menu from "./global/components/Menu";
-
 import "./global/styles/global.css";
 
 export const metadata: Metadata = {
@@ -18,9 +17,11 @@ export default function RootLayout({
   return (
     <html lang="da" className={gilroy.variable}>
       <body>
+        <Providers>
       <header className="fullbleed"><p>I am header! :D</p></header>
       {children}
       <Menu></Menu>
+        </Providers>
       </body>
     </html>
   );

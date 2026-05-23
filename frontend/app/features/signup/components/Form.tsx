@@ -14,6 +14,7 @@ export default function Form() {
     const [licenseplate, setLicenseplate] = useState('');
     const [email, setEmail] = useState('');
     const [consent, setConsent] = useState(false)
+    const [adress, setAdress] = useState('')
 
     const signupMutation = useSignup();
 
@@ -23,8 +24,8 @@ export default function Form() {
         signupMutation.mutate({
         user_fullname:fullname,
         user_phonenumber:phoneNumber,
-        email:email,
-        user_address: licenseplate,
+        user_email:email,
+        user_address: user_adress,
         user_password:password,
         })
     }
@@ -43,6 +44,13 @@ export default function Form() {
                 inputLabel="Full Name"
                 value={fullname}
                 onChange={setFullname}/>
+                <Input 
+                type ="text"
+                name= "user_adress"
+                label="user_adress"
+                inputLabel="Adress"
+                value={adress}
+                onChange={setAdress}/>
                 
                 <Input 
                 type ="tel"
@@ -51,13 +59,7 @@ export default function Form() {
                 inputLabel="Phonenumber"
                 value={phoneNumber}
                 onChange={setPhoneNumber}/>
-                <Input 
-                type ="text"
-                name= "user_licenseplate"
-                label="user_licenseplate"
-                inputLabel="Licenseplate"
-                value={licenseplate}
-                onChange={setLicenseplate}/>
+
 
                 <Input 
                 type ="text"

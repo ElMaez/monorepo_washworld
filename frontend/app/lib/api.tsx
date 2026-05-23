@@ -4,7 +4,7 @@ type Signup = {
     user_fullname: string;
     user_password: string;
     user_phonenumber: string;
-    email: string;
+    user_email: string;
     user_address: string;
 }
 // use this for dev for now

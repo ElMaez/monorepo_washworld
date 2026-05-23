@@ -24,22 +24,25 @@ def api_create_user():
     try:
         #Validate data
         #uuid
-        user_id = uuid.uuid4().hex
+        user_pk = uuid.uuid4().hex
         user_fullname = regex.validate_user_fullname()
         user_password = regex.validate_user_password()
-        email = regex.validate_user_email()
+        user_email = regex.validate_user_email()
         user_phonenumber = regex.validate_user_phonenumber()
         user_adress = regex.validate_user_address()
         # fortæller at adgangskoden skal være skjult i db
         user_hashed_password = generate_password_hash(user_password)
         # epoch / timestamp
-        user_created_at = int(time.time())
+        user_created_at = int(time.time())+3600
         
         # define db & cursor
         db, cursor = config.db()
         #query
-        q = "INSERT INTO users (user_pk, user_fullname, user_phonenumber, user_email, user_password, user_address) VALUES(%s, %s, %s, %s, %s, %s)"
-        cursor.execute(q, (user_id, user_fullname, email, user_phonenumber, user_adress, user_hashed_password, user_created_at) )
+        q = """INSERT INTO users
+       (user_pk, user_fullname, user_phonenumber, user_email, user_password,
+        user_address, user_created_at, user_updated_at, user_deleted_at)
+       VALUES (%s, %s, %s, %s, %s, %s, %s, 0, 0)"""
+        cursor.execute(q, (user_pk,user_fullname,user_phonenumber,user_email,user_hashed_password,user_adress,user_created_at, ))
         db.commit()
         return jsonify({"msg" : "hurray you have signed up"}), 200
     except Exception as ex:
@@ -53,7 +56,7 @@ def api_create_user():
             return jsonify({"error": error_message}), 400
 
         # Server error ( det din skyld at det ikke virker )
-        return ic(ex)
+        return jsonify({"msg" : "lel you failed"}), 500
     finally:
         if "cursor" in locals(): cursor.close()
         if "db" in locals(): db.close()

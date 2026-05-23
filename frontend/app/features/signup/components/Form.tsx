@@ -82,11 +82,16 @@ export default function Form() {
                 checked={consent}
                 onChange={setConsent}
                 />
+
+            {signupMutation. isError && (
+                <p style={{color: "red"}}>nopes</p>
+            )}
+            {signupMutation. isSuccess && (
+                <p style={{color: "green"}}>yeps</p>
+            )}
             <Button 
             buttonName={signupMutation.isPending ? "Sender data..." : "Opret Bruger"}
             size="lg"
-
-
             />
         </form>
     )

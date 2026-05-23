@@ -5,10 +5,13 @@ import { IconNameType } from "./IconMap";
 interface ButtonProps {
   buttonName: string;
   size: string;
-  isSecondary?: boolean;
-  isTertiary?:boolean;
-  iconName?: string;
+  iconName?: IconNameType;
   iconFlexPos?: string;
+  isPage: string;
+  maxPage:string;
+  iconStyle:string;
+  type: "primary" | "secondary" | "tertiary";
+  status: "danger" |"success" | "normal";
 }
 
 

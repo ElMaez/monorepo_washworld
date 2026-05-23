@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const Menu = ({}) => {
     return(
-        <nav>
+        <nav aria-label="Main Menu">
             <ul className="flex gap-12 justify-center">
                 <Link className=" uppercase" href="/">Hjem</Link>
                 <Link className=" uppercase" href="../../features/mycar">Min Bil</Link>

@@ -92,6 +92,7 @@ export default function Form() {
                 <p style={{color: "green"}}>yeps</p>
             )}
             <Button 
+            elementType="button"
             buttonName={signupMutation.isPending ? "Sender data..." : "Opret Bruger"}
             size="lg"
             type="primary"

@@ -7,9 +7,15 @@ interface ButtonProps {
   size: string;
   iconName?: IconNameType;
   iconFlexPos?: string;
+<<<<<<< HEAD
   isPage: string;
   maxPage:string;
   iconStyle:string;
+=======
+  isPage?: string;
+  maxPage?:string;
+  iconStyle?:string;
+>>>>>>> 6b0a31b862e4d398e0ce0f443037ab494844612d
   type: "primary" | "secondary" | "tertiary";
   status: "danger" |"success" | "normal";
 }

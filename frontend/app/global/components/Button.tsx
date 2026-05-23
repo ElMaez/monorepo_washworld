@@ -4,10 +4,10 @@ import Icon from "./Icon";
 interface ButtonProps {
   buttonName: string;
   size: string;
-  isSecondary: boolean;
-  isTertiary:boolean;
-  iconName: string;
-  iconFlexPos: string;
+  isSecondary?: boolean;
+  isTertiary?:boolean;
+  iconName?: string;
+  iconFlexPos?: string;
 }
 
 
@@ -19,7 +19,7 @@ const Button = ({ buttonName, size, isSecondary, isTertiary, iconName, iconFlexP
 
   return (
     <button
-    className={`h-fit rounded-2 uppercase flex gap-8 justify-center
+    className={`h-fit rounded-2 uppercase flex gap-8 justify-center cursor-pointer font-bold
     ${size ==='lg' ? 'w-full py-8' : 'w-fit p-8'}
     ${isSecondary === true ? `${secondary}` : `${primary}`}
     ${isTertiary === true ? `${tertiary}` : `${primary}`}`}>

@@ -3,18 +3,35 @@
 import Button from "@/app/global/components/Button";
 import Input from "@/app/global/components/Input";
 import { useState } from "react";
-
+import axios from "axios";
+// custom hook
+import { useSignup } from "../hooks/useSignup";
 
 export default function Form() {
     const [fullname, setFullname] = useState('');
     const [password, setPassword] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState(Number);
-    const [licenseplate, setLicenseplate] = useState(Number);
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [licenseplate, setLicenseplate] = useState('');
     const [email, setEmail] = useState('');
+    const [consent, setConsent] = useState(false)
+
+    const signupMutation = useSignup();
+
+    async function handleSubmit(e: React.SyntheticEvent) {
+        e.preventDefault();
+        //smid custom hook ind i submit funktionen
+        signupMutation.mutate({
+        user_fullname:fullname,
+        user_phonenumber:phoneNumber,
+        email:email,
+        user_address: licenseplate,
+        user_password:password,
+        })
+    }
 
 
     return(
-        <form>
+        <form onSubmit={handleSubmit}>
             <fieldset>
                 <legend>
                     Personal Information
@@ -26,17 +43,51 @@ export default function Form() {
                 inputLabel="Full Name"
                 value={fullname}
                 onChange={setFullname}/>
+                
+                <Input 
+                type ="tel"
+                name= "user_phonenumber"
+                label="user_phonenumber"
+                inputLabel="Phonenumber"
+                value={phoneNumber}
+                onChange={setPhoneNumber}/>
                 <Input 
                 type ="text"
-                name= "username"
-                label="username"
+                name= "user_licenseplate"
+                label="user_licenseplate"
+                inputLabel="Licenseplate"
+                value={licenseplate}
+                onChange={setLicenseplate}/>
+
+                <Input 
+                type ="text"
+                name= "email"
+                label="email"
+                inputLabel="Email"
+                value={email}
+                onChange={setEmail}/>
+                <Input 
+                type ="password"
+                name= "user_password"
+                label="user_password"
                 inputLabel="Password"
                 value={password}
                 onChange={setPassword}/>
-
-
             </fieldset>
-            <button>Submit</button>
+                <Input 
+                type="checkbox"
+                name="acceptPolicy"
+                label="acceptPolicy"
+                inputLabel="Accept Policy"
+                checked={consent}
+                onChange={setConsent}
+                />
+            <Button 
+            buttonName={signupMutation.isPending ? "Sender data..." : "Opret Bruger"}
+            size="lg"
+
+
+            />
         </form>
     )
 }

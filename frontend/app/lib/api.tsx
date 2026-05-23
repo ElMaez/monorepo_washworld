@@ -1,18 +1,23 @@
 import axios from 'axios';
-import type { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 
-type CreatePostBody = {
-    user_id: number;
-    id: number;
-    title: string;
-    body: string;
+type Signup = {
+    user_fullname: string;
+    user_password: string;
+    user_phonenumber: string;
+    email: string;
+    user_address: string;
 }
+// use this for dev for now
+const BACKEND_URL = "http://localhost"
 
-type CreatePostResponse = CreatePostBody & { id: number };
- 
-const createPost = async (data: CreatePostBody): Promise<CreatePostBody> => {
-    const response = await axios.post<CreatePostBody>(
-        "http://localhost:5000/api/api_create_user", data
+// funktion til at kunne fetche fra vores backend asynkronsk
+// bruger searchparams til at kunne omdanne til body
+export async function create_user(data: Signup) {
+    const response = await axios.post(
+        `${BACKEND_URL}/api-signup`,
+        // body argument
+        new URLSearchParams(data),
     );
-    return response.data
+    return response.data // backend der sender JSON retur
 }
+

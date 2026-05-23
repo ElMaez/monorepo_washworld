@@ -8,7 +8,7 @@ export default function Mycar() {
 
   return (
     <>
-      <Header title="my car" backButton={{ elementType: "link", goBack: true, size: "", type: "none", status: "normal", iconName: "back", }}/>
+      <Header title="my car" backButton={{ elementType: "link", goBack: true, size: "sm", type: "none", status: "normal", iconName: "back", }}/>
       
       <Button 
         elementType="button"
@@ -21,7 +21,7 @@ export default function Mycar() {
         dialogId ="my-car-dialog"
         
       />
-      <Dialog id="my-car-dialog" buttonTwo={{ elementType: "button", buttonName:"Back", size: "", type: "primary", status: "normal" }} buttonThree={{ elementType: "button", buttonName:"Delete", size: "", type: "primary", status: "danger" }}/>
+      <Dialog id="my-car-dialog" buttonTwo={{ elementType: "button", buttonName:"Back", size: "sm", type: "primary", status: "normal" }} buttonThree={{ elementType: "button", buttonName:"Delete", size: "sm", type: "primary", status: "danger" }}/>
       
     </>
   );

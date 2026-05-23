@@ -10,7 +10,7 @@ export interface ButtonProps {
   goBack?: boolean;
   linkHref?: string;
   buttonName?: string;
-  size: "" | "lg";
+  size: "lg" | "sm" | "xs";
   dialogId?: string;
   iconName?: IconNameType;
   iconFlexPos?: string;
@@ -31,6 +31,12 @@ const Button = ({ elementType, linkHref, goBack, size, type, status, buttonName,
 
   const router = useRouter();
 
+ const sizeStyle = {
+  lg: "w-full py-8",
+  sm: "w-fit p-8",
+  xs: "w-fit px-8 leading-none",
+};
+
   const statusStyles = {
     primary: {
       normal: "bg-primary-400 border-primary-800 text-bg-dark",
@@ -40,12 +46,12 @@ const Button = ({ elementType, linkHref, goBack, size, type, status, buttonName,
     secondary: { 
       normal: "bg-primary-50 border-primary-100 text-primary-800", 
       danger: "bg-danger-10-opacity border-danger text-danger", 
-      success: "bg-success-10-opacity border-success text-success", 
+      success: "bg-success-10-opacity border-success text-success",
     },
     tertiary: { 
-      normal: "border-primary-800 text-primary-800", 
+      normal: `${size === "xs" ? "border-primary-400 text-primary-400":"border-primary-800 text-primary-800"}`, 
       danger: "border-danger text-danger", 
-      success: "border-success text-success", 
+      success: "border-success text-success",
 
     }, 
     none: { 
@@ -57,19 +63,18 @@ const Button = ({ elementType, linkHref, goBack, size, type, status, buttonName,
 
 const iconStyles = { normal: "text-bg-black", danger: "text-danger", success: "text-success", };
   let buttonStyle = "";
-  if (type === "primary") { buttonStyle = ` border-b-2 ${statusStyles.primary[status]} `; }
-  if (type === "secondary") { buttonStyle = ` border-2 ${statusStyles.secondary[status]} `; }
-  if (type === "tertiary") { buttonStyle = ` border-b-2 ${statusStyles.tertiary[status]} `; }
+  if (type === "primary") { buttonStyle = ` border-b-2 ${statusStyles.primary[status]} ${sizeStyle[size]}`; }
+  if (type === "secondary") { buttonStyle = ` border-2 ${statusStyles.secondary[status]} ${sizeStyle[size]}`; }
+  if (type === "tertiary") { buttonStyle = ` border-b-2 ${statusStyles.tertiary[status]} ${sizeStyle[size]}`; }
   if (type === "none") { buttonStyle = ` ${statusStyles.none[status]} `; } const iconStyle = iconStyles[status];
 
   return (
-    <div  className={`flex items-center gap-8 ${size ==='lg' ? 'w-full' : 'w-fit'}`}>
+    <div  className={`flex items-center gap-8 ${size ==='lg' && 'w-full'}`}>
     {elementType === "button" ?
     <>
     <button
     onClick={dialogId ? openModal : undefined}
     className={`h-fit rounded-2 uppercase flex justify-center font-bold
-    ${size ==='lg' ? 'w-full py-8' : 'w-fit p-8'}
     ${buttonStyle}
     ${iconName && buttonName ? "gap-8":""}`}>
       <p>{buttonName}</p>
@@ -83,8 +88,7 @@ const iconStyles = { normal: "text-bg-black", danger: "text-danger", success: "t
     href={linkHref || "#"}
     onClick={
     goBack? (e) => {e.preventDefault(); router.back();}: undefined} /*This prevents conflicting navigation behavior.*/
-    className={`h-fit rounded-2 uppercase flex justify-center font-bold
-    ${size ==='lg' ? 'w-full py-8' : 'w-fit p-8'}
+    className={`h-fit rounded-2 uppercase flex justify-center font-bold 
     ${buttonStyle}
     ${iconName && buttonName ? "gap-8":""}`}>
       <p>{buttonName}</p>

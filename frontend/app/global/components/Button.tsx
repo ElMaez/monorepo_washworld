@@ -38,7 +38,7 @@ const Button = ({ buttonName, size, type, status, iconName, iconFlexPos, isPage,
   return (
     <div  className="flex items-center gap-8">
     <button
-    className={`h-fit rounded-2 uppercase flex gap-8 justify-center cursor-pointer font-bold
+    className={`h-fit rounded-2 uppercase flex gap-8 justify-center font-bold
     ${size ==='lg' ? 'w-full py-8' : 'w-fit p-8'}
     ${buttonStyle}`}>
       <p>{buttonName}</p>

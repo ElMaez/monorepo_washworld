@@ -2,10 +2,10 @@
 -- version 5.2.3
 -- https://www.phpmyadmin.net/
 --
--- Host: mariadb
--- Generation Time: May 21, 2026 at 12:37 PM
--- Server version: 10.6.20-MariaDB-ubu2004
--- PHP Version: 8.3.26
+-- Vært: mariadb
+-- Genereringstid: 23. 05 2026 kl. 07:25:24
+-- Serverversion: 10.6.20-MariaDB-ubu2004
+-- PHP-version: 8.3.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cars`
+-- Struktur-dump for tabellen `cars`
 --
 
 CREATE TABLE `cars` (
@@ -40,7 +40,7 @@ CREATE TABLE `cars` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cases`
+-- Struktur-dump for tabellen `cases`
 --
 
 CREATE TABLE `cases` (
@@ -59,7 +59,7 @@ CREATE TABLE `cases` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `case_status`
+-- Struktur-dump for tabellen `case_status`
 --
 
 CREATE TABLE `case_status` (
@@ -73,7 +73,7 @@ CREATE TABLE `case_status` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `facilities`
+-- Struktur-dump for tabellen `facilities`
 --
 
 CREATE TABLE `facilities` (
@@ -86,7 +86,7 @@ CREATE TABLE `facilities` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `feedback`
+-- Struktur-dump for tabellen `feedback`
 --
 
 CREATE TABLE `feedback` (
@@ -101,7 +101,7 @@ CREATE TABLE `feedback` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `locations`
+-- Struktur-dump for tabellen `locations`
 --
 
 CREATE TABLE `locations` (
@@ -120,7 +120,7 @@ CREATE TABLE `locations` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `location_facilities`
+-- Struktur-dump for tabellen `location_facilities`
 --
 
 CREATE TABLE `location_facilities` (
@@ -135,7 +135,7 @@ CREATE TABLE `location_facilities` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `location_status`
+-- Struktur-dump for tabellen `location_status`
 --
 
 CREATE TABLE `location_status` (
@@ -149,7 +149,7 @@ CREATE TABLE `location_status` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `paymentmethods`
+-- Struktur-dump for tabellen `paymentmethods`
 --
 
 CREATE TABLE `paymentmethods` (
@@ -163,7 +163,7 @@ CREATE TABLE `paymentmethods` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `payment_frequency`
+-- Struktur-dump for tabellen `payment_frequency`
 --
 
 CREATE TABLE `payment_frequency` (
@@ -177,7 +177,7 @@ CREATE TABLE `payment_frequency` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `plans`
+-- Struktur-dump for tabellen `plans`
 --
 
 CREATE TABLE `plans` (
@@ -194,7 +194,7 @@ CREATE TABLE `plans` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `plans_status`
+-- Struktur-dump for tabellen `plans_status`
 --
 
 CREATE TABLE `plans_status` (
@@ -208,7 +208,7 @@ CREATE TABLE `plans_status` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `receipts`
+-- Struktur-dump for tabellen `receipts`
 --
 
 CREATE TABLE `receipts` (
@@ -229,7 +229,7 @@ CREATE TABLE `receipts` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `receipt_status`
+-- Struktur-dump for tabellen `receipt_status`
 --
 
 CREATE TABLE `receipt_status` (
@@ -243,7 +243,7 @@ CREATE TABLE `receipt_status` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktur-dump for tabellen `users`
 --
 
 CREATE TABLE `users` (
@@ -252,16 +252,23 @@ CREATE TABLE `users` (
   `user_phonenumber` varchar(16) NOT NULL,
   `user_email` varchar(100) NOT NULL,
   `user_password` varchar(255) NOT NULL,
-  `user_address` varchar(255) NOT NULL,
+  `user_address` varchar(255) DEFAULT NULL,
   `user_created_at` bigint(20) UNSIGNED NOT NULL,
   `user_updated_at` bigint(20) UNSIGNED NOT NULL,
   `user_deleted_at` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Data dump for tabellen `users`
+--
+
+INSERT INTO `users` (`user_pk`, `user_fullname`, `user_phonenumber`, `user_email`, `user_password`, `user_address`, `user_created_at`, `user_updated_at`, `user_deleted_at`) VALUES
+('eea23ece4bf2459aa92934f281332551', 'Kat', '12345678', 'kat@kat.com', 'scrypt:32768:8:1$68kferCjuHGAHwy5$a52dfc350a1de3cd62dde8475e354611b38e3a76e88e5974f7efc7e0b41c6604ee763cef4c6a29ed7bc79834db9dff11bd58cdd59255cec0de2004e713c514fc', '[object HTMLCollection]', 1779498896, 0, 0);
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_car`
+-- Struktur-dump for tabellen `user_car`
 --
 
 CREATE TABLE `user_car` (
@@ -276,7 +283,7 @@ CREATE TABLE `user_car` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_feedback`
+-- Struktur-dump for tabellen `user_feedback`
 --
 
 CREATE TABLE `user_feedback` (
@@ -291,7 +298,7 @@ CREATE TABLE `user_feedback` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_paymentmethods`
+-- Struktur-dump for tabellen `user_paymentmethods`
 --
 
 CREATE TABLE `user_paymentmethods` (
@@ -306,7 +313,7 @@ CREATE TABLE `user_paymentmethods` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wash_services`
+-- Struktur-dump for tabellen `wash_services`
 --
 
 CREATE TABLE `wash_services` (
@@ -318,18 +325,18 @@ CREATE TABLE `wash_services` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Indexes for dumped tables
+-- Begrænsninger for dumpede tabeller
 --
 
 --
--- Indexes for table `cars`
+-- Indeks for tabel `cars`
 --
 ALTER TABLE `cars`
   ADD PRIMARY KEY (`car_pk`),
   ADD UNIQUE KEY `car_licenseplate` (`car_licenseplate`);
 
 --
--- Indexes for table `cases`
+-- Indeks for tabel `cases`
 --
 ALTER TABLE `cases`
   ADD PRIMARY KEY (`case_pk`),
@@ -338,32 +345,32 @@ ALTER TABLE `cases`
   ADD KEY `car_fk_to_cases` (`car_fk`);
 
 --
--- Indexes for table `case_status`
+-- Indeks for tabel `case_status`
 --
 ALTER TABLE `case_status`
   ADD PRIMARY KEY (`case_status_pk`);
 
 --
--- Indexes for table `facilities`
+-- Indeks for tabel `facilities`
 --
 ALTER TABLE `facilities`
   ADD PRIMARY KEY (`facilities_pk`);
 
 --
--- Indexes for table `feedback`
+-- Indeks for tabel `feedback`
 --
 ALTER TABLE `feedback`
   ADD PRIMARY KEY (`feedback_pk`);
 
 --
--- Indexes for table `locations`
+-- Indeks for tabel `locations`
 --
 ALTER TABLE `locations`
   ADD PRIMARY KEY (`location_pk`),
   ADD KEY `location_status_fk` (`location_status_fk`);
 
 --
--- Indexes for table `location_facilities`
+-- Indeks for tabel `location_facilities`
 --
 ALTER TABLE `location_facilities`
   ADD PRIMARY KEY (`location_facilities_pk`),
@@ -371,26 +378,26 @@ ALTER TABLE `location_facilities`
   ADD KEY `location_fk_to_locationfacilities` (`location_fk`);
 
 --
--- Indexes for table `location_status`
+-- Indeks for tabel `location_status`
 --
 ALTER TABLE `location_status`
   ADD PRIMARY KEY (`location_status_pk`);
 
 --
--- Indexes for table `paymentmethods`
+-- Indeks for tabel `paymentmethods`
 --
 ALTER TABLE `paymentmethods`
   ADD PRIMARY KEY (`paymentmethods_pk`),
   ADD UNIQUE KEY `paymentmethods_title` (`paymentmethods_title`);
 
 --
--- Indexes for table `payment_frequency`
+-- Indeks for tabel `payment_frequency`
 --
 ALTER TABLE `payment_frequency`
   ADD PRIMARY KEY (`payment_frequency_pk`);
 
 --
--- Indexes for table `plans`
+-- Indeks for tabel `plans`
 --
 ALTER TABLE `plans`
   ADD PRIMARY KEY (`plan_pk`),
@@ -398,13 +405,13 @@ ALTER TABLE `plans`
   ADD KEY `plans_status_fk` (`plans_status_fk`);
 
 --
--- Indexes for table `plans_status`
+-- Indeks for tabel `plans_status`
 --
 ALTER TABLE `plans_status`
   ADD PRIMARY KEY (`plans_status_pk`);
 
 --
--- Indexes for table `receipts`
+-- Indeks for tabel `receipts`
 --
 ALTER TABLE `receipts`
   ADD PRIMARY KEY (`receipt_pk`),
@@ -415,20 +422,20 @@ ALTER TABLE `receipts`
   ADD KEY `receipt_car_fk` (`car_fk`);
 
 --
--- Indexes for table `receipt_status`
+-- Indeks for tabel `receipt_status`
 --
 ALTER TABLE `receipt_status`
   ADD PRIMARY KEY (`receipt_status_pk`);
 
 --
--- Indexes for table `users`
+-- Indeks for tabel `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`user_pk`),
   ADD UNIQUE KEY `user_email` (`user_email`);
 
 --
--- Indexes for table `user_car`
+-- Indeks for tabel `user_car`
 --
 ALTER TABLE `user_car`
   ADD PRIMARY KEY (`user_car_pk`),
@@ -436,7 +443,7 @@ ALTER TABLE `user_car`
   ADD KEY `car_fk` (`car_fk`);
 
 --
--- Indexes for table `user_feedback`
+-- Indeks for tabel `user_feedback`
 --
 ALTER TABLE `user_feedback`
   ADD PRIMARY KEY (`user_feedback_pk`),
@@ -444,7 +451,7 @@ ALTER TABLE `user_feedback`
   ADD KEY `user_feedback_feedback_fk` (`feedback_fk`);
 
 --
--- Indexes for table `user_paymentmethods`
+-- Indeks for tabel `user_paymentmethods`
 --
 ALTER TABLE `user_paymentmethods`
   ADD PRIMARY KEY (`user_paymentmethods_pk`),
@@ -452,71 +459,41 @@ ALTER TABLE `user_paymentmethods`
   ADD KEY `user_paymentmethods_paymentmethods_fk` (`paymentmethods_fk`);
 
 --
--- Indexes for table `wash_services`
+-- Indeks for tabel `wash_services`
 --
 ALTER TABLE `wash_services`
   ADD PRIMARY KEY (`wash_services_pk`);
 
 --
--- Constraints for dumped tables
+-- Begrænsninger for dumpede tabeller
 --
 
 --
--- Constraints for table `cases`
+-- Begrænsninger for tabel `cases`
 --
 ALTER TABLE `cases`
   ADD CONSTRAINT `car_fk_to_cases` FOREIGN KEY (`car_fk`) REFERENCES `cars` (`car_pk`),
   ADD CONSTRAINT `case_status_fk` FOREIGN KEY (`case_status_fk`) REFERENCES `case_status` (`case_status_pk`);
 
 --
--- Constraints for table `locations`
+-- Begrænsninger for tabel `locations`
 --
 ALTER TABLE `locations`
   ADD CONSTRAINT `location_status_fk` FOREIGN KEY (`location_status_fk`) REFERENCES `location_status` (`location_status_pk`);
 
 --
--- Constraints for table `location_facilities`
+-- Begrænsninger for tabel `location_facilities`
 --
 ALTER TABLE `location_facilities`
   ADD CONSTRAINT `facilities_fk` FOREIGN KEY (`facilities_fk`) REFERENCES `facilities` (`facilities_pk`),
   ADD CONSTRAINT `location_fk_to_locationfacilities` FOREIGN KEY (`location_fk`) REFERENCES `locations` (`location_pk`);
 
 --
--- Constraints for table `plans`
+-- Begrænsninger for tabel `plans`
 --
 ALTER TABLE `plans`
   ADD CONSTRAINT `payment_frequency_fk` FOREIGN KEY (`payment_frequency_fk`) REFERENCES `payment_frequency` (`payment_frequency_pk`),
   ADD CONSTRAINT `plans_status_fk` FOREIGN KEY (`plans_status_fk`) REFERENCES `plans_status` (`plans_status_pk`);
-
---
--- Constraints for table `receipts`
---
-ALTER TABLE `receipts`
-  ADD CONSTRAINT `location_fk` FOREIGN KEY (`location_fk`) REFERENCES `locations` (`location_pk`),
-  ADD CONSTRAINT `membership_fk` FOREIGN KEY (`plans_fk`) REFERENCES `membership_packs` (`membership_pack_pk`),
-  ADD CONSTRAINT `receipt_car_fk` FOREIGN KEY (`car_fk`) REFERENCES `cars` (`car_pk`),
-  ADD CONSTRAINT `receipt_status_fk` FOREIGN KEY (`receipt_status_fk`) REFERENCES `receipt_status` (`receipt_status_pk`);
-
---
--- Constraints for table `user_car`
---
-ALTER TABLE `user_car`
-  ADD CONSTRAINT `car_fk` FOREIGN KEY (`car_fk`) REFERENCES `cars` (`car_pk`),
-  ADD CONSTRAINT `user_fk` FOREIGN KEY (`user_fk`) REFERENCES `users` (`user_pk`);
-
---
--- Constraints for table `user_feedback`
---
-ALTER TABLE `user_feedback`
-  ADD CONSTRAINT `user_feedback_feedback_fk` FOREIGN KEY (`feedback_fk`) REFERENCES `feedback` (`feedback_pk`),
-  ADD CONSTRAINT `user_feedback_user_fk` FOREIGN KEY (`user_fk`) REFERENCES `users` (`user_pk`);
-
---
--- Constraints for table `user_paymentmethods`
---
-ALTER TABLE `user_paymentmethods`
-  ADD CONSTRAINT `user_paymentmethods_paymentmethods_fk` FOREIGN KEY (`paymentmethods_fk`) REFERENCES `paymentmethods` (`paymentmethods_pk`),
-  ADD CONSTRAINT `user_paymentmethods_user_fk` FOREIGN KEY (`user_fk`) REFERENCES `users` (`user_pk`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

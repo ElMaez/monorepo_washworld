@@ -60,3 +60,22 @@ def api_create_user():
     finally:
         if "cursor" in locals(): cursor.close()
         if "db" in locals(): db.close()
+
+
+@users_bp.get("api-login")
+@no_cache.no_cache
+def api_user_login():
+    try:
+        #validate data
+        
+        cursor, db = config.db()
+        return jsonify({"msg" : "yeaaah you're logged buddy"}), 200
+    except Exception as ex: 
+        ic(ex)
+        return jsonify({"msg" : "oh noooooo :( )"}), 400
+    finally:
+        if "cursor" in locals(): cursor.close()
+        if "db" in locals(): db.close()
+        
+        
+    

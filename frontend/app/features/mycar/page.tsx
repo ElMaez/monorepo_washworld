@@ -3,12 +3,15 @@
 import Button from "@/app/global/components/Button";
 import Dialog from "@/app/global/components/Dialog";
 import Header from "@/app/global/components/Header";
+import Label from "@/app/global/components/Label";
 
 export default function Mycar() {
 
   return (
     <>
       <Header title="my car" backButton={{ elementType: "link", goBack: true, size: "sm", type: "none", status: "normal", iconName: "back", }}/>
+
+      <Label title="HI! I AM LAAAABEEEEL" subText="I AM SUBTEXT! WAU"/>
       
       <Button 
         elementType="button"
@@ -18,11 +21,11 @@ export default function Mycar() {
         status="normal"
         iconName="circleplus"
         iconFlexPos="order-first"
-        dialogId ="my-car-dialog"
-        
-      />
-      <Dialog id="my-car-dialog" buttonTwo={{ elementType: "button", buttonName:"Back", size: "sm", type: "primary", status: "normal" }} buttonThree={{ elementType: "button", buttonName:"Delete", size: "sm", type: "primary", status: "danger" }}/>
-      
+        dialogId ="my-car-dialog"/>
+
+      <Dialog id="my-car-dialog"
+      buttonTwo={{ elementType: "button", buttonName:"Back", size: "sm", type: "primary", status: "normal" }}
+      buttonThree={{ elementType: "button", buttonName:"Delete", size: "sm", type: "primary", status: "danger" }}/>
     </>
   );
 }

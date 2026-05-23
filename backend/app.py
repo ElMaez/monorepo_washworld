@@ -19,7 +19,6 @@ app = Flask(__name__)
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
-
 CORS(app)
 
 # Her bliver blueprint registeret. Det er syntaksen for at den så kører på serveren.

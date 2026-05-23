@@ -1,7 +1,7 @@
 from utils import config
 from utils import regex
 # Importeres Blueprint for at splitte routes op i opdelte filer
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, session, redirect
 from werkzeug.security import generate_password_hash, check_password_hash
 from icecream import ic
 from utils import no_cache
@@ -18,6 +18,7 @@ ic.configureOutput(prefix="______________ | ", includeContext=True)
 users_bp = Blueprint("users", __name__)
 
 ########################_____SIGNUP_____########################
+
 @users_bp.post("/api-signup")
 @no_cache.no_cache
 def api_create_user():
@@ -61,15 +62,25 @@ def api_create_user():
         if "cursor" in locals(): cursor.close()
         if "db" in locals(): db.close()
 
-
-@users_bp.get("api-login")
+########################_____LOGIN_____########################
+@users_bp.get("/api-login")
 @no_cache.no_cache
 def api_user_login():
     try:
         #validate data
+        user_email = regex.validate_user_email()
+        user_password = regex.validate_user_password()
         
         cursor, db = config.db()
-        return jsonify({"msg" : "yeaaah you're logged buddy"}), 200
+        
+        #query
+        q ="""SELECT * FROM users WHERE user_email = %s"""
+        
+        cursor.execute(q, (user_email,))
+        
+        # fetch user from the db
+        user = cursor.fetchone()
+        
     except Exception as ex: 
         ic(ex)
         return jsonify({"msg" : "oh noooooo :( )"}), 400

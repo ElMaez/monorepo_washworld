@@ -25,7 +25,7 @@ export default function Form() {
         user_fullname:fullname,
         user_phonenumber:phoneNumber,
         user_email:email,
-        user_address: user_adress,
+        user_address: adress,
         user_password:password,
         })
     }

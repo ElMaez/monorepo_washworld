@@ -7,9 +7,9 @@ interface ButtonProps {
   size: string;
   iconName?: IconNameType;
   iconFlexPos?: string;
-  isPage: string;
-  maxPage:string;
-  iconStyle:string;
+  isPage?: string;
+  maxPage?:string;
+  iconStyle?:string;
   type: "primary" | "secondary" | "tertiary";
   status: "danger" |"success" | "normal";
 }

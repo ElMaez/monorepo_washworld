@@ -10,7 +10,8 @@ export interface ButtonProps {
   goBack?: boolean;
   linkHref?: string;
   buttonName?: string;
-  size: string;
+  size: "" | "lg";
+  dialogId?: string;
   iconName?: IconNameType;
   iconFlexPos?: string;
   isPage?: string;
@@ -21,35 +22,52 @@ export interface ButtonProps {
 }
 
 
-const Button = ({ elementType,linkHref,goBack, size, type, status,buttonName, iconName, iconFlexPos, isPage, maxPage }: ButtonProps) => {
+const Button = ({ elementType, linkHref, goBack, size, type, status, buttonName, iconName, iconFlexPos, isPage, maxPage, dialogId }: ButtonProps) => {
+   
+  const openModal = () => {
+    const dialog = document.getElementById(`${dialogId}`) as HTMLDialogElement | null;
+    dialog?.showModal();
+  };
 
   const router = useRouter();
 
-  let normal = "border-primary-800 text-primary-800"
-  let danger = "border-danger text-danger"
-  let success = "border-success text-success"
+  const statusStyles = {
+    primary: {
+      normal: "bg-primary-400 border-primary-800 text-bg-dark",
+      danger: "bg-danger border-danger text-bg-dark",
+      success: "bg-success border-success text-bg-dark",
+    },
+    secondary: { 
+      normal: "bg-primary-50 border-primary-100 text-primary-800", 
+      danger: "bg-danger-10-opacity border-danger text-danger", 
+      success: "bg-success-10-opacity border-success text-success", 
+    },
+    tertiary: { 
+      normal: "border-primary-800 text-primary-800", 
+      danger: "border-danger text-danger", 
+      success: "border-success text-success", 
 
-  let primary = "bg-primary-400 text-grey-400 border-b-2 border-primary-800 text-bg-dark"
-  let secondary = "border-2 border-primary-100 bg-primary-50 text-primary-800"
-  let none = "text-primary-800"
+    }, 
+    none: { 
+      normal: "text-primary-800", 
+      danger: "text-danger", 
+      success: "text-success", 
+    }, 
+  };
 
-  let statusStyle = `${normal}`, iconStyle = "text-bg-black"
-  if (status== "danger") statusStyle = `${danger}`, iconStyle = `text-danger`
-  if (status== "success") statusStyle = `${success}`, iconStyle = `text-success`
-  
-  let tertiary = `border-b-2 ${statusStyle}`
-
-  let buttonStyle = `${primary}`
-  if (type === "secondary") buttonStyle = `${secondary}`;
-  if (type === "tertiary") buttonStyle = `${tertiary}`;
-  if (type === "none") buttonStyle = `${none}`;
-  
+const iconStyles = { normal: "text-bg-black", danger: "text-danger", success: "text-success", };
+  let buttonStyle = "";
+  if (type === "primary") { buttonStyle = ` border-b-2 ${statusStyles.primary[status]} `; }
+  if (type === "secondary") { buttonStyle = ` border-2 ${statusStyles.secondary[status]} `; }
+  if (type === "tertiary") { buttonStyle = ` border-b-2 ${statusStyles.tertiary[status]} `; }
+  if (type === "none") { buttonStyle = ` ${statusStyles.none[status]} `; } const iconStyle = iconStyles[status];
 
   return (
     <div  className={`flex items-center gap-8 ${size ==='lg' ? 'w-full' : 'w-fit'}`}>
     {elementType === "button" ?
     <>
     <button
+    onClick={dialogId ? openModal : undefined}
     className={`h-fit rounded-2 uppercase flex justify-center font-bold
     ${size ==='lg' ? 'w-full py-8' : 'w-fit p-8'}
     ${buttonStyle}
@@ -58,7 +76,9 @@ const Button = ({ elementType,linkHref,goBack, size, type, status,buttonName, ic
       {iconName && (<Icon iconName={iconName} style={`${iconFlexPos} ${iconStyle}`} />)}
     </button>
       {isPage && maxPage ? <p className="">{isPage}/{maxPage}</p> : ""} 
-      </>: <>
+    </>
+      : 
+    <>
     <Link
     href={linkHref || "#"}
     onClick={

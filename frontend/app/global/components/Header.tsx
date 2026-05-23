@@ -17,9 +17,14 @@ const Header = ({title, backButton, rightButton}:HeaderProps) => {
             <div className="grid grid-cols-3 grid-rows-1 items-center w-full">
             <>{backButton && <Button {...backButton} />}</>
             <h1 className="justify-self-center col-start-2">{title}</h1>
-            {rightButton ? <div className="justify-self-end col-start-3">{rightButton && <Button {...rightButton} />}</div> :""}
+            {rightButton && (<div className="justify-self-end col-start-3"><Button {...rightButton}/></div>)}
             </div>
         </header>
     )
 }
 export default Header;
+
+// EXAMPLES OF HOW TO USE IN PAGE
+// backButton={{ buttonName:"EXAMPLE", elementType: "link", goBack: true, size: "lg", type: "none", status: "normal", iconName: "back", }}
+//OR
+// rightButton={{ buttonName:"EXAMPLE", elementType: "link", goBack: true, size: "", type: "none", status: "normal", iconName: "back", }}

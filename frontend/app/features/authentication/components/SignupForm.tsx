@@ -3,7 +3,6 @@
 import Button from "@/app/global/components/Button";
 import Input from "@/app/global/components/Input";
 import { useState } from "react";
-import axios from "axios";
 // custom hook
 import { useSignup } from "../hooks/useSignup";
 

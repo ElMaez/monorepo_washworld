@@ -7,6 +7,10 @@ type Signup = {
     user_email: string;
     user_address: string;
 }
+type Login = {
+    user_email: string;
+    user_password: string;
+}
 // use this for dev for now
 const BACKEND_URL = "http://localhost"
 
@@ -21,3 +25,13 @@ export async function create_user(data: Signup) {
     return response.data // backend der sender JSON retur
 }
 
+
+// Get the user from the api-login in the backend
+export async function login_user(data: Login){
+    const response = await axios.post(
+        `${BACKEND_URL}/api-login`,
+        // body argument
+        new URLSearchParams(data),
+    );
+    return response.data // 
+}

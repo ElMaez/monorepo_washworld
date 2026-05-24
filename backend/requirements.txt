@@ -3,3 +3,4 @@ icecream == 2.1.10
 mysql-connector-python == 9.0.0
 flask-session == 0.8.0
 flask-cors == 5.0.1
+python-dotenv == 1.0.1

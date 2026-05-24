@@ -12,10 +12,11 @@ interface ButtonProps {
   iconStyle?:string;
   type: "primary" | "secondary" | "tertiary";
   status: "danger" |"success" | "normal";
+  onClick?: () => void;
 }
 
 
-const Button = ({ buttonName, size, type, status, iconName, iconFlexPos, isPage, maxPage }: ButtonProps) => {
+const Button = ({ buttonName, size, type, status, iconName, iconFlexPos, isPage, maxPage, onClick }: ButtonProps) => {
 
   let normal = "border-primary-800 text-primary-800"
   let danger = "border-danger text-danger"
@@ -38,6 +39,7 @@ const Button = ({ buttonName, size, type, status, iconName, iconFlexPos, isPage,
   return (
     <div  className="flex items-center gap-8">
     <button
+    onClick={onClick}
     className={`h-fit rounded-2 uppercase flex gap-8 justify-center font-bold
     ${size ==='lg' ? 'w-full py-8' : 'w-fit p-8'}
     ${buttonStyle}`}>

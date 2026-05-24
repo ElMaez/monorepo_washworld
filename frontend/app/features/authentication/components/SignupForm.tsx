@@ -7,7 +7,9 @@ import axios from "axios";
 // custom hook
 import { useSignup } from "../hooks/useSignup";
 
-export default function Form() {
+type Props = { onToggleLogin: () => void };
+
+export default function SignupForm({ onToggleLogin}: Props) {
     const [fullname, setFullname] = useState('');
     const [password, setPassword] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -29,8 +31,6 @@ export default function Form() {
         user_password:password,
         })
     }
-
-
     return(
         <form onSubmit={handleSubmit}>
             <fieldset>
@@ -95,6 +95,13 @@ export default function Form() {
             buttonName={signupMutation.isPending ? "Sender data..." : "Opret Bruger"}
             size="lg"
             />
+            <Button 
+            type={"tertiary"}
+            buttonName="Login"
+            size="lg"
+            onClick={onToggleLogin}
+            />
+
         </form>
     )
 }

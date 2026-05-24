@@ -21,7 +21,10 @@ from email.mime.text import MIMEText
 ic.configureOutput(prefix="______________ | ", includeContext=True)
 
 # Her bliver vores blueprint lavet, hvor vi bruger
-# users_bp som en slags label på vores tegning
+# users_bp som en slags label på vores tegning. navnet er vores første arg. 
+# __name__ bruges til at finde vores templates/statics.
+
+# Med Blueprint bliver alle routes automatisk url_prefix
 users_bp = Blueprint("users", __name__)
 
 load_dotenv()
@@ -174,4 +177,20 @@ def logout():
     except Exception as ex: 
         ic(ex)
         return "haha u can't figure out to logout. sad."        
-    
+
+### USER FORGETS PASSWORD ###
+@users_bp.post("/forget-password")
+def reset_password():
+    try:
+        email = config.validate_user_email()
+        #validate data
+        cursor, db = config.db()
+        q =""
+        cursor.execute(q,(email,))
+        
+        row = cursor.fetchone()
+    except Exception as ex:
+        ic(ex)
+    finally:
+         if "db" in locals(): db.close()
+         if "cursor" in locals(): cursor.close()

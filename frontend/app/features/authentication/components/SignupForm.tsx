@@ -36,6 +36,7 @@ export default function SignupForm({ onToggleLogin}: Props) {
                 <legend>
                     Personal Information
                 </legend>
+                {/* Fulde Navn */}
                 <Input 
                 type ="text"
                 name= "user_fullname"
@@ -43,6 +44,7 @@ export default function SignupForm({ onToggleLogin}: Props) {
                 inputLabel="Full Name"
                 value={fullname}
                 onChange={setFullname}/>
+                {/* Adresse */}
                 <Input 
                 type ="text"
                 name= "user_adress"
@@ -50,7 +52,7 @@ export default function SignupForm({ onToggleLogin}: Props) {
                 inputLabel="Adress"
                 value={adress}
                 onChange={setAdress}/>
-                
+                {/* Mobilnummer */}
                 <Input 
                 type ="tel"
                 name= "user_phonenumber"
@@ -59,7 +61,7 @@ export default function SignupForm({ onToggleLogin}: Props) {
                 value={phoneNumber}
                 onChange={setPhoneNumber}/>
 
-
+                {/* Email */}
                 <Input 
                 type ="text"
                 name= "email"
@@ -67,6 +69,8 @@ export default function SignupForm({ onToggleLogin}: Props) {
                 inputLabel="Email"
                 value={email}
                 onChange={setEmail}/>
+
+                {/* Adgangskode */}
                 <Input 
                 type ="password"
                 name= "user_password"
@@ -75,6 +79,7 @@ export default function SignupForm({ onToggleLogin}: Props) {
                 value={password}
                 onChange={setPassword}/>
             </fieldset>
+            {/* Acceptere Vilkår */}
                 <Input 
                 type="checkbox"
                 name="acceptPolicy"
@@ -83,7 +88,7 @@ export default function SignupForm({ onToggleLogin}: Props) {
                 checked={consent}
                 onChange={setConsent}
                 />
-
+            {/* Response fra submit*/}
             {signupMutation. isError && (
                 <p style={{color: "red"}}>nopes</p>
             )}
@@ -91,19 +96,21 @@ export default function SignupForm({ onToggleLogin}: Props) {
                 <p style={{color: "green"}}>yeps</p>
             )}
             <Button 
+            typeAction="submit"
             elementType="button"
             buttonName={signupMutation.isPending ? "Sender data..." : "Opret Bruger"}
             size="lg"
             type="primary"
             status="normal"
             />
+            {/* Knap til at toggle mellem login og signup*/}
             <Button 
+            typeAction="button"
             type={"tertiary"}
             buttonName="Login"
             size="lg"
             onClick={onToggleLogin}
             />
-
         </form>
     )
 }

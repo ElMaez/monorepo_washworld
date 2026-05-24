@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 
 
 export interface ButtonProps {
+  typeAction?: string,
   elementType?: "link" | "button";
   goBack?: boolean;
   linkHref?: string;
@@ -36,6 +37,7 @@ const Button = ({
   isPage,
   maxPage,
   onClick,
+  typeAction,
 }: ButtonProps) => {
 
   const router = useRouter();
@@ -82,7 +84,7 @@ const iconStyles = { normal: "text-bg-black", danger: "text-danger", success: "t
     {elementType === "button" ?
     <>
     <button
-    type="button"
+    type={typeAction}
     onClick={() => {
       if (dialogId) {
         (document.getElementById(dialogId) as HTMLDialogElement | null)?.showModal();

@@ -4,23 +4,21 @@ import Button from "@/app/global/components/Button";
 import Input from "@/app/global/components/Input";
 import { useState } from "react";
 // custom hook
-import { useLogin } from "../hooks/useLogin";
+import { useForgotPassword } from "../hooks/useForgotPassword";
 
-type Props = { onToggleSignup: () => void,  onForgotPassword: () => void,  };
+type Props = { onToggleLogin: () => void, onToggleSignup: () => void  };
 
-export default function LoginForm({ onToggleSignup, onForgotPassword }: Props) {
+export default function ForgotPasswordForm({ onToggleLogin, onToggleSignup }: Props) {
   // useState
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
+  const [forgotPassword, setForgetPassword] = useState("");
   // custom hook useLogin
-  const signupMutation = useLogin();
+  const signupMutation = useForgotPassword();
 
   async function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
     //smid custom hook ind i submit funktionen
     signupMutation.mutate({
-      user_email: email,
-      user_password: password,
+      user_email: forgotPassword,
     });
   }
 
@@ -28,29 +26,29 @@ export default function LoginForm({ onToggleSignup, onForgotPassword }: Props) {
     <>
       <form onSubmit={handleSubmit}>
         <fieldset>
-          <legend>Personal Information</legend>
+          <legend>Forgot Password</legend>
           <Input
             type="text"
-            name="email"
-            label="email"
+            name="forgot_password"
+            label="Email"
             inputLabel="Email"
-            value={email}
-            onChange={setEmail}
-          />
-          <Input
-            type="password"
-            name="user_password"
-            label="user_password"
-            inputLabel="Password"
-            value={password}
-            onChange={setPassword}
+            value={forgotPassword}
+            onChange={setForgetPassword}
           />
         </fieldset>
         {signupMutation.isError && <p style={{ color: "red" }}>nopes</p>}
         {signupMutation.isSuccess && <p style={{ color: "green" }}>yeps</p>}
         <Button
-          buttonName={signupMutation.isPending ? "Logger ind..." : "Log ind"}
+          buttonName={signupMutation.isPending ? "Sender..." : "Email Send"}
           size="lg"
+        />
+        <Button
+        typeAction="button"
+          elementType="button"
+          type={"tertiary"}
+          buttonName="Login"
+          size="lg"
+          onClick={onToggleLogin}
         />
         <Button
         typeAction="button"
@@ -59,14 +57,6 @@ export default function LoginForm({ onToggleSignup, onForgotPassword }: Props) {
           buttonName="Sign up"
           size="lg"
           onClick={onToggleSignup}
-        />
-        <Button
-        typeAction="button"
-          elementType="button"
-          type={"tertiary"}
-          buttonName="Forgot password? Reset here"
-          size="lg"
-          onClick={onForgotPassword}
         />
       </form>
     </>

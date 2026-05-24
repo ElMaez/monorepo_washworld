@@ -1,5 +1,4 @@
 import Form from "./features/authentication/components/Form";
-import Input from "./global/components/Input";
 
 export default function Home() {
   return (

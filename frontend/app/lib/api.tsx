@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+// Define the types for Signup
 type Signup = {
     user_fullname: string;
     user_password: string;
@@ -7,11 +7,17 @@ type Signup = {
     user_email: string;
     user_address: string;
 }
+// Define the types for the Login
 type Login = {
     user_email: string;
     user_password: string;
 }
-// use this for dev for now
+
+// Define the type for resetting the password
+type ResetPassword = {
+    user_email: string;
+}
+// use this for dev for now. Replace with actual link later (pythonanywhere)
 const BACKEND_URL = "http://localhost"
 
 // funktion til at kunne fetche fra vores backend asynkronsk
@@ -35,3 +41,16 @@ export async function login_user(data: Login){
     );
     return response.data // 
 }
+
+
+// Reset the users password
+export async function reset_password(data: ResetPassword){
+    const response = await axios.post(
+        `${BACKEND_URL}/api-reset_password`,
+        // body argument
+        new URLSearchParams(data),
+    );
+    return response.data // 
+}
+
+

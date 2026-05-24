@@ -1,0 +1,39 @@
+.snackbar {
+  position: fixed;
+  left: 50%;
+  top:6%;
+  z-index: 50;
+
+  transform: translateX(-50%) translateY(7%);
+  opacity: 0;
+
+  animation: snackbar-enter 300ms ease-out forwards;
+}
+
+.snackbar--leaving {
+  animation: snackbar-leave 300ms ease-in forwards;
+}
+
+@keyframes snackbar-enter {
+  from {
+    transform: translateX(-50%) translateY(-12px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes snackbar-leave {
+  from {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateX(-50%) translateY(-12px);
+    opacity: 0;
+  }
+}

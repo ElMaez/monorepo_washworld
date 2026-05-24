@@ -92,8 +92,11 @@ export default function SignupForm({ onToggleLogin}: Props) {
                 <p style={{color: "green"}}>yeps</p>
             )}
             <Button 
+            elementType="button"
             buttonName={signupMutation.isPending ? "Sender data..." : "Opret Bruger"}
             size="lg"
+            type="primary"
+            status="normal"
             />
             <Button 
             type={"tertiary"}

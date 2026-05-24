@@ -3,6 +3,7 @@ import { gilroy } from "./fonts/fonts";
 import Providers from "./global/utils/Providers";
 import Menu from "./global/components/Menu";
 import "./global/styles/global.css";
+import Header from "./global/components/Header";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,7 +19,6 @@ export default function RootLayout({
     <html lang="da" className={gilroy.variable}>
       <body>
         <Providers>
-      <header className="fullbleed"><p>I am header! :D</p></header>
       {children}
       <Menu></Menu>
         </Providers>

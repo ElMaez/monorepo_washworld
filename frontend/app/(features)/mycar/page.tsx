@@ -9,9 +9,19 @@ export default function Mycar() {
 
   return (
     <>
-      <Header title="my car" backButton={{ elementType: "link", goBack: true, size: "sm", type: "none", status: "normal", iconName: "back", }}/>
+    <Header title="my car" backButton={{ elementType: "link", goBack: true, size: "sm", type: "none", status: "normal", iconName: "back", }}/>
+    <main>
 
-      <Label title="HI! I AM LAAAABEEEEL" subText="I AM SUBTEXT! WAU"/>
+      <Label
+      title="Title"
+      subText="Subtext"
+      labelAmount="one"
+      angle="reverse"
+      iconNameOne="vacuum"
+      iconNameTwo="circlecheck"
+      iconNameThree="check"
+      iconSize="sm"
+      style="bg-primary-100 text-bg-dark" />
       
       <Button 
         elementType="button"
@@ -26,6 +36,7 @@ export default function Mycar() {
       <Dialog id="my-car-dialog"
       buttonTwo={{ elementType: "button", buttonName:"Back", size: "sm", type: "primary", status: "normal" }}
       buttonThree={{ elementType: "button", buttonName:"Delete", size: "sm", type: "primary", status: "danger" }}/>
+    </main>
     </>
   );
 }

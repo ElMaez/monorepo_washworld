@@ -194,34 +194,10 @@ body {
     display: grid;
     grid-template-columns: subgrid;
 
-    > * {
+    >* {
       grid-column: 2;
     }
   }
 }
- /*
- tl = top-left offset
- tr = top-right offset
- br = bottom-right offset
- bl = bottom-left offset
- skriv dette i className=
- [--h:48px] h-(--h)
- ex på to vinkler: [--bl:var(--angle)] [--br:var(--angle)]
- ex på en vinkel:  [--br:var(--angle)]
- */
-.angled-shape {
-  --angle: calc(var(--h) * 0.57735);
 
-  --tl: 0;
-  --tr: 0;
-  --br: 0;
-  --bl: 0;
-
-  clip-path: polygon(
-    calc(var(--tl) * var(--angle)) 0,
-    calc(100% - (var(--tr) * var(--angle))) 0,
-    calc(100% - (var(--br) * var(--angle))) 100%,
-    calc(var(--bl) * var(--angle)) 100%
-  );
-}
 

@@ -1,4 +1,4 @@
-import Form from "./features/signup/components/Form";
+import Form from "./(features)/signup/components/Form";
 import Header from "./global/components/Header";
 import Input from "./global/components/Input";
 

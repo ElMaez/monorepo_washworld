@@ -1,41 +1,99 @@
-import "../styles/global.css";
+import "../styles/label.css";
+import Icon from "./Icon";
 
 interface LabelProps {
-  title: string;
+  title?: string;
   subText?: string;
-  icon?: string;
+  labelAmount: "one" | "two" | "three";
+  angle?: "normal" | "reverse";
+  labelStyle?: string;
+  
+  iconStyle?: string;
+  iconName?: string;
+  iconNameOne?: string;
+  iconNameTwo?: string;
+  iconNameThree?: string;
+  iconSize?: "lg" | "sm";
+  style?: string;
 }
 
-const Label = ({ title, subText }: LabelProps) => {
-  const height = subText ? "48px" : "29px";
+const Label = ({ title, subText, labelAmount, angle, labelStyle, iconNameOne, iconNameTwo,iconNameThree, iconStyle, iconSize, style ="bg-primary-800 text-bg-light" }: LabelProps) => {
 
-  return (
-    <div className="flex">
-      <div
-        style={{ "--h": height, "--bl": subText ? 1 : 0, "--br": subText ? 0 : 1 } as React.CSSProperties} //TypeScript does not know --h, --br, therefore as React.CSSProperties
-        className="angled-shape h-[--h] bg-primary-800 px-16 text-bg-light"
-      >
+  //                             Here is the different size options with their styles from label.css
+    const sizeStyle = {
+       lg: "angled-shape--lg",
+       sm: "angled-shape--sm",
+     };
+
+  let labelTypes = "";
+  if (labelAmount === "one"  ) {
+    return(<div className={`angled-shape col-start-1 col-end-9 row-start-1 px-8 w-fit grid grid-cols-[1fr_5fr] grid-rows-2 items-center justify-start ${style}
+    ${angle === "reverse" ? "angled-shape--right-reverse" : "angled-shape--right"}
+    ${subText ? sizeStyle["lg"] : sizeStyle["sm"]} ${labelStyle}`}>
+      {iconNameOne && <Icon iconName={iconNameOne} style={iconStyle} size={iconSize} />}
         <h1>{title}</h1>
-        {subText && <p>{subText}</p>}
+        {subText && <p className="col-span-2">{subText}</p>}
+      </div>)
+      }
+
+
+
+
+  //                                          Her er til 2 labels ved siden af hinanden
+  
+  
+  if (labelAmount === "two"  ) { labelTypes = `angled-shape ${style} ${subText ? sizeStyle["lg"] : sizeStyle["sm"]} ${labelStyle}`;
+  return(<div className="grid grid-cols-15 grid-rows-1 gap-16">
+      <div className={`${labelTypes} angled-shape--right-reverse col-start-1 col-end-9 row-start-1 px-8 grid grid-cols-[1fr_5fr] grid-rows-2 items-center justify-start
+      ${angle === "reverse" ? "angled-shape--right-reverse" : "angled-shape--right"}`}>
+        {iconNameOne && <Icon iconName={iconNameOne} style={iconStyle} size={iconSize} />}
+        <h1>{title}</h1>
+        {subText && <p className="col-span-2">{subText}</p>}
       </div>
 
-      <div
-        style={{ "--h": height, "--bl": subText ? 1 : 0, "--br": subText ? 1 : 0 } as React.CSSProperties} //TypeScript does not know --h, --br, therefore as React.CSSProperties
-        className="angled-shape h-[--h] bg-primary-800 px-16 text-bg-light"
-      >
+      <div className={` ${labelTypes} angled-shape--left col-start-8 -col-end-1 row-start-1 pr-8 pl-32 grid grid-cols-[4fr_1fr] grid-rows-2 items-center justify-items-end
+      ${angle === "reverse" ? "angled-shape--left" : "angled-shape--left-reverse"}`}>
+        {iconNameTwo && <Icon iconName={iconNameTwo} style={iconStyle} size={iconSize} />}
         <h1>{title}</h1>
-        {subText && <p>{subText}</p>}
+        {subText && <p className="col-span-2">{subText}</p>}
+      </div>
+    </div>)   }
+
+
+
+
+
+
+    //                                     Her er til 3 labels ved siden af hinanden
+
+
+
+    if (labelAmount === "three") { labelTypes = `angled-shape ${style} ${subText ? sizeStyle["lg"] : sizeStyle["sm"]} ${labelStyle} `;
+  return(
+  <div className="grid grid-cols-12 grid-rows-1 gap-16">
+      <div className={`${labelTypes} col-start-1 col-end-6 row-start-1 p-8 grid grid-cols-[1fr_4fr] grid-rows-2 items-center justify-start
+      ${angle === "reverse" ? "angled-shape--right" : "angled-shape--right-reverse"}`}>
+        {iconNameOne && <Icon iconName={iconNameOne} style={iconStyle} size={iconSize} />}
+        <h1>{title}</h1>
+        {subText && <p className="col-span-2">{subText}</p>}
       </div>
 
-      <div
-        style={{ "--h": height, "--bl": subText ? 1 : 0, "--br": subText ? 0 : 1 } as React.CSSProperties} //TypeScript does not know --h, --br, therefore as React.CSSProperties
-        className="angled-shape h-[--h] bg-primary-800 px-16 text-bg-light"
-      >
+      <div className={`${labelTypes} col-start-5 col-end-10 row-start-1 py-8 grid grid-cols-[1fr_1fr] grid-rows-2 items-center justify-center
+      ${angle === "reverse" ? "angled-shape--both-reverse" : "angled-shape--both"}`}>
+        <div className="flex col-span-2 gap-4 items-center justify-center">
+        {iconNameTwo && <Icon iconName={iconNameTwo} style={iconStyle} size={iconSize} />}
         <h1>{title}</h1>
-        {subText && <p>{subText}</p>}
+        </div>
+        {subText && <p className="col-span-2">{subText}</p>}
       </div>
-    </div>
-  );
+
+      <div className={` ${labelTypes} angled-shape--left col-start-9 col-end-13 row-start-1 p-8 grid grid-cols-[2fr_1fr] grid-rows-2 items-start justify-end
+      ${angle === "reverse" ? "angled-shape--left" : "angled-shape--left-reverse"}`}>
+        {iconNameThree && <Icon iconName={iconNameThree} style={`${iconStyle} justify-self-end`} size={iconSize} />}
+        <h1>{title}</h1>
+        {subText && <p className="col-span-2">{subText}</p>}
+      </div>
+    </div>)}
 };
 
 export default Label;

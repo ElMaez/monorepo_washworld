@@ -1,7 +1,6 @@
 "use client";
 
 import Button from "@/app/global/components/Button";
-import Dialog from "@/app/global/components/Dialog";
 import Header from "@/app/global/components/Header";
 
 export default function Mycar() {

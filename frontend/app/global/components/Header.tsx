@@ -9,8 +9,6 @@ interface HeaderProps {
  rightButton?: ButtonProps;
 }
 
-
-
 const Header = ({title, backButton, rightButton}:HeaderProps) => {
 
     return(

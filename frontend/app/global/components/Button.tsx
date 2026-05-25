@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 
 export interface ButtonProps {
-  typeAction?: string,
+  typeAction?: "button" | "submit" | "reset";
   elementType?: "link" | "button";
   goBack?: boolean;
   linkHref?: string;
@@ -37,7 +37,7 @@ const Button = ({
   isPage,
   maxPage,
   onClick,
-  typeAction,
+  typeAction = "button",
 }: ButtonProps) => {
 
   const router = useRouter();

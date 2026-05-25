@@ -6,7 +6,8 @@ import { useRouter } from "next/navigation";
 
 
 export interface ButtonProps {
-  elementType: "link" |"button";
+  typeAction?: string,
+  elementType?: "link" | "button";
   goBack?: boolean;
   linkHref?: string;
   buttonName?: string;
@@ -15,19 +16,29 @@ export interface ButtonProps {
   iconName?: IconNameType;
   iconFlexPos?: string;
   isPage?: string;
-  maxPage?:string;
-  iconStyle?:string;
-  type: "primary" | "secondary" | "tertiary"| "none";
-  status: "danger" |"success" | "normal";
+  maxPage?: string;
+  type?: "primary" | "secondary" | "tertiary" | "none";
+  status?: "danger" | "success" | "normal";
+  onClick?: () => void;
 }
 
 
-const Button = ({ elementType, linkHref, goBack, size, type, status, buttonName, iconName, iconFlexPos, isPage, maxPage, dialogId }: ButtonProps) => {
-   
-  const openModal = () => {
-    const dialog = document.getElementById(`${dialogId}`) as HTMLDialogElement | null;
-    dialog?.showModal();
-  };
+const Button = ({
+  buttonName,
+  size,
+  elementType = "button",
+  dialogId,
+  linkHref,
+  goBack,
+  type = "primary",
+  status = "normal",
+  iconName,
+  iconFlexPos,
+  isPage,
+  maxPage,
+  onClick,
+  typeAction,
+}: ButtonProps) => {
 
   const router = useRouter();
 
@@ -73,7 +84,13 @@ const iconStyles = { normal: "text-bg-black", danger: "text-danger", success: "t
     {elementType === "button" ?
     <>
     <button
-    onClick={dialogId ? openModal : undefined}
+    type={typeAction}
+    onClick={() => {
+      if (dialogId) {
+        (document.getElementById(dialogId) as HTMLDialogElement | null)?.showModal();
+      }
+      onClick?.();
+    }}
     className={`h-fit rounded-2 uppercase flex justify-center font-bold
     ${buttonStyle}
     ${iconName && buttonName ? "gap-8":""}`}>

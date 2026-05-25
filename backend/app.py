@@ -1,10 +1,8 @@
 # ============================================================
 #  app.py  —  the ENTRY POINT of the backend.
-#  `flask run` (see Dockerfile) looks for a file named exactly
-#  "app.py" and runs the `app` object defined here.
 # ============================================================
 
-from flask import Flask, jsonify
+from flask import Flask
 from flask_cors import CORS
 from flask_session import Session
 
@@ -15,11 +13,10 @@ from api.users import users_bp
 
 app = Flask(__name__)
 
-
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
-CORS(app)
+CORS(app, supports_credentials=True, origins=["http://localhost:3000"])
 
 # Her bliver blueprint registeret. Det er syntaksen for at den så kører på serveren.
 # Det samme biver gjort med de andre moduler / filer der bliver oprettet.

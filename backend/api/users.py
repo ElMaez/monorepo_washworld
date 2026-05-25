@@ -18,7 +18,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 
-ic.configureOutput(prefix="⋆౨ৎ˚⟡˖ ࣪ ⊹ ࣪ ˖ ⋆౨ৎ˚⟡˖ ࣪ ⊹ ࣪ ˖ ☆ﾐ(o\*･ω･)ﾉ  | ", includeContext=True)
+ic.configureOutput(prefix="⋆౨ৎ˚⟡˖ ࣪ ⊹ ࣪ ˖ ⋆౨ৎ˚⟡˖ ࣪ ⊹ ࣪ ˖ ☆ﾐ(o\*･ω･)ﾉ | ", includeContext=True)
 
 # Her bliver vores blueprint lavet, hvor vi bruger
 # users_bp som en slags label på vores tegning. navnet er vores første arg. 
@@ -28,6 +28,31 @@ ic.configureOutput(prefix="⋆౨ৎ˚⟡˖ ࣪ ⊹ ࣪ ˖ ⋆౨ৎ˚⟡˖ ࣪ 
 users_bp = Blueprint("users", __name__)
 # det lort vil ikke. Nu har den sku min data.
 load_dotenv()
+########################_____SESSION_____########################
+@users_bp.get("/api-user")
+@no_cache.no_cache
+def api_user():
+    try:
+        user_pk = session.get("user_pk", "")
+        if not user_pk: 
+            return jsonify({"msg" : "Could not find user"}), 401
+        
+        db,cursor = config.db()
+        cursor.execute("")
+        
+        user = cursor.fetchone()
+        if not user: 
+            return jsonify({"msg" : "Could not find user"}), 401
+        
+        return jsonify(user), 200
+    except Exception as ex:
+        ic(ex)
+        return jsonify({"msg" : "Server Whoops"}), 500
+    finally:
+        if "db" in locals(): db.close()
+        if "cursor" in locals(): cursor.close()
+
+
 ########################_____SIGNUP_____########################
 
 @users_bp.post("/api-signup")
@@ -35,7 +60,6 @@ load_dotenv()
 def api_create_user():
     try:
         #Validate data
-        #uuid
         user_pk = uuid.uuid4().hex
         user_fullname = regex.validate_user_fullname()
         user_password = regex.validate_user_password()
@@ -46,7 +70,7 @@ def api_create_user():
         user_hashed_password = generate_password_hash(user_password)
         
         #validate the user for email
-        verification_key = uuid.uuid4().hex
+        user_verification_key = uuid.uuid4().hex
         
         # epoch / timestamp
         user_created_at = int(time.time())+7200
@@ -55,14 +79,11 @@ def api_create_user():
         db, cursor = config.db()
         #query 
         # add verification key to the query
-        q = """INSERT INTO users
-       (user_pk, user_fullname, user_verification_key, user_phonenumber, user_email, user_password,
-        user_address, user_created_at, user_updated_at, user_deleted_at)
-       VALUES (%s, %s, %s, %s, %s, %s, %s, %s, 0, 0)"""
-        cursor.execute(q, (user_pk,user_fullname, verification_key, user_phonenumber,user_email,user_hashed_password,user_adress,user_created_at, ))
+        q = """INSERT INTO users (user_pk, user_fullname, user_verification_key, user_reset_password_key, user_phonenumber, user_email, user_password, user_address, user_created_at, user_updated_at, user_deleted_at) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, 0, 0)"""
+        cursor.execute(q, (user_pk,user_fullname, user_verification_key, "", user_phonenumber,user_email,user_hashed_password,user_adress,user_created_at))
         db.commit()
         
-        html = render_template("email_verification.html", verification_key=verification_key)
+        html = render_template("email_verification.html", user_verification_key=user_verification_key)
         
         send_email(user_email, html)
         return jsonify({"msg" : "Please check your email."}), 200
@@ -151,7 +172,7 @@ def api_user_login():
         if "db" in locals(): db.close()
         
 ### LOGOUT ###
-@users_bp.route('/logout')
+@users_bp.post('/logout')
 def logout():
     try:
         session.clear()
@@ -286,3 +307,17 @@ def send_email(to_email, html):
         server.sendmail(sender_email, receiver_email, message.as_string())
         ic("Email sent :) ")
 
+########################_____DELETE USER_____########################
+@users_bp.delete('/delete-user')
+def delete_user():
+    try:
+        user_pk = uuid.uuid4().hex
+        db, cursor = config.db()
+        q = """ """
+        cursor.execute(q,(arg,))
+        db.commit()
+    except Exception as ex:
+        ic(ex)
+    finally:
+        if "cursor" in locals(): cursor.close()
+        if "db" in locals(): db.close()

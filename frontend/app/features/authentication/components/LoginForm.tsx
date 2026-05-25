@@ -2,7 +2,9 @@
 
 import Button from "@/app/global/components/Button";
 import Input from "@/app/global/components/Input";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+// Nextjs Router til at redirecte brugeren
+import { useRouter } from "next/navigation";
 // custom hook
 import { useLogin } from "../hooks/useLogin";
 
@@ -12,10 +14,18 @@ export default function LoginForm({ onToggleSignup, onForgotPassword }: Props) {
   // useState
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  // handling errors 
-
+  const router = useRouter();
   // custom hook useLogin
   const loginMutation = useLogin();
+  // useEffect for hvis login er success så bliver
+  //  brugeren sendt vider til dashboard
+    useEffect(() => {
+    if (loginMutation.isSuccess) {
+      router.push('/dashboard');
+    }
+  
+  }, [loginMutation.isSuccess, router])
+  
 
   async function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();

@@ -11,6 +11,7 @@ from flask_session import Session
 # Her fortælles at man gerne vil benytte sig routes fra users.py
 # Den blueprint der er blevet lavet i den anden fil under api'er
 from api.users import users_bp
+from api.cars import cars_bp
 
 
 app = Flask(__name__)
@@ -24,3 +25,5 @@ CORS(app)
 # Her bliver blueprint registeret. Det er syntaksen for at den så kører på serveren.
 # Det samme biver gjort med de andre moduler / filer der bliver oprettet.
 app.register_blueprint(users_bp)
+
+app.register_blueprint(cars_bp)

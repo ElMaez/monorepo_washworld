@@ -69,3 +69,12 @@ def validate_user_password():
     return user_password
 
 ##################################################################################################################################################################################
+
+REGEX_CAR_LICENSEPLATE = "^[A-Z]{2}[-\s]?\d{5}$"
+def validate_car_licenseplate():
+    car_licenseplate = request.form.get("car_licenseplate","").strip()
+    if not re.match(REGEX_CAR_LICENSEPLATE, car_licenseplate):
+        raise Exception("company_exception in car_licenseplate")
+    return car_licenseplate
+
+##################################################################################################################################################################################

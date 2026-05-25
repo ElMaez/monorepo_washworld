@@ -15,8 +15,6 @@ from api.users import users_bp
 app = Flask(__name__)
 
 
-app.config["SECRET_KEY"] = "..."
-app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 

@@ -64,5 +64,3 @@ export async function reset_password(data: ResetPassword) {
     );
     return response.data
 }
-
-

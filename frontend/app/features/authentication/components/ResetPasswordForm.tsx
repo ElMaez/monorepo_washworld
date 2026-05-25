@@ -58,9 +58,9 @@ export default function ResetPasswordForm({ ResetKey }: Props) {
             onChange={setConfirmPassword}
           />
         </fieldset>
-        {resetPasswordMutation.isError && <p style={{ color: "red" }}>nopes</p>}
+        {resetPasswordMutation.isError && <p>Ugyldig Adgangskode</p>}
         {resetPasswordMutation.isSuccess && (
-          <p style={{ color: "green" }}>yeps</p>
+          <p style={{ color: "green" }}>Adgangskode er nu blevet ændret</p>
         )}
         <Button
           buttonName={

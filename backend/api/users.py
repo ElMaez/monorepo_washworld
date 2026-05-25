@@ -18,7 +18,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 
-ic.configureOutput(prefix="______________ | ", includeContext=True)
+ic.configureOutput(prefix="⋆౨ৎ˚⟡˖ ࣪ ⊹ ࣪ ˖ ⋆౨ৎ˚⟡˖ ࣪ ⊹ ࣪ ˖ ☆ﾐ(o\*･ω･)ﾉ  | ", includeContext=True)
 
 # Her bliver vores blueprint lavet, hvor vi bruger
 # users_bp som en slags label på vores tegning. navnet er vores første arg. 
@@ -26,7 +26,7 @@ ic.configureOutput(prefix="______________ | ", includeContext=True)
 
 # Med Blueprint bliver alle routes automatisk url_prefix
 users_bp = Blueprint("users", __name__)
-
+# det lort vil ikke. Nu har den sku min data.
 load_dotenv()
 ########################_____SIGNUP_____########################
 
@@ -67,44 +67,27 @@ def api_create_user():
         send_email(user_email, html)
         return jsonify({"msg" : "Please check your email."}), 200
     except Exception as ex:
-        # Error
-        ic(ex)        
-        if "company_exception in user_fullname" in str(ex):
-            error_message = (
-                f"user fullname {regex.USER_FULLNAME_MIN} to "
-                f"{regex.USER_FULLNAME_MAX} characters"
-            )
-            return jsonify({"error": error_message}), 400
-
+        # Errors
+        ic(ex)
+        message = str(ex)   
+        #Validering for fulde navn. Her laves dictionaries. 
+        if "company_exception in user_fullname" in message:
+            return jsonify({"tooltip" : "user_fullname", "error" : f"Fulde navn skal være mellem {regex.USER_FULLNAME_MIN} og {regex.USER_FULLNAME_MAX} characters tegn"}), 400
+        #Validering for email
+        if "company_exception in user_email" in message:
+            return jsonify({"tooltip" : "user_email","error" : f"Indtast venligst gyldig email adresse"}), 400
+        #Validering for password
+        if "company_exception in user_password" in message:
+            return jsonify({"tooltip" : "user_password", "error" : f"Adgangskode skal indeholde mellem {regex.USER_PASSWORD_MIN} og {regex.USER_PASSWORD_MAX} tegn"}), 400
+        #Validering for mobilnummer
+        if "company_exception in user_phonenumber" in message:
+            return jsonify({"tooltip" : "user_phonenumber","error" : f"Telefonummer skal indholde mellem {regex.USER_PHONENUMBER_MIN} og {regex.USER_PHONENUMBER_MAX} tegn"}), 400
+        
         # Server error ( det din skyld at det ikke virker )
-        return jsonify({"msg" : "lel you failed"}), 500
+        return jsonify({"msg" : "Server Error"}), 500
     finally:
         if "cursor" in locals(): cursor.close()
         if "db" in locals(): db.close()
-
-########################_____SEND EMAIL FOR SIGNUP_____########################
-def send_email(to_email, html): 
-    # create gmail
-    sender_email = "katjamaehleke98@gmail.com"
-    password = "tmvh xvx qxqz rubhi"
-    
-    #The user whos receives the password 
-    receiver_email = to_email
-    
-    #Creating the email msg
-    message = MIMEMultipart()
-    message['From'] = sender_email
-    message['To'] = to_email
-    message['Subject'] = "Verify your account here"
-    
-    message.attach(MIMEText(html, "html"))
-    
-    # Connecting to gmails smtp server and send the email
-    with smtplib.SMTP("smtp.gmail.com", 587) as server:
-        server.starttls() #this secures the connection
-        server.login(sender_email, password)
-        server.sendmail(sender_email, receiver_email, message.as_string())
-        ic("Email sent :) ")
 
 
 @users_bp.get("/api-verify/<key>")
@@ -128,7 +111,6 @@ def api_verify_account(key):
     finally:
         if "cursor" in locals(): cursor.close()
         if "db" in locals(): db.close()  
-
 
 
 ########################_____LOGIN_____########################
@@ -178,7 +160,7 @@ def logout():
         ic(ex)
         return "haha u can't figure out to logout. sad."        
 
-### USER FORGETS PASSWORD ###
+########################_____FORGET & RESET PASSWORD_____########################
 
 # Brugeren glemmer password & skal skrive email og POST
 @users_bp.post("/forgot-password")
@@ -218,7 +200,7 @@ def forgot_password():
     finally:
         if "cursor" in locals(): cursor.close()
         if "db" in locals(): db.close()        
-# Der bliver sendt en email ud til brugeren med en unikt link
+# Der bliver sendt en email ud til brugeren med en unikt link med send_email() funktionen
 # Brugeren har så her mulighed for at kunne nulstille password
 
 # Når brugeren klikker på linket kommer der en GET request & ser en ny form
@@ -278,3 +260,29 @@ def reset_password():
     finally:
         if "db" in locals(): db.close()
         if "cursor" in locals(): cursor.close()
+        
+########################_____SEND EMAIL_____########################
+
+def send_email(to_email, html): 
+    # create gmail
+    sender_email = "katjamaehleke98@gmail.com"
+    password = "tmvh xvx qxqz rubhi"
+    
+    #The user whos receives the password 
+    receiver_email = to_email
+    
+    #Creating the email msg
+    message = MIMEMultipart()
+    message['From'] = sender_email
+    message['To'] = to_email
+    message['Subject'] = "Verify your account here"
+    
+    message.attach(MIMEText(html, "html"))
+    
+    # Connecting to gmails smtp server and send the email
+    with smtplib.SMTP("smtp.gmail.com", 587) as server:
+        server.starttls() #this secures the connection
+        server.login(sender_email, password)
+        server.sendmail(sender_email, receiver_email, message.as_string())
+        ic("Email sent :) ")
+

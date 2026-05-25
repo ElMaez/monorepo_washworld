@@ -6,19 +6,22 @@ import { useState } from "react";
 // custom hook
 import { useLogin } from "../hooks/useLogin";
 
-type Props = { onToggleSignup: () => void,  onForgotPassword: () => void,  };
+type Props = { onToggleSignup: () => void; onForgotPassword: () => void };
 
 export default function LoginForm({ onToggleSignup, onForgotPassword }: Props) {
   // useState
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  // handling errors 
+
   // custom hook useLogin
-  const signupMutation = useLogin();
+  const loginMutation = useLogin();
 
   async function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
+
     //smid custom hook ind i submit funktionen
-    signupMutation.mutate({
+    loginMutation.mutate({
       user_email: email,
       user_password: password,
     });
@@ -35,6 +38,7 @@ export default function LoginForm({ onToggleSignup, onForgotPassword }: Props) {
             label="email"
             inputLabel="Email"
             value={email}
+            autoComplete={email}
             onChange={setEmail}
           />
           <Input
@@ -44,16 +48,19 @@ export default function LoginForm({ onToggleSignup, onForgotPassword }: Props) {
             inputLabel="Password"
             value={password}
             onChange={setPassword}
+            autoComplete={password}
           />
         </fieldset>
-        {signupMutation.isError && <p style={{ color: "red" }}>nopes</p>}
-        {signupMutation.isSuccess && <p style={{ color: "green" }}>yeps</p>}
+        {/* Sender error beskeden ned til vores loginMutation */}
+        {loginMutation.isError && (
+          <p style={{ color: "red" }}>Login fejlede</p>
+        )}
         <Button
-          buttonName={signupMutation.isPending ? "Logger ind..." : "Log ind"}
+          buttonName={loginMutation.isPending ? "Logger ind..." : "Log ind"}
           size="lg"
         />
         <Button
-        typeAction="button"
+          typeAction="button"
           elementType="button"
           type={"tertiary"}
           buttonName="Sign up"
@@ -61,7 +68,7 @@ export default function LoginForm({ onToggleSignup, onForgotPassword }: Props) {
           onClick={onToggleSignup}
         />
         <Button
-        typeAction="button"
+          typeAction="button"
           elementType="button"
           type={"tertiary"}
           buttonName="Forgot password? Reset here"

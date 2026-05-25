@@ -36,9 +36,9 @@ def api_create_car():
         car_licenseplate = regex.validate_car_licenseplate()
         
         db, cursor = config.db()
-        q= """INSERT INTO `cars`
-        (`car_pk`, `car_licenseplate`)
-        VALUES ('%s','%s')
+        q= """INSERT INTO `cars
+        (car_pk, car_licenseplate, car_most_recent_wash, car_image, car_created_at, car_updated_at, car_deleted_at)
+        VALUES ('%s','%s','%s','%s','%s','%s','%s')
         """
         cursor.execute(q, (car_pk, car_licenseplate,))
 

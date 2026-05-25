@@ -9,21 +9,31 @@ interface HeaderProps {
  rightButton?: ButtonProps;
 }
 
-
+// ${backButton ? "grid-cols-3 grid-rows-1 items-center" : "col-span-2 "}
 
 const Header = ({title, backButton, rightButton}:HeaderProps) => {
 
     return(
         <>
         <header className="fullbleed uppercase border-b-grey-200 border-b py-6">
-            <div className={`grid ${backButton && "grid-cols-3 grid-rows-1"} items-center w-full`}>
-            <>{backButton && <Button {...backButton} />}</>
-            <h1 className={`justify-self-center ${backButton && "col-start-2"}`}>{title}</h1>
+            <section className={`grid items-center ${backButton ? "grid-cols-3 grid-rows-1 items-center" : "col-span-2 grid-cols-1 grid-rows-1"}`}>
+            {backButton && <div className={`${backButton ? "grid justify-self-start col-start-1": "hidden"}`}> <Button {...backButton} /> </div>}
+            <h1 className="justify-self-center">{title}</h1>
             {rightButton && (<div className="justify-self-end col-start-3"><Button {...rightButton}/></div>)}
-            </div>
+            </section>
         </header>
-            <Snackbar message="IT'S A ME! SNACKBACK!" duration={3000}/>
+        <Snackbar message="IT'S A ME! SNACKBACK!" duration={3000}/>
         </>
+        // <>
+        // <header className={`fullbleed uppercase border-b-grey-200 border-b py-6`}>
+        //     {backButton && <div className={`${backButton ? "grid justify-self-center col-start-1": "hidden"}`}>
+        //     <Button {...backButton} />
+        //     </div>}
+        //     <h1 className={`${backButton ? "justify-self-center col-start-2": "col-span-2"}`}>{title}</h1>
+        //     {rightButton && (<div className="justify-self-end col-start-3"><Button {...rightButton}/></div>)}
+        // </header>
+        //     <Snackbar message="IT'S A ME! SNACKBACK!" duration={3000}/>
+        // </>
     )
 }
 export default Header;

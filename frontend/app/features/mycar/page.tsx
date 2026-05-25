@@ -8,8 +8,9 @@ export default function Mycar() {
 
   return (
     <>
-      <Header title="my car" backButton={{ elementType: "link", goBack: true, size: "sm", type: "none", status: "normal", iconName: "back", }}/>
-      
+      <Header title="my car"
+      backButton={{ elementType: "link", goBack: true, size: "sm", type: "none", status: "normal", iconName: "back", }}/>
+      <main>
       <Button 
         elementType="button"
         buttonName="tilføj bil"
@@ -18,11 +19,8 @@ export default function Mycar() {
         status="normal"
         iconName="circleplus"
         iconFlexPos="order-first"
-        dialogId ="my-car-dialog"
-        
-      />
-      <Dialog id="my-car-dialog" buttonTwo={{ elementType: "button", buttonName:"Back", size: "sm", type: "primary", status: "normal" }} buttonThree={{ elementType: "button", buttonName:"Delete", size: "sm", type: "primary", status: "danger" }}/>
-      
+        dialogId ="my-car-dialog" />
+      </main>
     </>
   );
 }

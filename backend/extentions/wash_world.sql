@@ -2,10 +2,10 @@
 -- version 5.2.3
 -- https://www.phpmyadmin.net/
 --
--- Vært: mariadb
--- Genereringstid: 23. 05 2026 kl. 07:25:24
--- Serverversion: 10.6.20-MariaDB-ubu2004
--- PHP-version: 8.3.26
+-- Host: mariadb
+-- Generation Time: May 25, 2026 at 09:57 AM
+-- Server version: 10.6.20-MariaDB-ubu2004
+-- PHP Version: 8.3.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `cars`
+-- Table structure for table `cars`
 --
 
 CREATE TABLE `cars` (
@@ -37,10 +37,17 @@ CREATE TABLE `cars` (
   `car_deleted_at` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `cars`
+--
+
+INSERT INTO `cars` (`car_pk`, `car_licenseplate`, `car_most_recent_wash`, `car_image`, `car_created_at`, `car_updated_at`, `car_deleted_at`) VALUES
+('6f6a9cf7370546eb8a6a63aa3435ab97', 'AB12345', 65421, 'fuck', 12345678912, 4525654, 56465456);
+
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `cases`
+-- Table structure for table `cases`
 --
 
 CREATE TABLE `cases` (
@@ -59,7 +66,7 @@ CREATE TABLE `cases` (
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `case_status`
+-- Table structure for table `case_status`
 --
 
 CREATE TABLE `case_status` (
@@ -73,20 +80,21 @@ CREATE TABLE `case_status` (
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `facilities`
+-- Table structure for table `facilities`
 --
 
 CREATE TABLE `facilities` (
-  `facilities_pk` char(32) NOT NULL,
-  `facilities_selfwash` int(11) NOT NULL,
-  `facilities_carwash` int(11) NOT NULL,
-  `facilities_insideclean` int(11) NOT NULL
+  `facility_pk` char(32) NOT NULL,
+  `facility_name` char(2) NOT NULL,
+  `facility_created_at` bigint(20) UNSIGNED NOT NULL,
+  `facility_updated_at` bigint(20) UNSIGNED NOT NULL,
+  `facility_deleted_at` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `feedback`
+-- Table structure for table `feedback`
 --
 
 CREATE TABLE `feedback` (
@@ -101,7 +109,7 @@ CREATE TABLE `feedback` (
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `locations`
+-- Table structure for table `locations`
 --
 
 CREATE TABLE `locations` (
@@ -114,13 +122,19 @@ CREATE TABLE `locations` (
   `location_status_fk` char(32) NOT NULL,
   `location_created_at` bigint(20) UNSIGNED NOT NULL,
   `location_updated_at` bigint(20) UNSIGNED NOT NULL,
-  `location_deleted_at` bigint(20) UNSIGNED NOT NULL
+  `location_deleted_at` bigint(20) UNSIGNED NOT NULL,
+  `location_selfwash_max` char(2) NOT NULL,
+  `location_carwash_max` char(2) NOT NULL,
+  `location_insideclean_max` char(2) NOT NULL,
+  `location_selfwash_in_use` char(2) NOT NULL,
+  `location_carwash_in_use` char(2) NOT NULL,
+  `location_insideclean_in_use` char(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `location_facilities`
+-- Table structure for table `location_facilities`
 --
 
 CREATE TABLE `location_facilities` (
@@ -135,7 +149,7 @@ CREATE TABLE `location_facilities` (
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `location_status`
+-- Table structure for table `location_status`
 --
 
 CREATE TABLE `location_status` (
@@ -149,7 +163,7 @@ CREATE TABLE `location_status` (
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `paymentmethods`
+-- Table structure for table `paymentmethods`
 --
 
 CREATE TABLE `paymentmethods` (
@@ -163,7 +177,7 @@ CREATE TABLE `paymentmethods` (
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `payment_frequency`
+-- Table structure for table `payment_frequency`
 --
 
 CREATE TABLE `payment_frequency` (
@@ -177,7 +191,7 @@ CREATE TABLE `payment_frequency` (
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `plans`
+-- Table structure for table `plans`
 --
 
 CREATE TABLE `plans` (
@@ -194,7 +208,7 @@ CREATE TABLE `plans` (
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `plans_status`
+-- Table structure for table `plans_status`
 --
 
 CREATE TABLE `plans_status` (
@@ -208,7 +222,7 @@ CREATE TABLE `plans_status` (
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `receipts`
+-- Table structure for table `receipts`
 --
 
 CREATE TABLE `receipts` (
@@ -229,7 +243,7 @@ CREATE TABLE `receipts` (
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `receipt_status`
+-- Table structure for table `receipt_status`
 --
 
 CREATE TABLE `receipt_status` (
@@ -243,7 +257,7 @@ CREATE TABLE `receipt_status` (
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -259,16 +273,17 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Data dump for tabellen `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`user_pk`, `user_fullname`, `user_phonenumber`, `user_email`, `user_password`, `user_address`, `user_created_at`, `user_updated_at`, `user_deleted_at`) VALUES
-('eea23ece4bf2459aa92934f281332551', 'Kat', '12345678', 'kat@kat.com', 'scrypt:32768:8:1$68kferCjuHGAHwy5$a52dfc350a1de3cd62dde8475e354611b38e3a76e88e5974f7efc7e0b41c6604ee763cef4c6a29ed7bc79834db9dff11bd58cdd59255cec0de2004e713c514fc', '[object HTMLCollection]', 1779498896, 0, 0);
+('eea23ece4bf2459aa92934f281332551', 'Kat', '12345678', 'kat@kat.com', 'scrypt:32768:8:1$68kferCjuHGAHwy5$a52dfc350a1de3cd62dde8475e354611b38e3a76e88e5974f7efc7e0b41c6604ee763cef4c6a29ed7bc79834db9dff11bd58cdd59255cec0de2004e713c514fc', '[object HTMLCollection]', 1779498896, 0, 0),
+('f96772b4f2ef48aa91add8fb65e9cbe7', 'Mai', '12345678', 'aa@aa.dk', 'scrypt:32768:8:1$JfejFMspGZECjehz$fceb82fea3ee2858af5b7206899828dde8e8185bc7d83c242776324c9f4f95cf4e49d3f1b5299161b5c6765da48d030a92ce38f3b8a6d77110b2324a4c65db65', 'sadfsdfasd', 1779529544, 0, 0);
 
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `user_car`
+-- Table structure for table `user_car`
 --
 
 CREATE TABLE `user_car` (
@@ -283,7 +298,7 @@ CREATE TABLE `user_car` (
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `user_feedback`
+-- Table structure for table `user_feedback`
 --
 
 CREATE TABLE `user_feedback` (
@@ -298,7 +313,7 @@ CREATE TABLE `user_feedback` (
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `user_paymentmethods`
+-- Table structure for table `user_paymentmethods`
 --
 
 CREATE TABLE `user_paymentmethods` (
@@ -313,7 +328,7 @@ CREATE TABLE `user_paymentmethods` (
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `wash_services`
+-- Table structure for table `wash_services`
 --
 
 CREATE TABLE `wash_services` (
@@ -325,18 +340,18 @@ CREATE TABLE `wash_services` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Begrænsninger for dumpede tabeller
+-- Indexes for dumped tables
 --
 
 --
--- Indeks for tabel `cars`
+-- Indexes for table `cars`
 --
 ALTER TABLE `cars`
   ADD PRIMARY KEY (`car_pk`),
   ADD UNIQUE KEY `car_licenseplate` (`car_licenseplate`);
 
 --
--- Indeks for tabel `cases`
+-- Indexes for table `cases`
 --
 ALTER TABLE `cases`
   ADD PRIMARY KEY (`case_pk`),
@@ -345,32 +360,32 @@ ALTER TABLE `cases`
   ADD KEY `car_fk_to_cases` (`car_fk`);
 
 --
--- Indeks for tabel `case_status`
+-- Indexes for table `case_status`
 --
 ALTER TABLE `case_status`
   ADD PRIMARY KEY (`case_status_pk`);
 
 --
--- Indeks for tabel `facilities`
+-- Indexes for table `facilities`
 --
 ALTER TABLE `facilities`
-  ADD PRIMARY KEY (`facilities_pk`);
+  ADD PRIMARY KEY (`facility_pk`);
 
 --
--- Indeks for tabel `feedback`
+-- Indexes for table `feedback`
 --
 ALTER TABLE `feedback`
   ADD PRIMARY KEY (`feedback_pk`);
 
 --
--- Indeks for tabel `locations`
+-- Indexes for table `locations`
 --
 ALTER TABLE `locations`
   ADD PRIMARY KEY (`location_pk`),
   ADD KEY `location_status_fk` (`location_status_fk`);
 
 --
--- Indeks for tabel `location_facilities`
+-- Indexes for table `location_facilities`
 --
 ALTER TABLE `location_facilities`
   ADD PRIMARY KEY (`location_facilities_pk`),
@@ -378,26 +393,26 @@ ALTER TABLE `location_facilities`
   ADD KEY `location_fk_to_locationfacilities` (`location_fk`);
 
 --
--- Indeks for tabel `location_status`
+-- Indexes for table `location_status`
 --
 ALTER TABLE `location_status`
   ADD PRIMARY KEY (`location_status_pk`);
 
 --
--- Indeks for tabel `paymentmethods`
+-- Indexes for table `paymentmethods`
 --
 ALTER TABLE `paymentmethods`
   ADD PRIMARY KEY (`paymentmethods_pk`),
   ADD UNIQUE KEY `paymentmethods_title` (`paymentmethods_title`);
 
 --
--- Indeks for tabel `payment_frequency`
+-- Indexes for table `payment_frequency`
 --
 ALTER TABLE `payment_frequency`
   ADD PRIMARY KEY (`payment_frequency_pk`);
 
 --
--- Indeks for tabel `plans`
+-- Indexes for table `plans`
 --
 ALTER TABLE `plans`
   ADD PRIMARY KEY (`plan_pk`),
@@ -405,13 +420,13 @@ ALTER TABLE `plans`
   ADD KEY `plans_status_fk` (`plans_status_fk`);
 
 --
--- Indeks for tabel `plans_status`
+-- Indexes for table `plans_status`
 --
 ALTER TABLE `plans_status`
   ADD PRIMARY KEY (`plans_status_pk`);
 
 --
--- Indeks for tabel `receipts`
+-- Indexes for table `receipts`
 --
 ALTER TABLE `receipts`
   ADD PRIMARY KEY (`receipt_pk`),
@@ -422,20 +437,20 @@ ALTER TABLE `receipts`
   ADD KEY `receipt_car_fk` (`car_fk`);
 
 --
--- Indeks for tabel `receipt_status`
+-- Indexes for table `receipt_status`
 --
 ALTER TABLE `receipt_status`
   ADD PRIMARY KEY (`receipt_status_pk`);
 
 --
--- Indeks for tabel `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`user_pk`),
   ADD UNIQUE KEY `user_email` (`user_email`);
 
 --
--- Indeks for tabel `user_car`
+-- Indexes for table `user_car`
 --
 ALTER TABLE `user_car`
   ADD PRIMARY KEY (`user_car_pk`),
@@ -443,7 +458,7 @@ ALTER TABLE `user_car`
   ADD KEY `car_fk` (`car_fk`);
 
 --
--- Indeks for tabel `user_feedback`
+-- Indexes for table `user_feedback`
 --
 ALTER TABLE `user_feedback`
   ADD PRIMARY KEY (`user_feedback_pk`),
@@ -451,7 +466,7 @@ ALTER TABLE `user_feedback`
   ADD KEY `user_feedback_feedback_fk` (`feedback_fk`);
 
 --
--- Indeks for tabel `user_paymentmethods`
+-- Indexes for table `user_paymentmethods`
 --
 ALTER TABLE `user_paymentmethods`
   ADD PRIMARY KEY (`user_paymentmethods_pk`),
@@ -459,37 +474,37 @@ ALTER TABLE `user_paymentmethods`
   ADD KEY `user_paymentmethods_paymentmethods_fk` (`paymentmethods_fk`);
 
 --
--- Indeks for tabel `wash_services`
+-- Indexes for table `wash_services`
 --
 ALTER TABLE `wash_services`
   ADD PRIMARY KEY (`wash_services_pk`);
 
 --
--- Begrænsninger for dumpede tabeller
+-- Constraints for dumped tables
 --
 
 --
--- Begrænsninger for tabel `cases`
+-- Constraints for table `cases`
 --
 ALTER TABLE `cases`
   ADD CONSTRAINT `car_fk_to_cases` FOREIGN KEY (`car_fk`) REFERENCES `cars` (`car_pk`),
   ADD CONSTRAINT `case_status_fk` FOREIGN KEY (`case_status_fk`) REFERENCES `case_status` (`case_status_pk`);
 
 --
--- Begrænsninger for tabel `locations`
+-- Constraints for table `locations`
 --
 ALTER TABLE `locations`
   ADD CONSTRAINT `location_status_fk` FOREIGN KEY (`location_status_fk`) REFERENCES `location_status` (`location_status_pk`);
 
 --
--- Begrænsninger for tabel `location_facilities`
+-- Constraints for table `location_facilities`
 --
 ALTER TABLE `location_facilities`
-  ADD CONSTRAINT `facilities_fk` FOREIGN KEY (`facilities_fk`) REFERENCES `facilities` (`facilities_pk`),
+  ADD CONSTRAINT `facilities_fk` FOREIGN KEY (`facilities_fk`) REFERENCES `facilities` (`facility_pk`),
   ADD CONSTRAINT `location_fk_to_locationfacilities` FOREIGN KEY (`location_fk`) REFERENCES `locations` (`location_pk`);
 
 --
--- Begrænsninger for tabel `plans`
+-- Constraints for table `plans`
 --
 ALTER TABLE `plans`
   ADD CONSTRAINT `payment_frequency_fk` FOREIGN KEY (`payment_frequency_fk`) REFERENCES `payment_frequency` (`payment_frequency_pk`),

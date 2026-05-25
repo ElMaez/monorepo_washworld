@@ -6,8 +6,7 @@ export default function Home() {
   return (
     <>
     <Header
-    title="Hjem"
-/>
+    title="Hjem"/>
     <main>
       <Form />
       <h1>Hi! I am main!</h1>

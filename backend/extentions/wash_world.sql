@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mariadb
--- Generation Time: May 25, 2026 at 09:57 AM
+-- Generation Time: May 25, 2026 at 09:05 PM
 -- Server version: 10.6.20-MariaDB-ubu2004
 -- PHP Version: 8.3.26
 
@@ -116,7 +116,7 @@ CREATE TABLE `locations` (
   `location_pk` char(32) NOT NULL,
   `location_title` varchar(255) NOT NULL,
   `location_latitude` decimal(8,6) NOT NULL,
-  `location_longtituge` decimal(9,6) NOT NULL,
+  `location_longtitude` decimal(9,6) NOT NULL,
   `location_city` varchar(255) NOT NULL,
   `location_address` varchar(255) NOT NULL,
   `location_status_fk` char(32) NOT NULL,
@@ -130,6 +130,23 @@ CREATE TABLE `locations` (
   `location_carwash_in_use` char(2) NOT NULL,
   `location_insideclean_in_use` char(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `locations`
+--
+
+INSERT INTO `locations` (`location_pk`, `location_title`, `location_latitude`, `location_longtitude`, `location_city`, `location_address`, `location_status_fk`, `location_created_at`, `location_updated_at`, `location_deleted_at`, `location_selfwash_max`, `location_carwash_max`, `location_insideclean_max`, `location_selfwash_in_use`, `location_carwash_in_use`, `location_insideclean_in_use`) VALUES
+('02986d640416422dbdbbff58901f97d7', 'Wash World Test Location', 55.676098, 12.568337, 'Copenhagen', 'Testvej 12', '11111111111111111111111111111111', 1716472800, 1716472800, 0, '06', '04', '02', '01', '02', '00'),
+('0f4f2e8c3b624f9b8c4a8f5e1d2c3b10', 'Wash World Copenhagen City', 55.676098, 12.568337, 'Copenhagen', 'Testvej 12', '11111111111111111111111111111111', 1716472800, 0, 0, '06', '04', '02', '01', '02', '00'),
+('1a7c9e4f6b2d4c3e9f8a7b6c5d4e3f20', 'Wash World Aarhus North', 56.162939, 10.203921, 'Aarhus', 'Vaskevej 8', '11111111111111111111111111111111', 1716472800, 0, 0, '08', '05', '03', '02', '01', '01'),
+('2b8d0f5a7c3e4d9f8a1b2c3d4e5f6a30', 'Wash World Odense East', 55.403756, 10.402370, 'Odense', 'Bilplejevej 22', '11111111111111111111111111111111', 1716472800, 0, 0, '05', '03', '02', '00', '01', '00'),
+('3c9e1a6b8d4f5e0a9b2c3d4e5f6a7b40', 'Wash World Aalborg West', 57.048820, 9.921747, 'Aalborg', 'Skumgade 5', '11111111111111111111111111111111', 1716472800, 0, 0, '10', '06', '04', '03', '02', '01'),
+('4d0f2b7c9e5a6f1b8c3d4e5f6a7b8c50', 'Wash World Esbjerg Harbor', 55.476466, 8.459405, 'Esbjerg', 'Havnegade 18', '11111111111111111111111111111111', 1716472800, 0, 0, '04', '02', '02', '01', '00', '01'),
+('5e1a3c8d0f6b7a2c9d4e5f6a7b8c9d60', 'Wash World Randers South', 56.460584, 10.036539, 'Randers', 'Motorvej 44', '11111111111111111111111111111111', 1716472800, 0, 0, '07', '04', '03', '02', '02', '00'),
+('6f2b4d9e1a7c8b3d0e5f6a7b8c9d0e70', 'Wash World Kolding Center', 55.490400, 9.472200, 'Kolding', 'Centrumvej 3', '11111111111111111111111111111111', 1716472800, 0, 0, '06', '03', '01', '01', '01', '00'),
+('7a3c5e0f2b8d9c4e1f6a7b8c9d0e1f80', 'Wash World Roskilde Station', 55.641910, 12.087845, 'Roskilde', 'Stationsvej 27', '11111111111111111111111111111111', 1716472800, 0, 0, '09', '05', '03', '04', '01', '02'),
+('8b4d6f1a3c9e0d5f2a7b8c9d0e1f2a90', 'Wash World Vejle North', 55.711311, 9.536354, 'Vejle', 'Nordvej 14', '11111111111111111111111111111111', 1716472800, 0, 0, '05', '04', '02', '00', '02', '01'),
+('9c5e7a2b4d0f1e6a3b8c9d0e1f2a3b00', 'Wash World Herning West', 56.138557, 8.967322, 'Herning', 'Vestergade 31', '11111111111111111111111111111111', 1716472800, 0, 0, '08', '06', '04', '03', '03', '01');
 
 -- --------------------------------------------------------
 
@@ -159,6 +176,13 @@ CREATE TABLE `location_status` (
   `location_status_updated_at` char(32) NOT NULL,
   `location_status_deleted_at` char(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `location_status`
+--
+
+INSERT INTO `location_status` (`location_status_pk`, `location_status_title`, `location_status_created_at`, `location_status_updated_at`, `location_status_deleted_at`) VALUES
+('11111111111111111111111111111111', 'ITS A STATUS', '123', '456', '0');
 
 -- --------------------------------------------------------
 

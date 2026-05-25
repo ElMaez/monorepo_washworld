@@ -10,9 +10,8 @@ export async function getEventLocations(): Promise<Location[]> {
       cache: "no-store",
     }
   );
-
+  if (!response.ok){console.error(`${response.status}`)}
   const data = await response.json();
-
   return data.locations;
 }
 

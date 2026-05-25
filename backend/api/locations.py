@@ -1,10 +1,10 @@
 from utils import config
-from utils import regex
 # Importeres Blueprint for at splitte routes op i opdelte filer
 from flask import Blueprint, jsonify, request, session, redirect
 from icecream import ic
 
 from utils import regex
+from utils import no_cache
 
 import uuid
 import time
@@ -87,6 +87,7 @@ def api_create_location():
 ########################_____Read locations_____########################
 
 @locations_bp.get("/api-get-all-locations")
+@no_cache.no_cache
 def show_locationslist():
     try:
         db, cursor = config.db()

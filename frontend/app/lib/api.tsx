@@ -83,11 +83,12 @@ export async function delete_user() {
   });
   return response.data;
 }
-
+// Logout
 export function logout() {
   localStorage.removeItem("token");
 }
 
+// locations
 export async function getEventLocations(): Promise<Location[]> {
     const response = await fetch(
       "http://host.docker.internal/api-get-all-locations",

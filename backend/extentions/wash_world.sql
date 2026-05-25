@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mariadb
--- Generation Time: May 25, 2026 at 09:05 PM
+-- Generation Time: May 25, 2026 at 09:46 PM
 -- Server version: 10.6.20-MariaDB-ubu2004
 -- PHP Version: 8.3.26
 
@@ -293,16 +293,19 @@ CREATE TABLE `users` (
   `user_address` varchar(255) DEFAULT NULL,
   `user_created_at` bigint(20) UNSIGNED NOT NULL,
   `user_updated_at` bigint(20) UNSIGNED NOT NULL,
-  `user_deleted_at` bigint(20) UNSIGNED NOT NULL
+  `user_deleted_at` bigint(20) UNSIGNED NOT NULL,
+  `user_verification_key` char(32) NOT NULL,
+  `user_reset_password_key` char(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_pk`, `user_fullname`, `user_phonenumber`, `user_email`, `user_password`, `user_address`, `user_created_at`, `user_updated_at`, `user_deleted_at`) VALUES
-('eea23ece4bf2459aa92934f281332551', 'Kat', '12345678', 'kat@kat.com', 'scrypt:32768:8:1$68kferCjuHGAHwy5$a52dfc350a1de3cd62dde8475e354611b38e3a76e88e5974f7efc7e0b41c6604ee763cef4c6a29ed7bc79834db9dff11bd58cdd59255cec0de2004e713c514fc', '[object HTMLCollection]', 1779498896, 0, 0),
-('f96772b4f2ef48aa91add8fb65e9cbe7', 'Mai', '12345678', 'aa@aa.dk', 'scrypt:32768:8:1$JfejFMspGZECjehz$fceb82fea3ee2858af5b7206899828dde8e8185bc7d83c242776324c9f4f95cf4e49d3f1b5299161b5c6765da48d030a92ce38f3b8a6d77110b2324a4c65db65', 'sadfsdfasd', 1779529544, 0, 0);
+INSERT INTO `users` (`user_pk`, `user_fullname`, `user_phonenumber`, `user_email`, `user_password`, `user_address`, `user_created_at`, `user_updated_at`, `user_deleted_at`, `user_verification_key`, `user_reset_password_key`) VALUES
+('0367f628e9e24888b07d30ca5a0b1b85', 'mai E.', '12345678', 'Mai_Ez@outlook.dk', 'scrypt:32768:8:1$hsTOYwRfrYZm74K1$42d9e4567be514df96d7d0eae494ac09ae8faa54578b54e44e60595aa8dd53b5b2c03cf3b72b0f081ab3ed2d3695aa9cf7ba76b400d5a0d93d9fbc51ac048e19', 'asdfasdf', 1779752532, 0, 0, 'ee06b428663f44b49100c4cd74ae47c9', ''),
+('eea23ece4bf2459aa92934f281332551', 'Kat', '12345678', 'kat@kat.com', 'scrypt:32768:8:1$68kferCjuHGAHwy5$a52dfc350a1de3cd62dde8475e354611b38e3a76e88e5974f7efc7e0b41c6604ee763cef4c6a29ed7bc79834db9dff11bd58cdd59255cec0de2004e713c514fc', '[object HTMLCollection]', 1779498896, 0, 0, '', ''),
+('f96772b4f2ef48aa91add8fb65e9cbe7', 'Mai', '12345678', 'aa@aa.dk', 'scrypt:32768:8:1$JfejFMspGZECjehz$fceb82fea3ee2858af5b7206899828dde8e8185bc7d83c242776324c9f4f95cf4e49d3f1b5299161b5c6765da48d030a92ce38f3b8a6d77110b2324a4c65db65', 'sadfsdfasd', 1779529544, 0, 0, '', '');
 
 -- --------------------------------------------------------
 

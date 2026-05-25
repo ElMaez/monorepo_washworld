@@ -69,3 +69,193 @@ def validate_user_password():
     return user_password
 
 ##################################################################################################################################################################################
+
+LOCATION_TITLE_MIN = 2
+LOCATION_TITLE_MAX = 255
+REGEX_LOCATION_TITLE = f"^.{{{LOCATION_TITLE_MIN},{LOCATION_TITLE_MAX}}}$"
+
+def validate_location_title():
+    location_max= request.form.get("location_max","").strip()
+    location_in_use= request.form.get("location_in_use","").strip()
+
+    if not re.match(REGEX_LOCATION_TITLE, location_max):
+        raise Exception("company_exception in location_max")
+    
+    # for at være sikker på at max ikke er mindre end in_use
+    if location_in_use > location_max:
+        raise Exception("company_exception in location_max")
+
+    return location_max
+
+###########################################################################################
+
+LOCATION_MIN = 1
+LOCATION_MAX = 2
+REGEX_LOCATION_AMOUNT = f"^\d+$"
+
+def validate_location_max():
+    location_max= request.form.get("location_max","").strip()
+    location_in_use= request.form.get("location_in_use","").strip()
+
+    if not re.match(REGEX_LOCATION_AMOUNT, location_max):
+        raise Exception("company_exception in location_max")
+    
+    # for at være sikker på at max ikke er mindre end in_use
+    if location_in_use > location_max:
+        raise Exception("company_exception in location_max")
+
+    return location_max
+
+
+def validate_location_in_use():
+    location_in_use= request.form.get("location_in_use","").strip()
+    location_max= request.form.get("location_max","").strip()
+
+    if not re.match(REGEX_LOCATION_AMOUNT, location_in_use):
+        raise Exception("company_exception in location_in_use")
+    
+    # for at være sikker på at in_use ikke er større end max
+    if location_in_use < location_max:
+        raise Exception("company_exception in location_in_use")
+
+    return location_in_use
+
+###########################################################################################
+
+REGEX_LATITUDE = f"^-?\d{1,2}(\.\d{1,6})?$"
+
+def validate_location_latitude():
+    location_latitude = request.form.get("location_latitude","").strip()
+
+    if not re.match(REGEX_LATITUDE, location_latitude):
+        raise Exception("company_exception in location_latitude")
+
+    return location_latitude
+
+###########################################################################################
+
+REGEX_LONGTITUDE = f"^-?\d{1,3}(\.\d{1,6})?$"
+
+def validate_location_longtitude():
+    location_longtitude = request.form.get("location_longtitude","").strip()
+
+    if not re.match(REGEX_LONGTITUDE, location_longtitude):
+        raise Exception("company_exception in location_longtitude")
+
+    return location_longtitude
+
+###########################################################################################
+
+LOCATION_CITY_MIN = 2
+LOCATION_CITY_MAX = 255
+REGEX_CITY = f"^.{{{LOCATION_CITY_MIN},{LOCATION_CITY_MAX}}}$"
+
+def validate_location_city():
+    location_city= request.form.get("location_city","").strip()
+
+    if not re.match(REGEX_CITY, location_city):
+        raise Exception("company_exception in location_city")
+
+    return location_city
+
+###########################################################################################
+
+LOCATION_ADRESS_MIN = 2
+LOCATION_ADRESS_MAX = 255
+REGEX_ADDRESS = f"^.{{{LOCATION_ADRESS_MIN},{LOCATION_ADRESS_MAX}}}$"
+
+def validate_location_address():
+    location_address= request.form.get("location_address","").strip()
+
+    if not re.match(REGEX_ADDRESS, location_address):
+        raise Exception("company_exception in location_address")
+
+    return location_address
+
+###########################################################################################
+
+LOCATION_SELFWASH_MAX_MIN = 1
+LOCATION_SELFWASH_MAX_MAX = 2
+REGEX_LOCATION_SELFWASH_MAX = f"^.{{{LOCATION_SELFWASH_MAX_MIN},{LOCATION_SELFWASH_MAX_MAX}}}$"
+
+def validate_location_selfwash_max():
+    location_selfwash_max = request.form.get("location_selfwash_max", "").strip()
+
+    if not re.match(REGEX_LOCATION_SELFWASH_MAX, location_selfwash_max):
+        raise Exception("company_exception in location_selfwash_max")
+
+    return location_selfwash_max
+
+
+LOCATION_SELFWASH_IN_USE_MIN = 1
+LOCATION_SELFWASH_IN_USE_MAX = 2
+REGEX_LOCATION_SELFWASH_IN_USE = f"^.{{{LOCATION_SELFWASH_IN_USE_MIN},{LOCATION_SELFWASH_IN_USE_MAX}}}$"
+
+def validate_location_selfwash_in_use():
+    location_selfwash_in_use = request.form.get("location_selfwash_in_use", "").strip()
+    location_selfwash_max = request.form.get("location_selfwash_max", "").strip()
+
+    if not re.match(REGEX_LOCATION_SELFWASH_IN_USE, location_selfwash_in_use):
+        raise Exception("company_exception in location_selfwash_in_use")
+    
+    if location_selfwash_max < location_selfwash_in_use:
+        raise Exception("company_exception in location_selfwash_in_use")
+
+    return location_selfwash_in_use
+
+#################################################################################################
+
+LOCATION_CARWASH_MAX_MIN = 1
+LOCATION_CARWASH_MAX_MAX = 2
+REGEX_LOCATION_CARWASH_MAX = f"^.{{{LOCATION_CARWASH_MAX_MIN},{LOCATION_CARWASH_MAX_MAX}}}$"
+
+def validate_location_carwash_max():
+    location_carwash_max = request.form.get("location_carwash_max", "").strip()
+
+    if not re.match(REGEX_LOCATION_CARWASH_MAX, location_carwash_max):
+        raise Exception("company_exception in location_carwash_max")
+
+    return location_carwash_max
+
+
+LOCATION_CARWASH_IN_USE_MIN = 1
+LOCATION_CARWASH_IN_USE_MAX = 2
+REGEX_LOCATION_CARWASH_IN_USE = f"^.{{{LOCATION_CARWASH_IN_USE_MIN},{LOCATION_CARWASH_IN_USE_MAX}}}$"
+
+def validate_location_carwash_in_use():
+    location_carwash_in_use = request.form.get("location_carwash_in_use", "").strip()
+    location_carwash_max = request.form.get("location_carwash_max", "").strip()
+
+    if not re.match(REGEX_LOCATION_CARWASH_IN_USE, location_carwash_in_use):
+        raise Exception("company_exception in location_carwash_in_use")
+    
+    if location_carwash_max < location_carwash_in_use:
+        raise Exception("company_exception in location_selfwash_in_use")
+
+    return location_carwash_in_use
+
+#################################################################################################################################
+LOCATION_INSIDECLEAN_MAX_MIN = 1
+LOCATION_INSIDECLEAN_MAX_MAX = 2
+REGEX_LOCATION_INSIDECLEAN_MAX = f"^.{{{LOCATION_INSIDECLEAN_MAX_MIN},{LOCATION_INSIDECLEAN_MAX_MAX}}}$"
+
+def validate_location_insideclean_max():
+    location_insideclean_max = request.form.get("location_insideclean_max", "").strip()
+
+    if not re.match(REGEX_LOCATION_INSIDECLEAN_MAX, location_insideclean_max):
+        raise Exception("company_exception in location_insideclean_max")
+
+    return location_insideclean_max
+
+
+LOCATION_INSIDECLEAN_IN_USE_MIN = 1
+LOCATION_INSIDECLEAN_IN_USE_MAX = 2
+REGEX_LOCATION_INSIDECLEAN_IN_USE = f"^.{{{LOCATION_INSIDECLEAN_IN_USE_MIN},{LOCATION_INSIDECLEAN_IN_USE_MAX}}}$"
+
+def validate_location_insideclean_in_use():
+    location_insideclean_in_use = request.form.get("location_insideclean_in_use", "").strip()
+
+    if not re.match(REGEX_LOCATION_INSIDECLEAN_IN_USE, location_insideclean_in_use):
+        raise Exception("company_exception in location_insideclean_in_use")
+
+    return location_insideclean_in_use

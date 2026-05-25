@@ -10,6 +10,7 @@ import os
 # Her fortælles at man gerne vil benytte sig routes fra users.py
 # Den blueprint der er blevet lavet i den anden fil under api'er
 from api.users import users_bp
+from api.locations import locations_bp
 
 
 app = Flask(__name__)
@@ -23,3 +24,5 @@ CORS(app, supports_credentials=True, origins=["http://localhost:3000"])
 # Her bliver blueprint registeret. Det er syntaksen for at den så kører på serveren.
 # Det samme biver gjort med de andre moduler / filer der bliver oprettet.
 app.register_blueprint(users_bp)
+
+app.register_blueprint(locations_bp)

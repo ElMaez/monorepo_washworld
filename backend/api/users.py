@@ -233,7 +233,7 @@ def show_reset_password(key):
 
 
 # brugeren skriver den nye password ind med POST og bliver opdateres i DB
-@users_bp.post("/reset-password")
+@users_bp.patch("/reset-password")
 def reset_password():
     try:
         #validate data

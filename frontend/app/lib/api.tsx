@@ -58,7 +58,7 @@ export async function forgot_password(data: ForgotPassword) {
 }
 
 export async function reset_password(data: ResetPassword) {
-    const response = await axios.post(
+    const response = await axios.patch(
         `${BACKEND_URL}/reset-password`,
         new URLSearchParams(data),
     );

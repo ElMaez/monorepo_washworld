@@ -66,6 +66,7 @@ export default function LoginForm({ onToggleSignup, onForgotPassword }: Props) {
           <p style={{ color: "red" }}>Login fejlede</p>
         )}
         <Button
+          typeAction="submit"
           buttonName={loginMutation.isPending ? "Logger ind..." : "Log ind"}
           size="lg"
         />

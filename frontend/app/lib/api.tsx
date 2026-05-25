@@ -1,4 +1,10 @@
 import axios from 'axios';
+// globalt kald
+axios.defaults.withCredentials = true;
+
+// use this for dev for now. Replace with actual link later (pythonanywhere)
+const BACKEND_URL = "http://localhost"
+
 // Define the types for Signup
 type Signup = {
     user_fullname: string;
@@ -17,14 +23,14 @@ type Login = {
 type ForgotPassword = {
     user_email: string;
 }
+
 // Define the type for resetting the password
 type ResetPassword = {
     user_password: string;
     confirm_password: string;
     key: string;
 }
-// use this for dev for now. Replace with actual link later (pythonanywhere)
-const BACKEND_URL = "http://localhost"
+
 
 // funktion til at kunne fetche fra vores backend asynkronsk
 // bruger searchparams til at kunne omdanne til body
@@ -49,6 +55,7 @@ export async function login_user(data: Login){
 }
 
 
+// Glemt Password
 export async function forgot_password(data: ForgotPassword) {
     const response = await axios.post(
         `${BACKEND_URL}/forgot-password`,
@@ -57,10 +64,19 @@ export async function forgot_password(data: ForgotPassword) {
     return response.data
 }
 
+//Reset password
 export async function reset_password(data: ResetPassword) {
     const response = await axios.patch(
         `${BACKEND_URL}/reset-password`,
         new URLSearchParams(data),
+    );
+    return response.data
+}
+
+// Slet bruger
+export async function delete_user() {
+    const response = await axios.delete(
+        `${BACKEND_URL}/delete-user`,
     );
     return response.data
 }

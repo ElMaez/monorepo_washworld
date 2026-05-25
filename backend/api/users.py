@@ -311,13 +311,25 @@ def send_email(to_email, html):
 @users_bp.delete('/delete-user')
 def delete_user():
     try:
-        user_pk = uuid.uuid4().hex
+        ic("Session keys:", list(session.keys()))
+        user_pk = session.get("user_pk")
+        if not user_pk:
+            return jsonify({"msg" : "Du er ikke loggede på"}), 401
+        
+        deleted_at = int(time.time())
+        
         db, cursor = config.db()
-        q = """ """
-        cursor.execute(q,(arg,))
+        q = """ UPDATE users SET user_deleted_at = %s WHERE user_pk = %s """
+        cursor.execute(q,(deleted_at, user_pk))
+        
+        
         db.commit()
+        session.clear()
+        
+        return jsonify({"msg" : "Profil er nu blevet slettet"}), 200
     except Exception as ex:
         ic(ex)
+        return jsonify({"msg" : "Server Whoops"}),500        
     finally:
         if "cursor" in locals(): cursor.close()
         if "db" in locals(): db.close()

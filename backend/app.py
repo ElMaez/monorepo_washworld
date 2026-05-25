@@ -5,6 +5,7 @@
 from flask import Flask
 from flask_cors import CORS
 from flask_session import Session
+import os
 
 # Her fortælles at man gerne vil benytte sig routes fra users.py
 # Den blueprint der er blevet lavet i den anden fil under api'er
@@ -13,6 +14,9 @@ from api.users import users_bp
 
 app = Flask(__name__)
 
+
+app.config["SECRET_KEY"] = "..."
+app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 

@@ -4,20 +4,19 @@ import { ButtonProps } from "./Button";
 
 interface DialogProps {
   id: string; // We need an ID so the parent page can find it
-
+  title?: string;
   buttonOne?: ButtonProps;
   buttonTwo?: ButtonProps;
   buttonThree?: ButtonProps;
 }
 
-const Dialog = ({ id, buttonTwo, buttonThree }: DialogProps) => {
+const Dialog = ({ id, title, buttonTwo, buttonThree }: DialogProps) => {
   return (
     <dialog id={id} className="backdrop:bg-black/50 min-w-[280px] max-w-[336px] p-32 mt-80 mx-auto rounded-md shadow-lg">
 
       <form method="dialog" className="grid gap-32">
         <div>
-        <p className="uppercase text-center font-bold">Er du sikker på</p>
-        <p className="uppercase text-center font-bold">du gerne vil slette din bil?</p>
+        <p className="uppercase text-center font-bold">{title}</p>
         </div>
 
         <Icon iconName="trash" size="lg" style="justify-self-center text-primary-600"></Icon>

@@ -114,7 +114,7 @@ def api_verify_account(key):
         # TODO: Validate the key
         key = uuid.uuid4().hex
         # TODO: Connect to the DB
-        cursor, db = config.db()
+        db, cursor = config.db()
         # TODO: Update the verified_at column
         verified_at = int(time.time())
         # TODO: Update the verification_key column
@@ -179,18 +179,102 @@ def logout():
         return "haha u can't figure out to logout. sad."        
 
 ### USER FORGETS PASSWORD ###
-@users_bp.post("/forget-password")
-def reset_password():
+
+# Brugeren glemmer password & skal skrive email og POST
+@users_bp.post("/forgot-password")
+def forgot_password():
     try:
-        email = config.validate_user_email()
-        #validate data
-        cursor, db = config.db()
-        q =""
-        cursor.execute(q,(email,))
-        
+        reset_key = uuid.uuid4().hex
+        email = regex.validate_user_email()
+        db, cursor = config.db()
+
+        # 1) Tjek først om emailen findes
+        cursor.execute(
+            "SELECT user_pk FROM users WHERE user_email = %s",
+            (email,)
+        )
         row = cursor.fetchone()
+        if not row:
+            return jsonify({"msg": "Email findes ikke :("}), 400
+
+        # 2) Gem reset-nøglen på brugeren
+        cursor.execute(
+            "UPDATE users SET user_reset_password_key = %s WHERE user_email = %s",
+            (reset_key, email)
+        )
+        db.commit()
+
+        # 3) Send email med linket
+        html = render_template("email_forgot_password.html", reset_key=reset_key)
+        send_email(email, html)
+
+        return jsonify({"msg": "Email er blevet hentet :)"}), 200
+
+    except Exception as ex:
+        ic(ex)
+        if "company_exception" in str(ex):
+            return jsonify({"msg": "Invalid email"}), 400
+        return jsonify({"msg": "Server error"}), 500
+    finally:
+        if "cursor" in locals(): cursor.close()
+        if "db" in locals(): db.close()        
+# Der bliver sendt en email ud til brugeren med en unikt link
+# Brugeren har så her mulighed for at kunne nulstille password
+
+# Når brugeren klikker på linket kommer der en GET request & ser en ny form
+@users_bp.get("/reset-password/<key>")
+def show_reset_password(key):
+    try:
+        #validate data
+        key=regex.validate_uuid4(key)
+        email = regex.validate_user_email()
+        
+        db, cursor = config.db()
+        #query
+        q = """SELECT user_reset_password_key FROM users WHERE user_reset_password_key = %s"""
+        cursor.execute(q,(key,))
+        row = cursor.fetchone()
+        
+        html = render_template("email_verification.html")
+        
+        # Hvis den ikke kan finde reset_password_key
+        if not row:
+            return jsonify({"msg" : "Aww.. :( )"}),400
+        
+        send_email(email, html, "Reset password yay")
+        
     except Exception as ex:
         ic(ex)
     finally:
-         if "db" in locals(): db.close()
-         if "cursor" in locals(): cursor.close()
+        if "db" in locals(): db.close()
+        if "cursor" in locals(): cursor.close()
+
+
+# brugeren skriver den nye password ind med POST og bliver opdateres i DB
+@users_bp.post("/reset-password")
+def reset_password():
+    try:
+        #validate data
+        key = regex.validate_uuid4(request.form.get("key", ""))
+        password = regex.validate_user_password()
+        confirm_new_password = request.form.get("confirm_password", "").strip()
+        password_hashed = generate_password_hash(password)
+        
+        db, cursor = config.db()
+        
+        q = """UPDATE users SET user_password = %s, user_reset_password_key = %s, user_updated_at = %s WHERE user_reset_password_key = %s"""
+        #If the password doesn't match
+        if confirm_new_password != password:
+            return "Passwords don't match", 400
+        
+        cursor.execute(q, (password_hashed, "", int(time.time()), key))
+        db.commit()
+        return jsonify({"msg" : "Your password has been changed"}), 200
+        
+    except Exception as ex:
+        ic(ex)
+        
+        return jsonify({"msg" : "key expired"}), 500
+    finally:
+        if "db" in locals(): db.close()
+        if "cursor" in locals(): cursor.close()

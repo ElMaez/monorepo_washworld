@@ -14,8 +14,14 @@ type Login = {
 }
 
 // Define the type for resetting the password
-type ResetPassword = {
+type ForgotPassword = {
     user_email: string;
+}
+// Define the type for resetting the password
+type ResetPassword = {
+    user_password: string;
+    confirm_password: string;
+    key: string;
 }
 // use this for dev for now. Replace with actual link later (pythonanywhere)
 const BACKEND_URL = "http://localhost"
@@ -43,14 +49,20 @@ export async function login_user(data: Login){
 }
 
 
-// Reset the users password
-export async function reset_password(data: ResetPassword){
+export async function forgot_password(data: ForgotPassword) {
     const response = await axios.post(
-        `${BACKEND_URL}/api-reset_password`,
-        // body argument
+        `${BACKEND_URL}/forgot-password`,
         new URLSearchParams(data),
     );
-    return response.data // 
+    return response.data
+}
+
+export async function reset_password(data: ResetPassword) {
+    const response = await axios.post(
+        `${BACKEND_URL}/reset-password`,
+        new URLSearchParams(data),
+    );
+    return response.data
 }
 
 

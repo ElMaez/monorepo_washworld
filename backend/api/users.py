@@ -7,6 +7,10 @@ from icecream import ic
 from utils import no_cache
 from utils import regex
 
+#JWT
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+
+
 import uuid
 import time
 
@@ -161,8 +165,8 @@ def api_user_login():
 
         user.pop("user_password")
         session["user_pk"] = user["user_pk"]
-        return jsonify({"msg" : "You're logged in :) "}), 200
-        
+        access_token = create_access_token(identity=user["user_pk"])
+        return jsonify({"msg" : "You're logged in :)", "token" : access_token}), 200
         
     except Exception as ex: 
         ic(ex)
@@ -309,10 +313,11 @@ def send_email(to_email, html):
 
 ########################_____DELETE USER_____########################
 @users_bp.delete('/delete-user')
+@jwt_required
 def delete_user():
     try:
         ic("Session keys:", list(session.keys()))
-        user_pk = session.get("user_pk")
+        user_pk = get_jwt_identity(session.get("user_pk"))
         if not user_pk:
             return jsonify({"msg" : "Du er ikke loggede på"}), 401
         

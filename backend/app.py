@@ -6,18 +6,21 @@ from flask import Flask
 from flask_cors import CORS
 from flask_session import Session
 import os
+# JWT
 
 # Her fortælles at man gerne vil benytte sig routes fra users.py
 # Den blueprint der er blevet lavet i den anden fil under api'er
 from api.users import users_bp
 from api.locations import locations_bp
-
+from flask_jwt_extended import JWTManager
 
 app = Flask(__name__)
 
-
 app.config["SESSION_TYPE"] = "filesystem"
+app.config["JWT_SECRET_KEY"] = "..."
+
 Session(app)
+jwt = JWTManager(app)
 
 CORS(app, supports_credentials=True, origins=["http://localhost:3000"])
 

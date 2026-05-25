@@ -1,82 +1,101 @@
-import axios from 'axios';
+import axios from "axios";
+import type { Location } from "../(features)/locationlist/hooks/useFilterLocations";
 // globalt kald
 axios.defaults.withCredentials = true;
 
 // use this for dev for now. Replace with actual link later (pythonanywhere)
-const BACKEND_URL = "http://localhost"
+const BACKEND_URL = "http://localhost";
 
 // Define the types for Signup
 type Signup = {
-    user_fullname: string;
-    user_password: string;
-    user_phonenumber: string;
-    user_email: string;
-    user_address: string;
-}
+  user_fullname: string;
+  user_password: string;
+  user_phonenumber: string;
+  user_email: string;
+  user_address: string;
+};
 // Define the types for the Login
 type Login = {
-    user_email: string;
-    user_password: string;
-}
+  user_email: string;
+  user_password: string;
+};
 
 // Define the type for resetting the password
 type ForgotPassword = {
-    user_email: string;
-}
+  user_email: string;
+};
 
 // Define the type for resetting the password
 type ResetPassword = {
-    user_password: string;
-    confirm_password: string;
-    key: string;
-}
-
+  user_password: string;
+  confirm_password: string;
+  key: string;
+};
 
 // funktion til at kunne fetche fra vores backend asynkronsk
 // bruger searchparams til at kunne omdanne til body
 export async function create_user(data: Signup) {
-    const response = await axios.post(
-        `${BACKEND_URL}/api-signup`,
-        // body argument
-        new URLSearchParams(data),
-    );
-    return response.data // backend der sender JSON retur
+  const response = await axios.post(
+    `${BACKEND_URL}/api-signup`,
+    // body argument
+    new URLSearchParams(data),
+  );
+  return response.data; // backend der sender JSON retur
 }
-
 
 // Get the user from the api-login in the backend
-export async function login_user(data: Login){
-    const response = await axios.post(
-        `${BACKEND_URL}/api-login`,
-        // body argument
-        new URLSearchParams(data),
-    );
-    return response.data // 
-}
+export async function login_user(data: Login) {
+  const response = await axios.post(
+    `${BACKEND_URL}/api-login`,
+    // body argument
+    new URLSearchParams(data),
+  );
+  if (response.data.tokens) {
+    localStorage.setItem("token", response.data.token);
+  }
 
+  return response.data; //
+}
 
 // Glemt Password
 export async function forgot_password(data: ForgotPassword) {
-    const response = await axios.post(
-        `${BACKEND_URL}/forgot-password`,
-        new URLSearchParams(data),
-    );
-    return response.data
+  const response = await axios.post(
+    `${BACKEND_URL}/forgot-password`,
+    new URLSearchParams(data),
+  );
+  return response.data;
 }
 
 //Reset password
 export async function reset_password(data: ResetPassword) {
-    const response = await axios.patch(
-        `${BACKEND_URL}/reset-password`,
-        new URLSearchParams(data),
-    );
-    return response.data
+  const response = await axios.patch(
+    `${BACKEND_URL}/reset-password`,
+    new URLSearchParams(data),
+  );
+  return response.data;
 }
 
 // Slet bruger
 export async function delete_user() {
-    const response = await axios.delete(
-        `${BACKEND_URL}/delete-user`,
-    );
-    return response.data
+  const token = localStorage.getItem("token");
+  const response = await axios.delete(`${BACKEND_URL}/delete-user`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return response.data;
 }
+
+export function logout() {
+  localStorage.removeItem("token");
+}
+
+export async function getEventLocations(): Promise<Location[]> {
+    const response = await fetch(
+      "http://host.docker.internal/api-get-all-locations",
+      { method: "GET", cache: "no-store" }
+    );
+
+    const data = await response.json();
+    return data.locations ?? []; 
+
+}
+

@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 
 export interface ButtonProps {
-  typeAction?: string,
+  typeAction?: string;
   elementType?: "link" | "button";
   goBack?: boolean;
   linkHref?: string;

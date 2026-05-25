@@ -27,23 +27,23 @@ def api_create_location():
 
         #Validating ever data that goes to the database.
         location_pk = uuid.uuid4().hex
-        location_title = regex.validate_
-        location_latitude = 55.676098
-        location_longtitude = 12.568337
-        location_city = "Copenhagen"
-        location_address = "Testvej 12"
+        location_title = regex.validate_location_title
+        location_latitude = regex.validate_location_latitude
+        location_longtitude = regex.validate_location_longtitude
+        location_city = regex.validate_location_city
+        location_address = regex.validate_location_address
 
         # Hent værdien med navnet "location_status_pk" fra den JSON-data, som Postman/frontend har sendt, og gem den i variablen location_status_fk
         location_status_fk = regex.validate_uuid4(data.get("location_status_pk"))
-        location_created_at = 1716472800
-        location_updated_at = 1716472800
+        location_created_at = int(time.time())
+        location_updated_at = 0
         location_deleted_at = 0
-        location_selfwash_max = "06"
-        location_carwash_max = "04"
-        location_insideclean_max = "02"
-        location_selfwash_in_use = "01"
-        location_carwash_in_use = "02"
-        location_insideclean_in_use = "00"
+        location_selfwash_max = regex.validate_location_selfwash_max
+        location_selfwash_in_use = regex.validate_location_selfwash_in_use
+        location_carwash_max = regex.validate_location_carwash_max
+        location_carwash_in_use = regex.validate_location_carwash_in_use
+        location_insideclean_max = regex.validate_location_insideclean_max
+        location_insideclean_in_use = regex.validate_location_insideclean_in_use
 
         db, cursor = config.db()
         q= """INSERT INTO locations
@@ -75,10 +75,32 @@ def api_create_location():
     except Exception as ex:
         ic(ex)
 
-
         #Worst case scenario
         return jsonify({"error": "well fuck me sideways ..."}), 400
 
+    finally:
+        if "cursor" in locals(): cursor.close()
+        if "db" in locals(): db.close()
+
+
+
+########################_____Read locations_____########################
+
+@locations_bp.get("/api-get-all-locations")
+def show_locationslist():
+    try:
+        db, cursor = config.db()
+        q = "SELECT * FROM locations"
+
+        cursor.execute(q)
+        all_locations = cursor.fetchall()
+
+        return jsonify({"locations":all_locations}), 200
+    
+    except Exception as ex:
+        ic(ex)
+        return ("ups ... ┻━┻ ︵ヽ(`Д´)ﾉ︵ ┻━┻"), 500
+    
     finally:
         if "cursor" in locals(): cursor.close()
         if "db" in locals(): db.close()

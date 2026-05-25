@@ -20,8 +20,8 @@ export default async function Home() {
 
   return (
     <>
-      <Header title="Hjem" />
-
+      <Header title="Bil vask"
+      backButton={{ elementType: "link", goBack: true, size: "sm", type: "none", iconName: "back", }}/>
       <main>
         <h1>Hi! I am main!</h1>
 

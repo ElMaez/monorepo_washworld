@@ -20,8 +20,11 @@ export default function Profile() {
 
 
   return (
+    <>
+      <Header title="Min Profil"
+      backButton={{ elementType: "link", goBack: true, size: "sm", type: "none", iconName: "back", }}
+      />
     <main>
-      <Header title="Min Profil" />
       <section>
         <h2>Username</h2>
         <h3>Membership</h3>
@@ -99,5 +102,6 @@ export default function Profile() {
         }}
       />
     </main>
+    </>
   );
 }

@@ -181,9 +181,10 @@ body {
   color: var(--foreground);
   font-family: var(--font-gilroy), Helvetica, sans-serif;
 
+  min-height: 100vh;
   display: grid;
   grid-template-columns: minmax(2rem, 2fr) minmax(0, 390px) minmax(2rem, 2fr);
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto 1fr auto;
 
   >*:not(.fullbleed) {
     grid-column: 2;

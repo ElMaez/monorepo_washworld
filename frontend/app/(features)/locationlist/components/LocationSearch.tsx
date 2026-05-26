@@ -17,11 +17,14 @@ const LocationSearch = ({ locations }: LocationSearchProps) => {
         placeholder="Search"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
+        className="bg-surface border-primary-100 border-2 rounded-4 text-text"
       />
 
-      {filteredLocations.map((location) => (
-        <Card key={location.location_pk} location={location} />
-      ))}
+      <div className="flex flex-col gap-16 overflow-y-auto pr-4">
+        {filteredLocations.map((location) => (
+          <Card key={location.location_pk} location={location} />
+        ))}
+      </div>
     </>
   );
 };

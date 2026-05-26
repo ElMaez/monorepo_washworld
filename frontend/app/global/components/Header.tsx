@@ -13,7 +13,7 @@ const Header = ({title, backButton, rightButton}:HeaderProps) => {
 
     return(
         <>
-        <header className="fullbleed uppercase border-b-grey-200 border-b py-6">
+        <header className="fullbleed sticky top-0 z-10 bg-bg uppercase border-b-grey-200 border-b py-6">
             <div className="grid grid-cols-3 grid-rows-1 items-center w-full">
             <>{backButton && <Button {...backButton} />}</>
             <h1 className="justify-self-center col-start-2">{title}</h1>

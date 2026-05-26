@@ -25,7 +25,7 @@ const Menu = () => {
   return (
     <nav
       aria-label="Main Menu"
-      className="fullbleed bg-surface border-t border-grey-100"
+      className="fullbleed sticky bottom-0 z-10 bg-surface border-t border-grey-100"
     >
       <ul className="flex justify-around items-center py-12">
         {items.map((item) => {

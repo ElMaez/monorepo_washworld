@@ -1,16 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { User } from "@/app/global/types/global";
 import Form from "./Form";
 import Snackbar from "@/app/global/components/Snackbar";
 import Button from "@/app/global/components/Button";
+import { useLogout } from "../hooks/useLogout";
+import { useRouter } from "next/navigation";
 
 type Props = { user: User };
 
 export default function PersonalInfo({ user }: Props) {
   const [Edit, setEdit] = useState(false);
   const [saved, setSaved] = useState<number | null>(null);
+  const logoutMutation = useLogout();
+  const router = useRouter();
+
+  // Bruges efter man har logget ud
+  useEffect(() => {
+    if (logoutMutation.isSuccess) router.push("/");
+  }, [logoutMutation.isSuccess, router]);
+
 
   return (
     <section className="flex flex-col gap-16">
@@ -48,6 +58,14 @@ export default function PersonalInfo({ user }: Props) {
             size="lg"
             type="primary"
             onClick={() => setEdit(true)}
+          />
+          <Button
+            elementType="button"
+            buttonName="Log ud"
+            size="lg"
+            type="secondary"
+            status="normal"
+            onClick={() => logoutMutation.mutate()}
           />
         </>
       )}

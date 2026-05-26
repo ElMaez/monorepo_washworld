@@ -36,7 +36,7 @@ export async function login_user(data: Login) {
     // body argument
     new URLSearchParams(data),
   );
-  if (response.data.tokens) {
+  if (response.data.token) {
     localStorage.setItem("token", response.data.token);
   }
 
@@ -80,7 +80,8 @@ export async function delete_user() {
   return response.data;
 }
 // Logout
-export function logout() {
+export async function logout() {
+  await axios.post(`${BACKEND_URL}/logout`);
   localStorage.removeItem("token");
 }
 

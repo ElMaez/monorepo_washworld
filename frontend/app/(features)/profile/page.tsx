@@ -8,31 +8,24 @@ import Dialog from "@/app/global/components/Dialog";
 import PersonalOverview from "./components/PersonalOverview";
 import PersonalInfo from "./components/PersonalInfo";
 import PaymentInfo from "./components/PaymentInfo";
-import { useSession } from "./hooks/useSession";
 // custom hook
 import { useDeleteUser } from "./hooks/useDeleteUser";
-import { useLogout } from "./hooks/useLogout";
+import { useSession } from "./hooks/useSession";
 
 export default function ProfilePage() {
   const router = useRouter();
+
   const sessionQuery = useSession();
   const deleteMutation = useDeleteUser();
-  const logoutMutation = useLogout();
 
-  // Bruges hvis man ikke er logget på.
-  // Automatisk sendes tilbage til auth siden
-  useEffect(() => {
-    if (sessionQuery.isError) router.push("/");
-  }, [sessionQuery.isError, router]);
-
-  // Bruges efter man har slettet profilen
+    // Bruges efter man har slettet profilen
   useEffect(() => {
     if (deleteMutation.isSuccess) router.push("/");
   }, [deleteMutation.isSuccess, router]);
 
-  if (sessionQuery.isPending) return <p>loading...</p>;
+
+
   if (!sessionQuery.data) return null;
-  // Skal være efter for at kunne fange data efter loading
   const user = sessionQuery.data;
 
   return (
@@ -64,14 +57,7 @@ export default function ProfilePage() {
           status="danger"
           dialogId="delete-profile-dialog"
         />
-        <Button
-          elementType="button"
-          buttonName="Log ud"
-          size="lg"
-          type="secondary"
-          status="normal"
-          onClick={() => logoutMutation.mutate()}
-        />
+
         {/* Popup/Dialog */}
         <Dialog
           id="delete-profile-dialog"

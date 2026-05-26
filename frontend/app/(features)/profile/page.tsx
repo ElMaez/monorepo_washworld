@@ -11,11 +11,13 @@ import PaymentInfo from "./components/PaymentInfo";
 import { useSession } from "./hooks/useSession";
 // custom hook
 import { useDeleteUser } from "./hooks/useDeleteUser";
+import { useLogout } from "./hooks/useLogout";
 
 export default function ProfilePage() {
   const router = useRouter();
   const sessionQuery = useSession();
   const deleteMutation = useDeleteUser();
+  const logoutMutation = useLogout();
 
   // Bruges hvis man ikke er logget på.
   // Automatisk sendes tilbage til auth siden
@@ -61,6 +63,14 @@ export default function ProfilePage() {
           type="tertiary"
           status="danger"
           dialogId="delete-profile-dialog"
+        />
+        <Button
+          elementType="button"
+          buttonName="Log ud"
+          size="lg"
+          type="secondary"
+          status="normal"
+          onClick={() => logoutMutation.mutate()}
         />
         {/* Popup/Dialog */}
         <Dialog

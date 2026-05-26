@@ -27,7 +27,7 @@ const Label = ({ title, subText, labelAmount, angle, labelStyle, iconNameOne, ic
 
   let labelTypes = "";
   if (labelAmount === "one"  ) {
-    return(<div className={`angled-shape col-start-1 col-end-9 row-start-1 px-8 w-fit grid grid-cols-[1fr_5fr] grid-rows-2 items-center justify-start ${style}
+    return(<div className={`angled-shape col-start-1 col-end-9 row-start-1 py-16 px-8 w-fit grid grid-cols-[1fr_5fr] grid-rows-1 items-center justify-start ${style}
     ${angle === "reverse" ? "angled-shape--right-reverse" : "angled-shape--right"}
     ${subText ? sizeStyle["lg"] : sizeStyle["sm"]} ${labelStyle}`}>
       {iconNameOne && <Icon iconName={iconNameOne} style={iconStyle} size={iconSize} />}

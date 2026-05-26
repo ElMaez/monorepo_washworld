@@ -25,9 +25,9 @@ const Menu = () => {
   return (
     <nav
       aria-label="Main Menu"
-      className="fullbleed sticky bottom-0 z-10 bg-surface border-t border-grey-100"
+      className="fullbleed sticky bottom-0 z-10 py-16"
     >
-      <ul className="flex justify-around items-center py-12">
+      <ul className="bg-surface flex justify-around items-center py-12 rounded-6 border border-grey-100">
         {items.map((item) => {
           const isActive = pathname === item.href;
           return (

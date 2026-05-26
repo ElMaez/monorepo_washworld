@@ -11,8 +11,6 @@ export default async function Home() {
       <Header title="Bil vask"
       backButton={{ elementType: "link", goBack: true, size: "sm", type: "none", iconName: "back", }}/>
       <main>
-        <h1>Hi! I am main!</h1>
-
         <LocationSearch locations={locations} />
       </main>
     </>

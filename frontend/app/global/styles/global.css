@@ -160,6 +160,9 @@
   --radius-72: var(--spacing-72);
   --radius-80: var(--spacing-80);
 
+  /* aspect ratios */
+  --aspect-image: 16 / 9;
+
   /* typography */
   --font-sans: var(--font-gilroy); /*Look into font folder*/
   --text-xs: var(--text-xs);

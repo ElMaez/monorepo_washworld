@@ -27,13 +27,10 @@ CORS(app, supports_credentials=True, origins=["http://localhost:3000"])
 # Her bliver blueprint registeret. Det er syntaksen for at den så kører på serveren.
 # Det samme biver gjort med de andre moduler / filer der bliver oprettet.
 app.register_blueprint(users_bp)
-
 app.register_blueprint(locations_bp)
 
-
-@app.get("/debug-routes")
-def debug_routes():
-    return jsonify([
-        f"{rule.methods - {'HEAD', 'OPTIONS'}} {rule}"
-        for rule in app.url_map.iter_rules()
-    ])
+# upload files
+UPLOAD_FOLDER = "./static/uploads"
+ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg"}
+app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+app.config["MAX_CONTENT_LENGTH"] = 2 * 512 * 512

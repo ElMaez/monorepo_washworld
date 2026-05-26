@@ -6,6 +6,7 @@ export type User = {
   user_phonenumber: string;
   user_address: string;
   user_created_at: number;
+  user_img_key?: string;
 };
 // Define the types for Signup
 export type Signup = {

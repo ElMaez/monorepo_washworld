@@ -94,3 +94,11 @@ export async function getEventLocations(): Promise<Location[]> {
   const data = await response.json();
   return data.locations ?? [];
 }
+
+
+export async function upload_avatar(file: File) {
+  const formData = new FormData();
+  formData.append("avatar", file);
+  const response = await axios.post(`${BACKEND_URL}/api-user/avatar`, formData);
+  return response.data;
+}

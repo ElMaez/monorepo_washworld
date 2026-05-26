@@ -398,3 +398,35 @@ def delete_user():
     finally:
         if "cursor" in locals(): cursor.close()
         if "db" in locals(): db.close()
+        
+        
+########################_____UPLOAD FILE_____########################
+UPLOAD_FOLDER = "./static/uploads"
+
+@users_bp.post("/api-user/avatar")
+@no_cache.no_cache
+def upload_avatar():
+    try:
+        user_pk = session.get("user_pk")
+        if not user_pk:
+            return jsonify({"msg": "Du er ikke logget på"}), 401
+
+        file = request.files["avatar"]
+        file_key = f"{uuid.uuid4().hex}_{file.filename}"
+        path = f"{UPLOAD_FOLDER}/{file_key}"
+
+        db, cursor = config.db()
+        cursor.execute(
+            "UPDATE users SET user_img_key = %s WHERE user_pk = %s",
+            (file_key, user_pk),
+        )
+        db.commit()
+        file.save(path)
+
+        return jsonify({"msg": "Avatar opdateret"}), 200
+    except Exception as ex:
+        ic(ex)
+        return jsonify({"msg": "Server error"}), 500
+    finally:
+        if "cursor" in locals(): cursor.close()
+        if "db" in locals(): db.close()

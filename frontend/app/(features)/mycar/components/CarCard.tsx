@@ -53,8 +53,6 @@ const CarCard = (props: CarCardProps) => {
             title={props.licensePlate}
             labelAmount="one"
             angle="normal"
-            iconNameOne="car"
-            iconSize="sm"
             style="bg-bg-dark text-primary-50 rounded-tl-2"
             labelStyle="whitespace-nowrap"
           />

@@ -2,7 +2,7 @@
 #  app.py  —  the ENTRY POINT of the backend.
 # ============================================================
 
-from flask import Flask
+from flask import Flask, jsonify
 from flask_cors import CORS
 from flask_session import Session
 import os
@@ -29,3 +29,11 @@ CORS(app, supports_credentials=True, origins=["http://localhost:3000"])
 app.register_blueprint(users_bp)
 
 app.register_blueprint(locations_bp)
+
+
+@app.get("/debug-routes")
+def debug_routes():
+    return jsonify([
+        f"{rule.methods - {'HEAD', 'OPTIONS'}} {rule}"
+        for rule in app.url_map.iter_rules()
+    ])

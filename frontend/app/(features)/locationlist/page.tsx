@@ -1,5 +1,6 @@
 import Header from "@/app/global/components/Header";
 import LocationSearch from "./components/LocationSearch";
+import { getEventLocations } from "@/app/lib/api";
 
 
 export default async function Home() {

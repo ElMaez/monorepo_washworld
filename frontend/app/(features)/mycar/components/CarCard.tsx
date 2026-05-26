@@ -25,6 +25,7 @@ const CarCard = (props: CarCardProps) => {
       <div className="bg-surface border-2 border-primary-100 rounded-2 flex flex-col items-center gap-16 p-24">
         <Icon iconName="car" size="lg" style="text-primary-200" />
         <Button
+          linkHref=""
           elementType="button"
           buttonName="tilføj bil"
           size="lg"

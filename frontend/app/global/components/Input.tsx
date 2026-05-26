@@ -101,8 +101,8 @@ type inputType =
 // Adding conditional rendering for changing each input fields props & actions
 export default function Input(props: inputType) {
   return (
-    <div className="flex m-4">
-      <label htmlFor={props.label}>{props.inputLabel}</label>
+    <div className="flex flex-col space-y-4">
+      <label htmlFor={props.label} className="font-bold">{props.inputLabel}</label>
 
       {/* Text Inputfield */}
       {props.type === "text" && (
@@ -118,7 +118,7 @@ export default function Input(props: inputType) {
           pattern={props.pattern}
           autoComplete={props.autoComplete}
           onChange={(e) => props.onChange(e.target.value)}
-          className="bg-surface border-primary-100 border-2"
+          className="bg-surface border-primary-100 border-2 rounded-4 text-text"
         ></input>
       )}
       {/* Email Inputfield */}
@@ -135,7 +135,7 @@ export default function Input(props: inputType) {
           pattern={props.pattern}
           autoComplete={props.autoComplete}
           onChange={(e) => props.onChange(e.target.value)}
-          className="bg-surface border-primary-100 border-2"
+          className="bg-surface border-primary-100 border-2 rounded-4 text-text"
         ></input>
       )}
 

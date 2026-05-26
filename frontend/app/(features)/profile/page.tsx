@@ -34,43 +34,55 @@ export default function ProfilePage() {
   const user = sessionQuery.data;
 
   return (
-    <main>
-      <Header title="Min Profil" />
-      {/*Personlige Overblik & Medlemskab */}
-      <PersonalOverview user={user} />
-      {/*Personlige Information */}
-      <PersonalInfo user={user} />
-      {/* Betalingsmuligheder */}
-      <PaymentInfo />
-      {/* Slet Profil */}
-      <Button
-        elementType="button"
-        buttonName="Slet Profil"
-        size="lg"
-        type="primary"
-        status="danger"
-        dialogId="delete-profile-dialog"
-      />
-      {/* Popup/Dialog */}
-      <Dialog
-        id="delete-profile-dialog"
-        title="Er du sikker på du vil slette din profil?"
-        buttonTwo={{
-          elementType: "button",
-          buttonName: "Annullér",
-          size: "sm",
-          type: "secondary",
+    <>
+      <Header
+        title="Min Profil"
+        backButton={{
+          elementType: "link",
+          goBack: true,
+          size: "xs",
+          type: "none",
           status: "normal",
-        }}
-        buttonThree={{
-          elementType: "button",
-          buttonName: "Slet",
-          size: "sm",
-          type: "primary",
-          status: "danger",
-          onClick: () => deleteMutation.mutate(),
+          iconName: "back",
         }}
       />
-    </main>
+      <main className="flex flex-col gap-32 py-24 bg-bg">
+        {/*Personlige Overblik & Medlemskab */}
+        <PersonalOverview user={user} />
+        {/*Personlige Information */}
+        <PersonalInfo user={user} />
+        {/* Betalingsmuligheder */}
+        <PaymentInfo />
+        {/* Slet Profil */}
+        <Button
+          elementType="button"
+          buttonName="Slet Profil"
+          size="lg"
+          type="tertiary"
+          status="danger"
+          dialogId="delete-profile-dialog"
+        />
+        {/* Popup/Dialog */}
+        <Dialog
+          id="delete-profile-dialog"
+          title="Er du sikker på du vil slette din profil?"
+          buttonTwo={{
+            elementType: "button",
+            buttonName: "Annullér",
+            size: "sm",
+            type: "secondary",
+            status: "normal",
+          }}
+          buttonThree={{
+            elementType: "button",
+            buttonName: "Slet",
+            size: "sm",
+            type: "primary",
+            status: "danger",
+            onClick: () => deleteMutation.mutate(),
+          }}
+        />
+      </main>
+    </>
   );
 }

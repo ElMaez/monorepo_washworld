@@ -35,9 +35,9 @@ export default function Form({ user, onSave, onCancel }: Props) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <fieldset>
-        <legend>Personlige oplysninger</legend>
+    <form onSubmit={handleSubmit} className="flex flex-col gap-24">
+      <fieldset className="flex flex-col gap-16 border-0 p-0">
+        <legend className="sr-only">Personlige oplysninger</legend>
 
         <Input
           type="text"
@@ -48,7 +48,9 @@ export default function Form({ user, onSave, onCancel }: Props) {
           onChange={setFullname}
           required
         />
-        {tooltip === "user_fullname" && <p>{errorMessage}</p>}
+        {tooltip === "user_fullname" && (
+          <p className="text-sm text-danger">{errorMessage}</p>
+        )}
 
         <Input
           type="email"
@@ -59,7 +61,9 @@ export default function Form({ user, onSave, onCancel }: Props) {
           onChange={setEmail}
           required
         />
-        {tooltip === "user_email" && <p>{errorMessage}</p>}
+        {tooltip === "user_email" && (
+          <p className="text-sm text-danger">{errorMessage}</p>
+        )}
 
         <Input
           type="tel"
@@ -70,7 +74,9 @@ export default function Form({ user, onSave, onCancel }: Props) {
           onChange={setPhoneNumber}
           required
         />
-        {tooltip === "user_phonenumber" && <p>{errorMessage}</p>}
+        {tooltip === "user_phonenumber" && (
+          <p className="text-sm text-danger">{errorMessage}</p>
+        )}
 
         <Input
           type="text"
@@ -81,26 +87,30 @@ export default function Form({ user, onSave, onCancel }: Props) {
           onChange={setAddress}
           required
         />
-        {tooltip === "user_address" && <p>{errorMessage}</p>}
+        {tooltip === "user_address" && (
+          <p className="text-sm text-danger">{errorMessage}</p>
+        )}
       </fieldset>
 
-      <Button
-        typeAction="submit"
-        elementType="button"
-        buttonName={
-          updateMutation.isPending ? "loading..." : "Oplysninger opdateret"
-        }
-        size="lg"
-        type="primary"
-      />
-      <Button
-        typeAction="button"
-        elementType="button"
-        buttonName="Annullér"
-        size="lg"
-        type="tertiary"
-        onClick={onCancel}
-      />
+      <div className="flex flex-col gap-12">
+        <Button
+          typeAction="submit"
+          elementType="button"
+          buttonName={
+            updateMutation.isPending ? "loading..." : "Opdater Profil"
+          }
+          size="lg"
+          type="primary"
+        />
+        <Button
+          typeAction="button"
+          elementType="button"
+          buttonName="Annullér"
+          size="lg"
+          type="tertiary"
+          onClick={onCancel}
+        />
+      </div>
     </form>
   );
 }

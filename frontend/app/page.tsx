@@ -9,8 +9,6 @@ export default function Home() {
     title="Login"/>
     <main>
       <Form />
-      <h1>Hi! I am main!</h1>
-      <p>Css global works! yaie!</p>
     </main>
    </>
   );

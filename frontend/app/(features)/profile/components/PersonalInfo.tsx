@@ -13,8 +13,8 @@ export default function PersonalInfo({ user }: Props) {
   const [saved, setSaved] = useState<number | null>(null);
 
   return (
-    <section>
-      <h2>Mine Oplysninger</h2>
+    <section className="flex flex-col gap-16">
+      <h2 className="text-lg font-bold text-text">Mine Oplysninger</h2>
       {Edit ? (
         <Form
           user={user}
@@ -26,15 +26,19 @@ export default function PersonalInfo({ user }: Props) {
         />
       ) : (
         <>
-          <dl>
-            <dt>Email</dt>
-            <dd>{user.user_email}</dd>
-
-            <dt>Telefonnummer</dt>
-            <dd>{user.user_phonenumber}</dd>
-
-            <dt>Adresse</dt>
-            <dd>{user.user_address}</dd>
+          <dl className="flex flex-col gap-16">
+            <div className="flex flex-col gap-4 border-b border-grey-200 pb-8">
+              <dt className="text-sm text-grey-200">Email</dt>
+              <dd className="text-base text-text">{user.user_email}</dd>
+            </div>
+            <div className="flex flex-col gap-4 border-b border-grey-200 pb-8">
+              <dt className="text-sm text-grey-200">Telefonnummer</dt>
+              <dd className="text-base text-text">{user.user_phonenumber}</dd>
+            </div>
+            <div className="flex flex-col gap-4 border-b border-grey-200 pb-8">
+              <dt className="text-sm text-grey-200">Adresse</dt>
+              <dd className="text-base text-text">{user.user_address}</dd>
+            </div>
           </dl>
 
           <Button

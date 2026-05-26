@@ -39,9 +39,9 @@ export default function LoginForm({ onToggleSignup, onForgotPassword }: Props) {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="bg-surface border-2 border-surface-2 p-32 flex flex-col gap-32">
         <fieldset>
-          <legend>Personal Information</legend>
+          <legend className="font-bold">Personal Information</legend>
           <Input
             type="text"
             name="email"

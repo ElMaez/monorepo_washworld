@@ -32,12 +32,6 @@ ic.configureOutput(prefix="⋆౨ৎ˚⟡˖ ࣪ ⊹ ࣪ ˖ ⋆౨ৎ˚⟡˖ ࣪ 
 users_bp = Blueprint("users", __name__)
 # det lort vil ikke. Nu har den sku min data.
 load_dotenv()
-
-
-
-
-
-
 ########################_____SESSION_____########################
 @users_bp.get("/api-user")
 @no_cache.no_cache
@@ -47,18 +41,20 @@ def api_user():
         if not user_pk: 
             return jsonify({"msg" : "Could not find user"}), 401
         
-        q = """SELECT user_pk, user_fullname, user_email, user_phonenumber, user_address, user_created_at, user_img_key
+        q = """SELECT user_pk, user_fullname, user_email, user_phonenumber, user_address, user_created_at
                FROM users
                WHERE user_pk = %s AND user_deleted_at = 0"""
         
-        db, cursor = config.db()
-        cursor.execute(q, (user_pk,))
+        
+        db,cursor = config.db()
+        cursor.execute(q,(user_pk,))
+        
         user = cursor.fetchone()
         if not user: 
             session.clear()
             return jsonify({"msg" : "Could not find user"}), 401
         
-        return jsonify({"user" : user}), 200
+        return jsonify({"user" : user }), 200
     except Exception as ex:
         ic(ex)
         return jsonify({"msg" : "Server Whoops"}), 500
@@ -327,48 +323,48 @@ def send_email(to_email, html):
 @no_cache.no_cache
 def update_user():
     try:
-        # Tjek session FØRST — fejler ud tidligt hvis ikke logget ind
-        user_pk = session.get("user_pk")
-        if not user_pk:
-            return jsonify({"msg": "Du er ikke logget på"}), 401
-
-        # Validér data
+        #Validate the data
+        user_pk = session.get(user_pk)
         user_fullname = regex.validate_user_fullname()
         user_email = regex.validate_user_email()
         user_phonenumber = regex.validate_user_phonenumber()
         user_address = regex.validate_user_address()
-        updated_at = int(time.time())
-
+        #epoch
+        updated_at = int(time(time()))+3600
+        
+        if not user_pk:
+            return jsonify({"msg" : "Du er ikke logget på"}), 401
+        
         db, cursor = config.db()
-
-        q = """UPDATE users 
-       SET user_fullname = %s, user_email = %s, user_phonenumber = %s, 
-           user_address = %s, user_updated_at = %s 
-       WHERE user_pk = %s"""
+        
+        # query
+        q = """UPDATE users SET user_fullname = %s, user_email = %s, user_phonenumber = %s, user_address = %s, user_updated_at = %s WHERE user_pk = %s AND user_updated_at = %s"""
+        
         cursor.execute(q, (user_fullname, user_email, user_phonenumber, user_address, updated_at, user_pk))
-
-        if cursor.rowcount == 0:
-            return jsonify({"msg": "User not found"}), 404
-
-        db.commit()
-        return jsonify({"msg": "Profil er nu blevet opdateret"}), 200
-
+        
+        return jsonify({"msg" : "Profil er nu blevet opdateret"}), 200
     except Exception as ur_mum:
+        # Error
         ic(ur_mum)
-        message = str(ur_mum)
+        message = str(ur_mum)   
+        #Validering for fulde navn. Her laves dictionaries. 
         if "company_exception in user_fullname" in message:
-            return jsonify({"tooltip": "user_fullname", "error": f"Fulde navn skal være mellem {regex.USER_FULLNAME_MIN} og {regex.USER_FULLNAME_MAX} tegn"}), 400
+            return jsonify({"tooltip" : "user_fullname", "error" : f"Fulde navn skal være mellem {regex.USER_FULLNAME_MIN} og {regex.USER_FULLNAME_MAX} characters tegn"}), 400
+        #Validering for email
         if "company_exception in user_email" in message:
-            return jsonify({"tooltip": "user_email", "error": "Indtast venligst en gyldig email"}), 400
+            return jsonify({"tooltip" : "user_email","error" : f"Indtast venligst gyldig email adresse"}), 400
+        #Validering for password
+        if "company_exception in user_password" in message:
+            return jsonify({"tooltip" : "user_password", "error" : f"Adgangskode skal indeholde mellem {regex.USER_PASSWORD_MIN} og {regex.USER_PASSWORD_MAX} tegn"}), 400
+        #Validering for mobilnummer
         if "company_exception in user_phonenumber" in message:
-            return jsonify({"tooltip": "user_phonenumber", "error": f"Telefonnummer skal være mellem {regex.USER_PHONENUMBER_MIN} og {regex.USER_PHONENUMBER_MAX} tegn"}), 400
-        if "company_exception in user_address" in message:
-            return jsonify({"tooltip": "user_address", "error": f"Adresse skal være mellem {regex.USER_ADDRESS_MIN} og {regex.USER_ADDRESS_MAX} tegn"}), 400
-        return jsonify({"msg": "Server error"}), 500
+            return jsonify({"tooltip" : "user_phonenumber","error" : f"Telefonummer skal indholde mellem {regex.USER_PHONENUMBER_MIN} og {regex.USER_PHONENUMBER_MAX} tegn"}), 400
+        
+        return jsonify({"msg" : "Kunne ikke opdatere profilen"}), 400
     finally:
         if "cursor" in locals(): cursor.close()
-        if "db" in locals(): db.close() 
-
+        if "db" in locals(): db.close()
+    
 ########################_____DELETE USER_____########################
 @users_bp.delete('/delete-user')
 @jwt_required
@@ -393,40 +389,6 @@ def delete_user():
     except Exception as ex:
         ic(ex)
         return jsonify({"msg" : "Server Whoops"}),500        
-    finally:
-        if "cursor" in locals(): cursor.close()
-        if "db" in locals(): db.close()
-        
-        
-########################_____UPLOAD FILE_____########################
-UPLOAD_FOLDER = "./static/uploads"
-
-@users_bp.post("/api-user/avatar")
-@no_cache.no_cache
-def upload_avatar():
-    try:
-        user_pk = session.get("user_pk")
-        if not user_pk:
-            return jsonify({"msg": "Du er ikke logget på"}), 401
-
-        file = request.files["avatar"]
-        file_key = f"{uuid.uuid4().hex}_{file.filename}"
-        path = f"{UPLOAD_FOLDER}/{file_key}"
-
-        os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-
-        db, cursor = config.db()
-        cursor.execute(
-            "UPDATE users SET user_img_key = %s WHERE user_pk = %s",
-            (file_key, user_pk),
-        )
-        db.commit()
-        file.save(path)
-
-        return jsonify({"msg": "Avatar opdateret"}), 200
-    except Exception as ex:
-        ic(ex)
-        return jsonify({"msg": str(ex)}), 500
     finally:
         if "cursor" in locals(): cursor.close()
         if "db" in locals(): db.close()

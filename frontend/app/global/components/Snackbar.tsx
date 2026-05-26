@@ -8,11 +8,13 @@ import "../styles/snackbar.css";
 interface SnackbarProps {
   message?: string;
   duration?: number;
+  variant?: "success" | "error";
+  onUndo?: () => void;
 }
 
 const Snackbar = ({
   message = "IT'S A ME! SNACKBACK!",
-  duration = 3000,
+  duration = 3000, onUndo
 }: SnackbarProps) => {
   const [visible, setVisible] = useState(true);
   const [leaving, setLeaving] = useState(false);
@@ -51,6 +53,7 @@ const Snackbar = ({
         size="xs"
         type="tertiary"
         status="normal"
+        onClick={onUndo}
       />
     </div>
   );

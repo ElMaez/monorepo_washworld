@@ -47,20 +47,18 @@ def api_user():
         if not user_pk: 
             return jsonify({"msg" : "Could not find user"}), 401
         
-        q = """SELECT user_pk, user_fullname, user_email, user_phonenumber, user_address, user_created_at
+        q = """SELECT user_pk, user_fullname, user_email, user_phonenumber, user_address, user_created_at, user_img_key
                FROM users
                WHERE user_pk = %s AND user_deleted_at = 0"""
         
-        
-        db,cursor = config.db()
-        cursor.execute(q,(user_pk,))
-        
+        db, cursor = config.db()
+        cursor.execute(q, (user_pk,))
         user = cursor.fetchone()
         if not user: 
             session.clear()
             return jsonify({"msg" : "Could not find user"}), 401
         
-        return jsonify({"user" : user }), 200
+        return jsonify({"user" : user}), 200
     except Exception as ex:
         ic(ex)
         return jsonify({"msg" : "Server Whoops"}), 500
@@ -344,9 +342,9 @@ def update_user():
         db, cursor = config.db()
 
         q = """UPDATE users 
-               SET user_fullname = %s, user_email = %s, user_phonenumber = %s, 
-                   user_address = %s, user_updated_at = %s 
-               WHERE user_pk = %s AND user_updated_at = 0"""
+       SET user_fullname = %s, user_email = %s, user_phonenumber = %s, 
+           user_address = %s, user_updated_at = %s 
+       WHERE user_pk = %s"""
         cursor.execute(q, (user_fullname, user_email, user_phonenumber, user_address, updated_at, user_pk))
 
         if cursor.rowcount == 0:
@@ -415,6 +413,8 @@ def upload_avatar():
         file_key = f"{uuid.uuid4().hex}_{file.filename}"
         path = f"{UPLOAD_FOLDER}/{file_key}"
 
+        os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
         db, cursor = config.db()
         cursor.execute(
             "UPDATE users SET user_img_key = %s WHERE user_pk = %s",
@@ -426,7 +426,7 @@ def upload_avatar():
         return jsonify({"msg": "Avatar opdateret"}), 200
     except Exception as ex:
         ic(ex)
-        return jsonify({"msg": "Server error"}), 500
+        return jsonify({"msg": str(ex)}), 500
     finally:
         if "cursor" in locals(): cursor.close()
         if "db" in locals(): db.close()

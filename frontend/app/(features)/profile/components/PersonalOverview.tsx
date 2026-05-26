@@ -6,7 +6,9 @@ import { useUploadAvatar } from "@/app/(features)/profile/hooks/useUploadAvatar"
 type Props = { user: User };
 
 export default function PersonalOverview({ user }: Props) {
-  const memberSince = new Date(user.user_created_at * 1000).toLocaleDateString();
+  const memberSince = new Date(
+    user.user_created_at * 1000,
+  ).toLocaleDateString();
   const uploadMutation = useUploadAvatar();
 
   return (
@@ -21,10 +23,16 @@ export default function PersonalOverview({ user }: Props) {
         </p>
       </header>
       <figure>
-        <img
-          src={`http://localhost/static/uploads/${user.user_img_key}`}
-          alt={user.user_fullname}
-        />
+        {user.user_img_key ? (
+          <img
+            src={`http://localhost/static/uploads/${user.user_img_key}`}
+            alt={user.user_fullname}
+            width={120}
+            height={120}
+          />
+        ) : (
+          <div>Intet billede endnu</div>
+        )}
         <input
           type="file"
           onChange={(e) => {
